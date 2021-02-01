@@ -7,7 +7,7 @@ Assets {
       RootId: 17101831596881186959
       Objects {
         Id: 17101831596881186959
-        Name: "META_Achievements_Achievement"
+        Name: "10 Gold"
         Transform {
           Scale {
             X: 1
@@ -15,12 +15,8 @@ Assets {
             Z: 1
           }
         }
-        ParentId: 7533723967990698261
+        ParentId: 10334810118850028674
         UnregisteredParameters {
-          Overrides {
-            Name: "cs:Title"
-            String: "1 Win"
-          }
           Overrides {
             Name: "cs:Description"
             String: "Congratulations, you got your first win! Celebrate with an extra 100 coins."
