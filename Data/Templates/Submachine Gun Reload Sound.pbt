@@ -1,28 +1,26 @@
 Assets {
-  Id: 1634827738048127191
-  Name: "KillZone"
+  Id: 17017433431252953491
+  Name: "Submachine Gun Reload Sound"
   PlatformAssetType: 5
   TemplateAsset {
     ObjectBlock {
-      RootId: 9464210638659690241
+      RootId: 5980431768287367489
       Objects {
-        Id: 9464210638659690241
-        Name: "KillZone"
+        Id: 5980431768287367489
+        Name: "Submachine Gun Reload Sound"
         Transform {
           Scale {
-            X: 10
-            Y: 10
-            Z: 10
+            X: 1
+            Y: 1
+            Z: 1
           }
         }
         ParentId: 4781671109827199097
-        ChildIds: 15780008397909082430
+        ChildIds: 13196943918507351942
         UnregisteredParameters {
-          Overrides {
-            Name: "cs:RespawnOnEnter"
-            Bool: true
-          }
         }
+        Lifespan: 1
+        WantsNetworking: true
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
@@ -32,37 +30,29 @@ Assets {
         CameraCollidable {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
-        Trigger {
-          TeamSettings {
-            IsTeamCollisionEnabled: true
-            IsEnemyCollisionEnabled: true
-          }
-          TriggerShape_v2 {
-            Value: "mc:etriggershape:box"
-          }
+        NetworkContext {
         }
       }
       Objects {
-        Id: 15780008397909082430
-        Name: "KillZone"
+        Id: 13196943918507351942
+        Name: "Gun Weapon Reload Set 01 SFX"
         Transform {
           Location {
-            Z: 500
           }
           Rotation {
           }
           Scale {
-            X: 0.000999999931
-            Y: 0.000999999931
+            X: 1
+            Y: 1
             Z: 1
           }
         }
-        ParentId: 9464210638659690241
+        ParentId: 5980431768287367489
         UnregisteredParameters {
           Overrides {
-            Name: "cs:Trigger"
-            ObjectReference {
-              SubObjectId: 9464210638659690241
+            Name: "bp:Type"
+            Enum {
+              Value: "mc:esfx_gunreloads:49"
             }
           }
         }
@@ -75,11 +65,29 @@ Assets {
         CameraCollidable {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
-        Script {
-          ScriptAsset {
-            Id: 5321318700814843422
+        Blueprint {
+          BlueprintAsset {
+            Id: 11279392096978883335
+          }
+          AudioBP {
+            AutoPlay: true
+            Volume: 1
+            Falloff: 1000
+            Radius: 100
+            EnableOcclusion: true
+            IsSpatializationEnabled: true
+            IsAttenuationEnabled: true
           }
         }
+      }
+    }
+    Assets {
+      Id: 11279392096978883335
+      Name: "Gun Weapon Reload Set 01 SFX"
+      PlatformAssetType: 10
+      PrimaryAsset {
+        AssetType: "AudioBlueprintAssetRef"
+        AssetId: "sfxabp_reloads_ref"
       }
     }
     PrimaryAssetId {

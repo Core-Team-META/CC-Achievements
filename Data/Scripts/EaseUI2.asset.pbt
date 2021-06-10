@@ -1,13 +1,13 @@
 Assets {
-  Id: 5321318700814843422
-  Name: "KillZone"
+  Id: 5650554527613804010
+  Name: "EaseUI2"
   PlatformAssetType: 3
   TextAsset {
     CustomParameters {
       Overrides {
-        Name: "cs:Trigger"
-        ObjectReference {
-          SelfId: 14415300772706496238
+        Name: "cs:EasingEquations2"
+        AssetReference {
+          Id: 18124542521776382321
         }
       }
     }

@@ -1,6 +1,6 @@
 Assets {
-  Id: 16211329154153141963
-  Name: "ProjectHierarchyTemplate_README"
+  Id: 11974742996071064388
+  Name: "APIBasicGameState"
   PlatformAssetType: 3
   TextAsset {
   }

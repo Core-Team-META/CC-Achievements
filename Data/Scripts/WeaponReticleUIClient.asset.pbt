@@ -1,6 +1,6 @@
 Assets {
-  Id: 16211329154153141963
-  Name: "ProjectHierarchyTemplate_README"
+  Id: 10139659402558168400
+  Name: "WeaponReticleUIClient"
   PlatformAssetType: 3
   TextAsset {
   }

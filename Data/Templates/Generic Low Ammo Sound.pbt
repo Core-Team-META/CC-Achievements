@@ -1,28 +1,26 @@
 Assets {
-  Id: 1634827738048127191
-  Name: "KillZone"
+  Id: 16064653477604779480
+  Name: "Generic Low Ammo Sound"
   PlatformAssetType: 5
   TemplateAsset {
     ObjectBlock {
-      RootId: 9464210638659690241
+      RootId: 16196546363947031314
       Objects {
-        Id: 9464210638659690241
-        Name: "KillZone"
+        Id: 16196546363947031314
+        Name: "Generic Low Ammo Sound"
         Transform {
           Scale {
-            X: 10
-            Y: 10
-            Z: 10
+            X: 1
+            Y: 1
+            Z: 1
           }
         }
         ParentId: 4781671109827199097
-        ChildIds: 15780008397909082430
+        ChildIds: 4574798814266286760
         UnregisteredParameters {
-          Overrides {
-            Name: "cs:RespawnOnEnter"
-            Bool: true
-          }
         }
+        Lifespan: 2
+        WantsNetworking: true
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
@@ -32,37 +30,29 @@ Assets {
         CameraCollidable {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
-        Trigger {
-          TeamSettings {
-            IsTeamCollisionEnabled: true
-            IsEnemyCollisionEnabled: true
-          }
-          TriggerShape_v2 {
-            Value: "mc:etriggershape:box"
-          }
+        NetworkContext {
         }
       }
       Objects {
-        Id: 15780008397909082430
-        Name: "KillZone"
+        Id: 4574798814266286760
+        Name: "Low Ammo Sound"
         Transform {
           Location {
-            Z: 500
           }
           Rotation {
           }
           Scale {
-            X: 0.000999999931
-            Y: 0.000999999931
+            X: 1
+            Y: 1
             Z: 1
           }
         }
-        ParentId: 9464210638659690241
+        ParentId: 16196546363947031314
         UnregisteredParameters {
           Overrides {
-            Name: "cs:Trigger"
-            ObjectReference {
-              SubObjectId: 9464210638659690241
+            Name: "bp:Type"
+            Enum {
+              Value: "mc:esfx_gunshot_assaultrifle_ak:8"
             }
           }
         }
@@ -75,11 +65,27 @@ Assets {
         CameraCollidable {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
-        Script {
-          ScriptAsset {
-            Id: 5321318700814843422
+        Blueprint {
+          BlueprintAsset {
+            Id: 6491078578190431103
+          }
+          AudioBP {
+            AutoPlay: true
+            Pitch: 100
+            Volume: 0.8
+            Falloff: 3600
+            Radius: 400
           }
         }
+      }
+    }
+    Assets {
+      Id: 6491078578190431103
+      Name: "Gunshot Assault Rifle AK Set 01 SFX"
+      PlatformAssetType: 10
+      PrimaryAsset {
+        AssetType: "AudioBlueprintAssetRef"
+        AssetId: "sfxabp_gunshot_assaultrifle_ak_ref"
       }
     }
     PrimaryAssetId {
