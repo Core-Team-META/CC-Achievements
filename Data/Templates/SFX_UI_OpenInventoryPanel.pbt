@@ -17,7 +17,7 @@ Assets {
         }
         ParentId: 4781671109827199097
         ChildIds: 1417366994656232137
-        Lifespan: 5
+        Lifespan: 1
         Collidable_v2 {
           Value: "mc:ecollisionsetting:forceoff"
         }
@@ -80,5 +80,5 @@ Assets {
       AssetId: "None"
     }
   }
-  SerializationVersion: 87
+  SerializationVersion: 89
 }

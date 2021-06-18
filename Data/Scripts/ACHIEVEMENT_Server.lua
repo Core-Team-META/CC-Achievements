@@ -22,15 +22,19 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 ------------------------------------------------------------------------------------------------------------------------
 
 local ROOT = script:GetCustomProperty("AchievementSystem"):WaitForObject()
-local ACHIEVEMENT_LIST = script:GetCustomProperty("Achievement_List"):WaitForObject()
+
 local isEnabled = ROOT:GetCustomProperty("Enabled")
 if not isEnabled then
     return
 end
+
+local ACHIEVEMENT_LIST = script:GetCustomProperty("Achievement_List"):WaitForObject()
+
 local shouldSaveProgress = ROOT:GetCustomProperty("SaveProgress")
 local useSharedKey = ROOT:GetCustomProperty("UseSharedKey")
 local sharedKeyNetRef = ROOT:GetCustomProperty("SharedKey")
 local shouldGiveRewardsRoundEnd = ROOT:GetCustomProperty("GiveRewardsRoundEnd")
+local rewardWinningTeam = ROOT:GetCustomProperty("OnRewardWinningTeam")
 
 ------------------------------------------------------------------------------------------------------------------------
 -- REQUIRES
@@ -53,7 +57,12 @@ local function IsValidPlayer(object)
     return Object.IsValid(object) and object:IsA("Player")
 end
 
--- Resets player flags and repeatble achievements when a new round starts
+local function SetPlayerFlags(player)
+    player.serverUserData.ACH_diedInRound = false
+    player.serverUserData.ACH_killCount = 0
+end
+
+-- Resets player flags and repeatable achievements when a new round starts
 local function OnRoundStart()
     for _, player in ipairs(Game.GetPlayers()) do
         API.ResetRepeatable(player)
@@ -96,10 +105,18 @@ local function OnRoundEnd()
     Events.Broadcast("AS.RoundEndEvent", playersWonTbl)
 
     if shouldGiveRewardsRoundEnd then
-        Task.Wait()
-        for player, _ in pairs(playersWonTbl) do
-            if Object.IsValid(player) then
-                API.GiveAllRewards(player)
+        Task.Wait(3)
+        if rewardWinningTeam then
+            for player, _ in pairs(playersWonTbl) do
+                if Object.IsValid(player) then
+                    API.GiveAllRepeatbleRewards(player)
+                end
+            end
+        else
+            for _, player in pairs(Game.GetPlayers()) do
+                if Object.IsValid(player) then
+                    API.GiveAllRepeatbleRewards(player)
+                end
             end
         end
     end
@@ -157,7 +174,7 @@ function OnPlayerJoined(player)
     end
 
     local playerListeners = {}
-    playerListeners.respawn = player.respawnedEvent:Connect(OnPlayerRespawn)
+    playerListeners.respawn = player.spawnedEvent:Connect(OnPlayerRespawn)
     playerListeners.resource = player.resourceChangedEvent:Connect(OnResourceChanged)
     playerListeners.died = player.diedEvent:Connect(OnPlayerDied)
     playerListeners.damage = player.damagedEvent:Connect(OnPlayerDamaged)
@@ -165,7 +182,7 @@ function OnPlayerJoined(player)
     listeners[player.id] = playerListeners
 end
 
--- Save player achievement progression & disconnect listners
+-- Save player achievement progression & disconnect listeners
 --@params Object player
 function OnPlayerLeft(player)
     if shouldSaveProgress then

@@ -1,6 +1,6 @@
 Assets {
-  Id: 10176602259573205050
-  Name: "ACHIEVEMENT_Client"
+  Id: 1427829216143793458
+  Name: "EquipmentStanceServer"
   PlatformAssetType: 3
   TextAsset {
   }

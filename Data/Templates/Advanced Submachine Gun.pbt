@@ -1451,5 +1451,5 @@ Assets {
       AssetId: "Advanced_Submachine_Gun"
     }
   }
-  SerializationVersion: 87
+  SerializationVersion: 89
 }

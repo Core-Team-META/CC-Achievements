@@ -53,8 +53,6 @@ Assets {
         Control {
           Width: 100
           Height: 120
-          UIX: 37.9573975
-          UIY: 10.1773682
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -2220,7 +2218,7 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Visible_v2 {
-          Value: "mc:evisibilitysetting:inheritfromparent"
+          Value: "mc:evisibilitysetting:forceoff"
         }
         CameraCollidable {
           Value: "mc:ecollisionsetting:inheritfromparent"
@@ -2288,8 +2286,8 @@ Assets {
         Control {
           Width: 105
           Height: 105
-          UIX: -2.5
-          UIY: -3.5
+          UIX: -1.78464222
+          UIY: -2.81853414
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -3836,5 +3834,5 @@ Assets {
       AssetId: "None"
     }
   }
-  SerializationVersion: 87
+  SerializationVersion: 89
 }

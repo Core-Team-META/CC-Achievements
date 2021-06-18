@@ -1,13 +1,13 @@
 Assets {
-  Id: 15197985150450883762
-  Name: "Generic Bullet Shell Drop Sound"
+  Id: 1970105428586059764
+  Name: "Sword Melee Swing Sound"
   PlatformAssetType: 5
   TemplateAsset {
     ObjectBlock {
-      RootId: 3081722450866107420
+      RootId: 12134560501456732203
       Objects {
-        Id: 3081722450866107420
-        Name: "Generic Bullet Shell Drop Sound"
+        Id: 12134560501456732203
+        Name: "Sword Melee Swing Sound"
         Transform {
           Scale {
             X: 1
@@ -18,13 +18,23 @@ Assets {
         ParentId: 4781671109827199097
         UnregisteredParameters {
           Overrides {
-            Name: "bp:Type"
+            Name: "bp:Sword/Blade Type"
             Enum {
-              Value: "mc:esfx_bullet_shells_casings_drop_01:0"
+              Value: "mc:esfx_swordbladeswipes:16"
             }
           }
+          Overrides {
+            Name: "bp:Air Swoosh Type"
+            Enum {
+              Value: "mc:esfx_airswooshes:19"
+            }
+          }
+          Overrides {
+            Name: "bp:Sword/Blade Pitch"
+            Float: 0
+          }
         }
-        Lifespan: 0.8
+        WantsNetworking: true
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
@@ -36,16 +46,14 @@ Assets {
         }
         Blueprint {
           BlueprintAsset {
-            Id: 1566294819570033529
-          }
-          TeamSettings {
+            Id: 5588725286865802105
           }
           AudioBP {
             AutoPlay: true
-            Volume: 0.3
+            Transient: true
+            Volume: 1
             Falloff: 3600
             Radius: 400
-            EnableOcclusion: true
             IsSpatializationEnabled: true
             IsAttenuationEnabled: true
           }
@@ -53,12 +61,12 @@ Assets {
       }
     }
     Assets {
-      Id: 1566294819570033529
-      Name: "Bullet Shell Casing Drop Set 01 SFX"
+      Id: 5588725286865802105
+      Name: "Sword & Blade - Swings Swipes Air Swooshes Set 01 SFX"
       PlatformAssetType: 10
       PrimaryAsset {
         AssetType: "AudioBlueprintAssetRef"
-        AssetId: "sfxabp_bullet_shell_casings_drop_ref"
+        AssetId: "sfxabp_sword_blade_swooshes_ref"
       }
     }
     PrimaryAssetId {

@@ -1,13 +1,13 @@
 Assets {
-  Id: 16064653477604779480
-  Name: "Generic Low Ammo Sound"
+  Id: 4020958367257585299
+  Name: "Melee Sound Pickup"
   PlatformAssetType: 5
   TemplateAsset {
     ObjectBlock {
-      RootId: 16196546363947031314
+      RootId: 15534144156751000742
       Objects {
-        Id: 16196546363947031314
-        Name: "Generic Low Ammo Sound"
+        Id: 15534144156751000742
+        Name: "Melee Sound Pickup"
         Transform {
           Scale {
             X: 1
@@ -16,7 +16,7 @@ Assets {
           }
         }
         ParentId: 4781671109827199097
-        ChildIds: 4574798814266286760
+        ChildIds: 14336624790331020783
         UnregisteredParameters {
         }
         Lifespan: 2
@@ -34,8 +34,8 @@ Assets {
         }
       }
       Objects {
-        Id: 4574798814266286760
-        Name: "Low Ammo Sound"
+        Id: 14336624790331020783
+        Name: "Sword & Blade - Unsheathe Set 01 SFX"
         Transform {
           Location {
           }
@@ -47,12 +47,12 @@ Assets {
             Z: 1
           }
         }
-        ParentId: 16196546363947031314
+        ParentId: 15534144156751000742
         UnregisteredParameters {
           Overrides {
             Name: "bp:Type"
             Enum {
-              Value: "mc:esfx_gunshot_assaultrifle_ak:8"
+              Value: "mc:esfx_swordbladeunsheathe:30"
             }
           }
         }
@@ -67,25 +67,26 @@ Assets {
         }
         Blueprint {
           BlueprintAsset {
-            Id: 6491078578190431103
+            Id: 8171423002215088000
           }
           AudioBP {
             AutoPlay: true
-            Pitch: 100
-            Volume: 0.8
+            Volume: 1
             Falloff: 3600
             Radius: 400
+            IsSpatializationEnabled: true
+            IsAttenuationEnabled: true
           }
         }
       }
     }
     Assets {
-      Id: 6491078578190431103
-      Name: "Gunshot Assault Rifle AK Set 01 SFX"
+      Id: 8171423002215088000
+      Name: "Sword & Blade - Unsheathe Set 01 SFX"
       PlatformAssetType: 10
       PrimaryAsset {
         AssetType: "AudioBlueprintAssetRef"
-        AssetId: "sfxabp_gunshot_assaultrifle_ak_ref"
+        AssetId: "sfxabp_sword_blade_unsheathe_ref"
       }
     }
     PrimaryAssetId {

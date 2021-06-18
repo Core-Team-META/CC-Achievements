@@ -1,6 +1,6 @@
 Assets {
-  Id: 10176602259573205050
-  Name: "ACHIEVEMENT_Client"
+  Id: 5082628058110625875
+  Name: "EquipmentMeleeAttacksServer"
   PlatformAssetType: 3
   TextAsset {
   }

@@ -31,7 +31,7 @@ _G.META_ACHIEVEMENTS = API
 ------------------------------------------------------------------------------------------------------------------------
 
 local achievements = {}
-
+local repeatable = {}
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
@@ -103,6 +103,7 @@ function API.RegisterAchievements(list)
             local preReq = child:GetCustomProperty("PreRequisite")
             local tier = child:GetCustomProperty("AchievementTier")
             local saveCount = child:GetCustomProperty("SaveCompletedCount")
+            local resetOnRound = child:GetCustomProperty("ResetOnRoundStart")
 
             local achievement = {
                 id = id,
@@ -118,8 +119,10 @@ function API.RegisterAchievements(list)
                 givesReward = givesReward,
                 tier = tier,
                 saveCount = saveCount,
-                preReq = preReq
+                preReq = preReq,
+                shouldReset = resetOnRound
             }
+
             if givesReward then
                 local rewardsTbl = {}
                 for i, reward in ipairs(child:GetChildren()) do
@@ -134,6 +137,9 @@ function API.RegisterAchievements(list)
             if enabled then
                 sort = sort + 1
                 achievements[id] = achievement
+                if achievement.isRepeatable then
+                    repeatable[id] = achievement
+                end
             end
         end
     end
@@ -142,6 +148,11 @@ end
 --@return table gameTypeList
 function API.GetAchievements()
     return achievements
+end
+
+--@return table gameTypeList
+function API.GetRepeatable()
+    return repeatable
 end
 
 --@param String id
@@ -233,7 +244,8 @@ function API.HasPreRequsistCompleted(player, id)
     else
         local tempTbl = {CoreString.Split(achievements[id].preReq, ",")}
         for _, preReqId in ipairs(tempTbl) do
-            if not API.IsUnlocked(player, preReqId) then
+            local preReqValue = API.GetCurrentProgress(player, preReqId)
+            if not API.IsUnlocked(player, preReqId) and preReqValue ~= 1 then
                 return false
             end
         end
@@ -274,9 +286,26 @@ function API.GiveAllRewards(player)
 end
 
 --@param object player
+-- Gives a player all rewards for every unlocked achievement
+function API.GiveAllRepeatbleRewards(player)
+    local unlockedTbl = API.CheckUnlockedAchievements(player)
+    for _, achievement in pairs(unlockedTbl) do
+        if achievement.isRepeatable and API.HasRewards(achievement.id) then
+            API.GiveRewards(player, achievement.id)
+        end
+    end
+end
+
+--@param object player
 --@param String id
 function API.SetClaimed(player, id)
     player:SetResource(id, 1)
+end
+
+--@param object player
+--@param String id
+function API.ResetAchievement(player, id)
+    player:SetResource(id, 0)
 end
 
 --@param object player
@@ -286,6 +315,13 @@ function API.GetCurrentProgress(player, id)
     if IsValidPlayer(player) then
         return player:GetResource(id)
     end
+end
+
+--@param object player
+--@param String id
+--@return int currentProgress for an achievement
+function API.IsCompleted(player, id)
+    return API.GetCurrentProgress(player, id) == 1
 end
 
 --@param object player
@@ -324,7 +360,7 @@ function API.CheckUnlockedAchievements(player)
     local count = 0
     --Loop through unlocked achievements and filter out achievements with a family
     for id, achievement in pairs(unlockedTbl) do
-        if achievement.family then
+        if achievement.family ~= "" then
             familyTbl[achievement.family] = familyTbl[achievement.family] or {}
             familyTbl[achievement.family][achievement.id] = achievement
         else
@@ -410,6 +446,7 @@ function API.ResetRepeatable(player)
 end
 
 --@param object player
+--@param bool
 function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     local data = {}
     if useSharedKey then
@@ -463,7 +500,7 @@ function API.FormatInt(number)
     return minus .. int:reverse():gsub("^,", "") .. fraction
 end
 
-function API.GetProgressTest(currentResource, requiredResource)
+function API.GetProgressText(currentResource, requiredResource)
     return tostring(API.FormatInt((currentResource == 0 and 0) or (currentResource > 0 and currentResource - 1))) ..
         " / " .. tostring(API.FormatInt(CoreMath.Round(requiredResource - 1, 0)))
 end

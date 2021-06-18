@@ -1,11 +1,11 @@
 Assets {
-  Id: 8459825612529451237
-  Name: "EquipmentPickupServer"
+  Id: 12439034694186114331
+  Name: "EquipmentAttachObjectToPlayer"
   PlatformAssetType: 3
   TextAsset {
     CustomParameters {
       Overrides {
-        Name: "cs:Trigger"
+        Name: "cs:Object"
         ObjectReference {
         }
       }

@@ -1,13 +1,13 @@
 Assets {
-  Id: 16064653477604779480
-  Name: "Generic Low Ammo Sound"
+  Id: 171090409284182791
+  Name: "Melee Half Circle Swing Effect"
   PlatformAssetType: 5
   TemplateAsset {
     ObjectBlock {
-      RootId: 16196546363947031314
+      RootId: 10655105632778847111
       Objects {
-        Id: 16196546363947031314
-        Name: "Generic Low Ammo Sound"
+        Id: 10655105632778847111
+        Name: "Melee Half Circle Swing Effect"
         Transform {
           Scale {
             X: 1
@@ -16,10 +16,10 @@ Assets {
           }
         }
         ParentId: 4781671109827199097
-        ChildIds: 4574798814266286760
+        ChildIds: 2319451802072964964
         UnregisteredParameters {
         }
-        Lifespan: 2
+        Lifespan: 0.8
         WantsNetworking: true
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
@@ -34,8 +34,8 @@ Assets {
         }
       }
       Objects {
-        Id: 4574798814266286760
-        Name: "Low Ammo Sound"
+        Id: 2319451802072964964
+        Name: "Sword Swipe Half Circle VFX"
         Transform {
           Location {
           }
@@ -47,13 +47,37 @@ Assets {
             Z: 1
           }
         }
-        ParentId: 16196546363947031314
+        ParentId: 10655105632778847111
         UnregisteredParameters {
           Overrides {
-            Name: "bp:Type"
-            Enum {
-              Value: "mc:esfx_gunshot_assaultrifle_ak:8"
+            Name: "bp:color"
+            Color {
+              R: 1
+              G: 1
+              B: 1
+              A: 1
             }
+          }
+          Overrides {
+            Name: "bp:Edge Color"
+            Color {
+              R: 0.4
+              G: 0.4
+              B: 0.4
+              A: 1
+            }
+          }
+          Overrides {
+            Name: "bp:Size"
+            Vector {
+              X: 3.5
+              Y: 3.5
+              Z: 1
+            }
+          }
+          Overrides {
+            Name: "bp:Life"
+            Float: 0.35
           }
         }
         Collidable_v2 {
@@ -67,25 +91,24 @@ Assets {
         }
         Blueprint {
           BlueprintAsset {
-            Id: 6491078578190431103
+            Id: 860140904207434054
           }
-          AudioBP {
+          Vfx {
             AutoPlay: true
-            Pitch: 100
-            Volume: 0.8
-            Falloff: 3600
-            Radius: 400
           }
+        }
+        Relevance {
+          Value: "mc:eproxyrelevance:critical"
         }
       }
     }
     Assets {
-      Id: 6491078578190431103
-      Name: "Gunshot Assault Rifle AK Set 01 SFX"
-      PlatformAssetType: 10
+      Id: 860140904207434054
+      Name: "Sword Swipe Half Circle"
+      PlatformAssetType: 8
       PrimaryAsset {
-        AssetType: "AudioBlueprintAssetRef"
-        AssetId: "sfxabp_gunshot_assaultrifle_ak_ref"
+        AssetType: "VfxBlueprintAssetRef"
+        AssetId: "fxbp_sword_swipe_01"
       }
     }
     PrimaryAssetId {

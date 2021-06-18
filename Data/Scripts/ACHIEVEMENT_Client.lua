@@ -94,12 +94,8 @@ local function AnimateNotification(id)
     end
     ACHIEVEMENT_NAME_TEXT.text = (ACH_API.GetAchievementName(id))
     NOTIFICATION.visibility = Visibility.FORCE_ON
-    Task.Spawn(
-        function()
-            NOTIFICATION.visibility = Visibility.FORCE_OFF
-        end,
-        3
-    )
+    Task.Wait(3)
+    NOTIFICATION.visibility = Visibility.FORCE_OFF
 end
 
 ------------------------------------------------------------------------------------------------------------------------

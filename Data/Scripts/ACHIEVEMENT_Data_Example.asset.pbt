@@ -35,6 +35,10 @@ Assets {
         Bool: false
       }
       Overrides {
+        Name: "cs:ResetOnRoundStart"
+        Bool: false
+      }
+      Overrides {
         Name: "cs:SaveCompletedCount"
         Bool: false
       }
@@ -60,13 +64,9 @@ Assets {
       }
       Overrides {
         Name: "cs:Type:tooltip"
-        String: "Types: RESOURCE, KILL, DAMAGE, WIN"
-      }
-      Overrides {
-        Name: "cs:ResourceName:tooltip"
         String: "Select which type of achievement this is: Types: RESOURCE, KILL, DAMAGE, WIN, ROUND, SCORE"
       }
     }
   }
-  SerializationVersion: 87
+  SerializationVersion: 89
 }

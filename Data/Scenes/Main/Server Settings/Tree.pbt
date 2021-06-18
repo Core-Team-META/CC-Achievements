@@ -31,6 +31,7 @@ Objects {
       RespawnMode_v2 {
         Value: "mc:erespawnmode:random"
       }
+      StartSpawned: true
     }
   }
 }

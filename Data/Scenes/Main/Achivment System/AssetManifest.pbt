@@ -1,10 +1,10 @@
 Assets {
-  Id: 17066449609679557524
-  Name: "Frame Outline Thin 002"
+  Id: 17586365689296088662
+  Name: "BG Gradient 001"
   PlatformAssetType: 9
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
-    AssetId: "FrameOutline_019"
+    AssetId: "BackgroundFlat_020"
   }
 }
 Assets {
@@ -26,12 +26,12 @@ Assets {
   }
 }
 Assets {
-  Id: 11074002944006108218
-  Name: "Fantasy Ability Red 020"
+  Id: 12143753135822676382
+  Name: "Sci-fi Ability Red 034"
   PlatformAssetType: 9
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Fantasy_Ability_Red_020"
+    AssetId: "UI_SciFi_Ability_Red_034"
   }
 }
 Assets {
@@ -53,30 +53,12 @@ Assets {
   }
 }
 Assets {
-  Id: 10071982093329629272
-  Name: "UI Basic Corners 001"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Basic_Corners_001"
-  }
-}
-Assets {
   Id: 9084852752205607158
   Name: "Fantasy Ability Blue 016"
   PlatformAssetType: 9
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
     AssetId: "UI_Fantasy_Ability_Blue_016"
-  }
-}
-Assets {
-  Id: 7946634531565250888
-  Name: "BG Flat 002"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "BackgroundNoOutline_019"
   }
 }
 Assets {
@@ -89,6 +71,24 @@ Assets {
   }
 }
 Assets {
+  Id: 7255218789601085746
+  Name: "Sci-fi Ability Blue 002"
+  PlatformAssetType: 9
+  PrimaryAsset {
+    AssetType: "PlatformBrushAssetRef"
+    AssetId: "UI_SciFi_Ability_Blue_002"
+  }
+}
+Assets {
+  Id: 6011013542633189156
+  Name: "Teko Light"
+  PlatformAssetType: 28
+  PrimaryAsset {
+    AssetType: "FontAssetRef"
+    AssetId: "TekoLight_ref"
+  }
+}
+Assets {
   Id: 4504686085818425438
   Name: "BG Flat 001"
   PlatformAssetType: 9
@@ -98,12 +98,12 @@ Assets {
   }
 }
 Assets {
-  Id: 4417804760414966795
-  Name: "Fantasy Ability Green 011"
+  Id: 3920114757902846138
+  Name: "Fantasy Chicken 001"
   PlatformAssetType: 9
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Fantasy_Ability_Green_011"
+    AssetId: "UI_Fantasy_Food_Chicken_001"
   }
 }
 Assets {

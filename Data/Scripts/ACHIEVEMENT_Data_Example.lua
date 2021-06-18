@@ -92,7 +92,7 @@ end
 --@params Object damage
 local function OnRoundEnd(playersWon)
     for player, didWin in pairs(playersWon) do
-        if ACHIEVEMENT_TYPE == "WON" and didWin and Object.IsValid(player) then
+        if ACHIEVEMENT_TYPE == "WIN" and didWin and Object.IsValid(player) then
             API.AddProgress(player, ACHIEVEMENT_ID, 1)
         elseif ACHIEVEMENT_TYPE == "ROUND" and Object.IsValid(player) then
             API.AddProgress(player, ACHIEVEMENT_ID, 1)
@@ -120,10 +120,10 @@ function Init()
         Events.Connect("AS.DiedEvent", OnPlayerDied)
     elseif ACHIEVEMENT_TYPE == "DAMAGE" then
         Events.Connect("AS.DamageEvent", OnPlayerDamaged)
-    elseif ACHIEVEMENT_TYPE == "WON" or ACHIEVEMENT_TYPE == "ROUND" then
-        Events.Connect("AS.RoundEndEvent")
+    elseif ACHIEVEMENT_TYPE == "WIN" or ACHIEVEMENT_TYPE == "ROUND" then
+        Events.Connect("AS.RoundEndEvent", OnRoundEnd)
     elseif ACHIEVEMENT_TYPE == "SCORE" then
-        Events.Connect("AS.TeamScoreEvent")
+        Events.Connect("AS.TeamScoreEvent", OnTeamScore)
     end
 end
 
