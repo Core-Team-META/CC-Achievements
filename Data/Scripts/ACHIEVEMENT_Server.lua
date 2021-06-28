@@ -52,11 +52,13 @@ local listeners = {}
 ------------------------------------------------------------------------------------------------------------------------
 
 --@params Object object
---@return bool true if valid player
+--@return Bool true if valid player
 local function IsValidPlayer(object)
     return Object.IsValid(object) and object:IsA("Player")
 end
 
+
+--@params Object player
 local function SetPlayerFlags(player)
     player.serverUserData.ACH_diedInRound = false
     player.serverUserData.ACH_killCount = 0

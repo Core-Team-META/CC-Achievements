@@ -32,12 +32,13 @@ _G.META_ACHIEVEMENTS = API
 
 local achievements = {}
 local repeatable = {}
+
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
---@param string s
---@param string delimiter
---@return table result
+--@param String s
+--@param String delimiter
+--@return Table result
 local function Split(s, delimiter)
     local result = {}
     for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
@@ -46,9 +47,9 @@ local function Split(s, delimiter)
     return result
 end
 
---@param object player
---@param string key
---@param int value
+--@param Object player
+--@param String key
+--@param Int value
 -- Sets the progress of a achievement for a player
 local function SetProgress(player, key, value)
     local currentProgress = player:GetResource(key)
@@ -64,18 +65,18 @@ local function SetProgress(player, key, value)
     end
 end
 
---@param object Player
---@return bool true if player
+--@params Object Player
+--@return Bool true if player
 local function IsValidPlayer(object)
     return Object.IsValid(object) and object:IsA("Player")
 end
 
---@param int count
+--Used to protect from InfiniteLoops. If count = 100 do a task.wait
+--@params Int count
 --@return int count
---Used to protect from InfiniteLoops. If count = 50 do a task.wait
 local function InfiniteLoopProtect(count)
     count = count + 1
-    if count >= 50 then
+    if count >= 100 then
         count = 0
         Task.Wait()
     end
@@ -145,17 +146,17 @@ function API.RegisterAchievements(list)
     end
 end
 
---@return table gameTypeList
+--@return Table achievements
 function API.GetAchievements()
     return achievements
 end
 
---@return table gameTypeList
+--@return Table repeatble
 function API.GetRepeatable()
     return repeatable
 end
 
---@param String id
+--@params String id
 --@return Table achievement
 function API.GetAchievementInfo(id)
     if not achievements then
@@ -164,7 +165,7 @@ function API.GetAchievementInfo(id)
     return achievements[id]
 end
 
---@param String id
+--@params String id
 --@return String achievement name
 function API.GetAchievementName(id)
     if not achievements then
@@ -177,7 +178,7 @@ function API.GetAchievementName(id)
     return achievements[id].name
 end
 
---@param String id
+--@params String id
 --@return String achievement name
 function API.GetAchievementRequired(id)
     if not achievements then
@@ -187,7 +188,7 @@ function API.GetAchievementRequired(id)
     return achievements[id].required
 end
 
---@param String id
+--@params String id
 --@return String achievement description
 function API.GetAchievementDescription(id)
     if not achievements then
@@ -197,7 +198,7 @@ function API.GetAchievementDescription(id)
     return achievements[id].description
 end
 
---@param String id
+--@params String id
 --@return String achievement icon MUID
 function API.GetAchievementIcon(id)
     if not achievements then
@@ -207,7 +208,7 @@ function API.GetAchievementIcon(id)
     return achievements[id].icon
 end
 
---@param String id
+--@params String id
 --@return String achievement icon MUID
 function API.GetAchievementIconBG(id)
     if not achievements then
@@ -217,7 +218,7 @@ function API.GetAchievementIconBG(id)
     return achievements[id].iconBG
 end
 
---@param String id
+--@params String id
 --@return String reward icon MUID
 function API.GetRewardIcon(id)
     if not achievements then
@@ -231,13 +232,13 @@ end
 -- CHECKS
 ------------------------------------------------------------------------------------------------------------------------
 
---@param String id
+--@params String id
 function API.HasRewards(id)
     return achievements[id].givesReward and next(achievements[id].rewards)
 end
 
---@param object player
---@param String id
+--@params Object player
+--@params String id
 function API.HasPreRequsistCompleted(player, id)
     if not achievements[id].preReq or achievements[id].preReq == "" then
         return true
@@ -253,9 +254,9 @@ function API.HasPreRequsistCompleted(player, id)
     end
 end
 
---@param object player
---@param String id
 -- Give rewards to a player for a certain achievement
+--@params Object player
+--@params String id
 function API.GiveRewards(player, id)
     if achievements[id] then
         local achievement = achievements[id]
@@ -274,8 +275,8 @@ function API.GiveRewards(player, id)
     end
 end
 
---@param object player
 -- Gives a player all rewards for every unlocked achievement
+--@params Object player
 function API.GiveAllRewards(player)
     local unlockedTbl = API.CheckUnlockedAchievements(player)
     for _, achievement in pairs(unlockedTbl) do
@@ -285,8 +286,8 @@ function API.GiveAllRewards(player)
     end
 end
 
---@param object player
--- Gives a player all rewards for every unlocked achievement
+-- Gives a player all rewards for every repeatable unlocked achievement
+--@params Object player
 function API.GiveAllRepeatbleRewards(player)
     local unlockedTbl = API.CheckUnlockedAchievements(player)
     for _, achievement in pairs(unlockedTbl) do
@@ -296,20 +297,20 @@ function API.GiveAllRepeatbleRewards(player)
     end
 end
 
---@param object player
---@param String id
+--@params Object player
+--@params String id
 function API.SetClaimed(player, id)
     player:SetResource(id, 1)
 end
 
---@param object player
---@param String id
+--@params Object player
+--@params String id
 function API.ResetAchievement(player, id)
     player:SetResource(id, 0)
 end
 
---@param object player
---@param String id
+--@params Object player
+--@params String id
 --@return int currentProgress for an achievement
 function API.GetCurrentProgress(player, id)
     if IsValidPlayer(player) then
@@ -317,16 +318,16 @@ function API.GetCurrentProgress(player, id)
     end
 end
 
---@param object player
---@param String id
+--@params Object player
+--@params String id
 --@return int currentProgress for an achievement
 function API.IsCompleted(player, id)
     return API.GetCurrentProgress(player, id) == 1
 end
 
---@param object player
---@param String id
---@param int value
+--@params Object player
+--@params String id
+--@params Int value
 --@return bool true if player has enough to unlock achievement
 function API.IsUnlocked(player, id, value)
     value = value or API.GetCurrentProgress(player, id)
@@ -337,8 +338,8 @@ function API.IsUnlocked(player, id, value)
     end
 end
 
---@param object player
---@return table of achievements the player has current unlocked
+--@params Object player
+--@return Table of achievements the player has current unlocked
 function API.GetUnlockedAchievements(player)
     local tempTbl = {}
     local count = 0
@@ -351,8 +352,8 @@ function API.GetUnlockedAchievements(player)
     return tempTbl
 end
 
---@param object player
---@param table of currently unlocked achievements for the player that have been filtered based on FamilyType
+--@params Object player
+--@params Table of currently unlocked achievements for the player that have been filtered based on FamilyType
 function API.CheckUnlockedAchievements(player)
     local unlockedTbl = API.GetUnlockedAchievements(player)
     local familyTbl = {}
@@ -387,8 +388,8 @@ function API.CheckUnlockedAchievements(player)
     return tempTbl
 end
 
---@param object player
---@param String id
+--@params Object player
+--@params String id
 function API.UnlockAchievement(player, id)
     local achievement = API.GetAchievementInfo(id)
     if IsValidPlayer(player) and achievement and API.HasPreRequsistCompleted(player, id) then
@@ -399,9 +400,9 @@ function API.UnlockAchievement(player, id)
     end
 end
 
---@param object player
---@param String id
---@param int value
+--@params Object player
+--@params String id
+--@params Int value
 function API.AddProgress(player, id, value)
     if IsValidPlayer(player) and API.GetAchievementInfo(id) and API.HasPreRequsistCompleted(player, id) then
         local currentProgress = player:GetResource(id)
@@ -426,15 +427,15 @@ function API.AddProgress(player, id, value)
     end
 end
 
---@param object player
---@param table achievement
+--@params Object player
+--@params Table achievement
 function API.AddCompletedCount(player, achievement)
     if API.IsUnlocked(player, achievement.id) then
         player:AddResource(achievement.countId, 1)
     end
 end
 
---@param object player
+--@params Object player
 function API.ResetRepeatable(player)
     local count = 0
     for id, achievement in pairs(API.GetAchievements()) do
@@ -445,8 +446,9 @@ function API.ResetRepeatable(player)
     end
 end
 
---@param object player
---@param bool
+--@params Object player
+--@params Bool
+--@params Netrefrence sharedKeyNetRef
 function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     local data = {}
     if useSharedKey then
@@ -464,7 +466,7 @@ function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     end
 end
 
---@param object player
+--@params object player
 function API.SaveAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     local data = {}
     if useSharedKey then
@@ -489,8 +491,8 @@ function API.SaveAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     end
 end
 
---@param Int number
---@return String formatted with , every three digits
+--@params Int number
+--@return String formatted with "," every three digits
 function API.FormatInt(number)
     if not tonumber(number) then
         return

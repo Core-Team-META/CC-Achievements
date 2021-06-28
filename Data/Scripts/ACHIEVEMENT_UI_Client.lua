@@ -63,7 +63,7 @@ local LOCAL_PLAYER = Game.GetLocalPlayer()
 
 local ACHIEVEMENT_PANEL_TEMPLATE = script:GetCustomProperty("ACHIEVEMENT_Panel_Template")
 
-local spamPrevent
+local spamPrevent = time()
 local lastCamera = {}
 local listeners = {}
 local endRoundListeners = {}
@@ -72,22 +72,26 @@ local endRoundListeners = {}
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
 --Used for spam prevention
---@return bool
-local function isAllowed(time)
-    local timeNow = os.clock()
-    if spamPrevent ~= nil and (timeNow - spamPrevent) < time then
+--@return Bool
+local function isAllowed(delay)
+    local timeNow = time()
+    if spamPrevent ~= nil and (timeNow - spamPrevent) < delay then
         return false
     end
     spamPrevent = timeNow
     return true
 end
 
+--@param Table a
+--@param Table b
+--@return Bool - True is a is larger than b
 local function CompareAchievement(a, b)
     local aProgress = API.IsUnlocked(LOCAL_PLAYER, a.id) and 100000 or API.GetCurrentProgress(LOCAL_PLAYER, a.id)
     local bProgress = API.IsUnlocked(LOCAL_PLAYER, b.id) and 100000 or API.GetCurrentProgress(LOCAL_PLAYER, b.id)
     return aProgress > bProgress
 end
 
+-- Clears all achievement panels and disconnects listeners
 local function ClearAchievementPanels()
     for _, panel in ipairs(ACHIEVEMENT_LIST:GetChildren()) do
         if Object.IsValid(panel) then
@@ -105,6 +109,8 @@ local function ClearAchievementPanels()
     listeners = {}
 end
 
+
+--@param Bool bool
 local function ToggleUI(bool)
     UI.SetCursorVisible(bool)
     UI.SetCanCursorInteractWithUI(bool)
@@ -150,6 +156,10 @@ local function EnableRewardButton(button, panel, achievement)
     )
 end
 
+
+--@param Int index
+--@param Table achievement
+--@param Object parent
 local function AddNewPanel(index, achievement, parent)
     local panel = World.SpawnAsset(ACHIEVEMENT_PANEL_TEMPLATE, {parent = parent})
     local PROGRESS = panel:GetCustomProperty("PROGRESS"):WaitForObject()
@@ -194,6 +204,8 @@ local function AddNewPanel(index, achievement, parent)
     panel.y = (index - 1) * 100
 end
 
+
+-- Used to build achievement panel, of all repeatable achievements unlocked in a round
 local function BuildAchievementEndRoundPanel()
     for _, child in ipairs(END_ROUND_ACHIEVEMENTS_PANEL:GetChildren()) do
         if Object.IsValid(child) then
@@ -258,6 +270,7 @@ function BuildAchievmentPanels()
     end
 end
 
+--@params Object button
 function OnButtonPressed(button)
     if button == ACTIVE_BUTTON then
         ClearAchievementPanels()
@@ -274,6 +287,9 @@ function OnButtonPressed(button)
     end
 end
 
+
+--@params Object player
+--@params String keybind
 function OnBindingPressed(player, keybind)
     if player == LOCAL_PLAYER then
         if keybind == KEYPRESS and not PRIMARY_PANEL:IsVisibleInHierarchy() then

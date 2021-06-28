@@ -28,7 +28,7 @@ local isEnabled = ROOT:GetCustomProperty("Enabled")
 while not _G.META_ACHIEVEMENTS do
     Task.Wait()
 end
-local ACH_API = _G.META_ACHIEVEMENTS
+local API = _G.META_ACHIEVEMENTS
 
 ------------------------------------------------------------------------------------------------------------------------
 -- OBJECTS
@@ -59,7 +59,7 @@ NOTIFICATION.visibility = Visibility.FORCE_OFF
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
 local function BuildIdTable()
-    for _, achievement in pairs(ACH_API.GetAchievements()) do
+    for _, achievement in pairs(API.GetAchievements()) do
         achievementIds[achievement.sort] = achievement.id
     end
 end
@@ -85,14 +85,15 @@ local function ClearListeners(listeners)
     listeners = {}
 end
 
+--@params String id
 local function AnimateNotification(id)
-    NOTIFICATION_ICON:SetImage(ACH_API.GetAchievementIcon(id))
+    NOTIFICATION_ICON:SetImage(API.GetAchievementIcon(id))
 
-    local iconBackground = ACH_API.GetAchievementIconBG(id)
+    local iconBackground = API.GetAchievementIconBG(id)
     if iconBackground then
         NOTIFICATION_ICON_BG:SetImage(iconBackground)
     end
-    ACHIEVEMENT_NAME_TEXT.text = (ACH_API.GetAchievementName(id))
+    ACHIEVEMENT_NAME_TEXT.text = (API.GetAchievementName(id))
     NOTIFICATION.visibility = Visibility.FORCE_ON
     Task.Wait(3)
     NOTIFICATION.visibility = Visibility.FORCE_OFF
@@ -102,7 +103,7 @@ end
 -- GLOBAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
 function Init()
-    ACH_API.RegisterAchievements(ACHIEVEMENT_LIST)
+    API.RegisterAchievements(ACHIEVEMENT_LIST)
     Task.Wait()
     BuildIdTable()
     shouldShow = true
@@ -122,7 +123,7 @@ end
 --@params String resName
 --@params Int resAmt
 function OnResourceChanged(player, resName, resAmt)
-    if player == LOCAL_PLAYER and IsAchievement(resName) and resAmt == ACH_API.GetAchievementRequired(resName) then
+    if player == LOCAL_PLAYER and IsAchievement(resName) and resAmt == API.GetAchievementRequired(resName) then
         achievementQueue[#achievementQueue + 1] = resName
     elseif player == LOCAL_PLAYER and IsAchievement(resName) and resAmt == 1 then
     --#TODO Achievement Claimed
