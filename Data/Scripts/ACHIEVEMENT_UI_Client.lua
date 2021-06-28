@@ -164,7 +164,7 @@ local function AddNewPanel(index, achievement, parent)
     local panel = World.SpawnAsset(ACHIEVEMENT_PANEL_TEMPLATE, {parent = parent})
     local PROGRESS = panel:GetCustomProperty("PROGRESS"):WaitForObject()
     local CLAIM_BUTTON = panel:GetCustomProperty("CLAIM_BUTTON"):WaitForObject()
-    local currentResource = LOCAL_PLAYER:GetResource(achievement.id)
+    local currentResource = API.GetCurrentProgress(LOCAL_PLAYER, achievement.id)
     local requiredResource = achievement.required
 
     panel:GetCustomProperty("NAME"):WaitForObject().text = achievement.name

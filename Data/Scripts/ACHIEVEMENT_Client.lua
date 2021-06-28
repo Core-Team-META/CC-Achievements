@@ -58,13 +58,14 @@ NOTIFICATION.visibility = Visibility.FORCE_OFF
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
+
 local function BuildIdTable()
     for _, achievement in pairs(API.GetAchievements()) do
         achievementIds[achievement.sort] = achievement.id
     end
 end
 
---@param String id
+--@params String id
 --@return bool true if active
 local function IsAchievement(id)
     for _, achievementId in pairs(achievementIds) do
@@ -75,7 +76,7 @@ local function IsAchievement(id)
     return false
 end
 
---@param Table listeners
+--@params Table listeners
 local function ClearListeners(listeners)
     for _, listener in ipairs(listeners) do
         if listener and listener.isConnected then
@@ -107,8 +108,8 @@ function Init()
     Task.Wait()
     BuildIdTable()
     shouldShow = true
-
-    scriptListeners[#scriptListeners + 1] = LOCAL_PLAYER.resourceChangedEvent:Connect(OnResourceChanged)
+    -- handler params: Player_player, string_key
+    scriptListeners[#scriptListeners + 1] = LOCAL_PLAYER.privateNetworkedDataChangedEvent:Connect(OnResourceChanged)
     scriptListeners[#scriptListeners + 1] =
         Game.playerLeftEvent:Connect(
         function(player)
@@ -122,7 +123,8 @@ end
 --@params Object player
 --@params String resName
 --@params Int resAmt
-function OnResourceChanged(player, resName, resAmt)
+function OnResourceChanged(player, resName)
+    local resAmt = player:GetPrivateNetworkedData(resName)
     if player == LOCAL_PLAYER and IsAchievement(resName) and resAmt == API.GetAchievementRequired(resName) then
         achievementQueue[#achievementQueue + 1] = resName
     elseif player == LOCAL_PLAYER and IsAchievement(resName) and resAmt == 1 then
