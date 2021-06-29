@@ -91,7 +91,7 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Control {
-          Width: 650
+          Width: -10
           Height: 100
           UIX: 1
           UIY: 5
@@ -100,6 +100,8 @@ Assets {
               Value: "mc:euianchor:middlecenter"
             }
           }
+          AddSizeToParentIfUsingParentSize: true
+          UseParentWidth: true
           Panel {
             Opacity: 1
           }
@@ -153,12 +155,12 @@ Assets {
           UseParentHeight: true
           Image {
             Brush {
-              Id: 7946634531565250888
+              Id: 4504686085818425438
             }
             Color {
-              R: 0.0437350273
-              G: 0.0437350273
-              B: 0.0395462364
+              R: 0.02
+              G: 0.013744452
+              B: 0.0181579236
               A: 1
             }
             TeamSettings {
@@ -213,15 +215,21 @@ Assets {
           UseParentHeight: true
           Image {
             Brush {
-              Id: 17066449609679557524
+              Id: 9325337250500072279
             }
             Color {
-              R: 1
-              G: 1
-              B: 1
+              R: 0.603827536
+              G: 0.0331047736
+              B: 0.0343398117
               A: 1
             }
             TeamSettings {
+            }
+            ShadowColor {
+              A: 0.582
+            }
+            ShadowOffset {
+              Y: 1
             }
           }
           AnchorLayout {
@@ -266,7 +274,7 @@ Assets {
         Control {
           Width: 80
           Height: 80
-          UIX: 25
+          UIX: 12
           UIY: 10
           RenderTransformPivot {
             Anchor {
@@ -337,9 +345,9 @@ Assets {
               Id: 10071982093329629272
             }
             Color {
-              R: 1
-              G: 1
-              B: 1
+              R: 0.603827536
+              G: 0.0331047736
+              B: 0.0343398117
               A: 1
             }
             TeamSettings {
@@ -386,8 +394,8 @@ Assets {
         Control {
           Width: 500
           Height: 60
-          UIX: 125
-          UIY: 2.5
+          UIX: 100
+          UIY: 10
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -396,17 +404,24 @@ Assets {
           Text {
             Label: "LONG NAME TEST BLAH BLAH"
             Color {
-              R: 1
-              G: 1
-              B: 1
+              R: 0.0331047736
+              G: 0.603827536
+              B: 0.597202
               A: 1
             }
-            Size: 20
+            Size: 17
             Justification {
               Value: "mc:etextjustify:left"
             }
             AutoWrapText: true
             Font {
+              Id: 10954408705157073863
+            }
+            ShadowColor {
+              A: 0.755000055
+            }
+            ShadowOffset {
+              Y: 2
             }
           }
           AnchorLayout {
@@ -448,17 +463,17 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Control {
-          Width: 317
-          Height: 60
-          UIX: 127.144836
-          UIY: 40.3654175
+          Width: 330
+          Height: 70
+          UIX: 100
+          UIY: 33.1271057
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
             }
           }
           Text {
-            Label: "Just a description test blah blah balh  Just a description test blah blah balh "
+            Label: "Just a description test blah blah balh  Just a description test blah blah balh. asdfjh djfh skdfh sdhif oi hsiaf hakj hdsljf hsdfj hasdjfh "
             Color {
               R: 1
               G: 1
@@ -472,6 +487,13 @@ Assets {
             AutoWrapText: true
             ClipTextToSize: true
             Font {
+              Id: 36392559837228630
+            }
+            ShadowColor {
+              A: 1
+            }
+            ShadowOffset {
+              Y: 1
             }
           }
           AnchorLayout {
@@ -517,7 +539,7 @@ Assets {
           Width: 180
           Height: 30
           UIX: -20
-          UIY: -20
+          UIY: -17.6644669
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -525,8 +547,9 @@ Assets {
           }
           StatBar {
             Color {
-              R: 0.144105926
-              G: 0.679999948
+              R: 0.215860531
+              G: 0.603827536
+              B: 0.0331047736
               A: 1
             }
             BackgroundColor {
@@ -643,7 +666,7 @@ Assets {
           Width: 138
           Height: 33
           UIX: -23.3008614
-          UIY: -14.9919968
+          UIY: -2.92815399
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -663,6 +686,7 @@ Assets {
             }
             AutoWrapText: true
             Font {
+              Id: 36392559837228630
             }
           }
           AnchorLayout {
@@ -704,9 +728,10 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Control {
-          Width: 35
-          Height: 35
+          Width: 30
+          Height: 30
           UIX: -41.5599976
+          UIY: -2.41275024
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -767,7 +792,7 @@ Assets {
           Width: 150
           Height: 43
           UIX: -33.5654297
-          UIY: 6.8538208
+          UIY: 9
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -776,12 +801,16 @@ Assets {
           Button {
             Label: "CLAIM"
             FontColor {
+              R: 0.00750722922
+              G: 0.0210000016
+              B: 0.00115132274
               A: 1
             }
             FontSize: 15
             ButtonColor {
-              R: 0.144128487
-              G: 0.67954272
+              R: 0.215860531
+              G: 0.603827536
+              B: 0.0331047736
               A: 1
             }
             HoveredColor {
@@ -811,13 +840,19 @@ Assets {
               Value: "mc:ebuttonclickmode:default"
             }
             Font {
-              Id: 10698833128597864431
+              Id: 10954408705157073863
             }
             Justification {
               Value: "mc:etextjustify:center"
             }
             VerticalJustification {
               Value: "mc:everticaljustification:center"
+            }
+            ShadowColor {
+              A: 0.708
+            }
+            ShadowOffset {
+              Y: 2
             }
           }
           AnchorLayout {
@@ -880,6 +915,7 @@ Assets {
             }
             AutoWrapText: true
             Font {
+              Id: 36392559837228630
             }
           }
           AnchorLayout {
@@ -898,21 +934,21 @@ Assets {
       }
     }
     Assets {
-      Id: 7946634531565250888
-      Name: "BG Flat 002"
+      Id: 4504686085818425438
+      Name: "BG Flat 001"
       PlatformAssetType: 9
       PrimaryAsset {
         AssetType: "PlatformBrushAssetRef"
-        AssetId: "BackgroundNoOutline_019"
+        AssetId: "BackgroundNoOutline_020"
       }
     }
     Assets {
-      Id: 17066449609679557524
-      Name: "Frame Outline Thin 002"
+      Id: 9325337250500072279
+      Name: "Frame Outline Thin 001"
       PlatformAssetType: 9
       PrimaryAsset {
         AssetType: "PlatformBrushAssetRef"
-        AssetId: "FrameOutline_019"
+        AssetId: "FrameOutline_020"
       }
     }
     Assets {
@@ -934,21 +970,30 @@ Assets {
       }
     }
     Assets {
+      Id: 10954408705157073863
+      Name: "Roboto Bold"
+      PlatformAssetType: 28
+      PrimaryAsset {
+        AssetType: "FontAssetRef"
+        AssetId: "RobotoBold_ref"
+      }
+    }
+    Assets {
+      Id: 36392559837228630
+      Name: "Roboto"
+      PlatformAssetType: 28
+      PrimaryAsset {
+        AssetType: "FontAssetRef"
+        AssetId: "RobotoRegular_ref"
+      }
+    }
+    Assets {
       Id: 1283463588493558965
       Name: "Fantasy Gold 001"
       PlatformAssetType: 9
       PrimaryAsset {
         AssetType: "PlatformBrushAssetRef"
         AssetId: "UI_Fantasy_Equip_Gold_002"
-      }
-    }
-    Assets {
-      Id: 10698833128597864431
-      Name: "Play Bold"
-      PlatformAssetType: 28
-      PrimaryAsset {
-        AssetType: "FontAssetRef"
-        AssetId: "PlayBold_ref"
       }
     }
     PrimaryAssetId {

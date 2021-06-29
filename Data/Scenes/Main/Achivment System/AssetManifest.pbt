@@ -1,10 +1,19 @@
 Assets {
-  Id: 17586365689296088662
-  Name: "BG Gradient 001"
+  Id: 14400738210255419518
+  Name: "Sci-fi Parts 023"
   PlatformAssetType: 9
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
-    AssetId: "BackgroundFlat_020"
+    AssetId: "UI_SciFi_Equip_Parts_023"
+  }
+}
+Assets {
+  Id: 13913059803195293947
+  Name: "Survival Money 001"
+  PlatformAssetType: 9
+  PrimaryAsset {
+    AssetType: "PlatformBrushAssetRef"
+    AssetId: "UI_Survival_Equip_Money_001"
   }
 }
 Assets {
@@ -14,6 +23,15 @@ Assets {
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
     AssetId: "FrameFlat_020"
+  }
+}
+Assets {
+  Id: 12705424273405346558
+  Name: "Roboto Black"
+  PlatformAssetType: 28
+  PrimaryAsset {
+    AssetType: "FontAssetRef"
+    AssetId: "RobotoBlack_ref"
   }
 }
 Assets {
@@ -35,21 +53,30 @@ Assets {
   }
 }
 Assets {
-  Id: 10820194954338241369
-  Name: "BG Highlighted 001"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "BackgroundHighlighted_020"
-  }
-}
-Assets {
-  Id: 10698833128597864431
-  Name: "Play Bold"
+  Id: 10954408705157073863
+  Name: "Roboto Bold"
   PlatformAssetType: 28
   PrimaryAsset {
     AssetType: "FontAssetRef"
-    AssetId: "PlayBold_ref"
+    AssetId: "RobotoBold_ref"
+  }
+}
+Assets {
+  Id: 10043949526674053130
+  Name: "Frame Outlined 001"
+  PlatformAssetType: 9
+  PrimaryAsset {
+    AssetType: "PlatformBrushAssetRef"
+    AssetId: "FrameSolid4px_020"
+  }
+}
+Assets {
+  Id: 9325337250500072279
+  Name: "Frame Outline Thin 001"
+  PlatformAssetType: 9
+  PrimaryAsset {
+    AssetType: "PlatformBrushAssetRef"
+    AssetId: "FrameOutline_020"
   }
 }
 Assets {
@@ -71,6 +98,15 @@ Assets {
   }
 }
 Assets {
+  Id: 7362890836181251075
+  Name: "Roboto Italic"
+  PlatformAssetType: 28
+  PrimaryAsset {
+    AssetType: "FontAssetRef"
+    AssetId: "RobotoItalic_ref"
+  }
+}
+Assets {
   Id: 7255218789601085746
   Name: "Sci-fi Ability Blue 002"
   PlatformAssetType: 9
@@ -80,21 +116,21 @@ Assets {
   }
 }
 Assets {
-  Id: 6011013542633189156
-  Name: "Teko Light"
-  PlatformAssetType: 28
-  PrimaryAsset {
-    AssetType: "FontAssetRef"
-    AssetId: "TekoLight_ref"
-  }
-}
-Assets {
   Id: 4504686085818425438
   Name: "BG Flat 001"
   PlatformAssetType: 9
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
     AssetId: "BackgroundNoOutline_020"
+  }
+}
+Assets {
+  Id: 4187099593478357732
+  Name: "Cabin Bold"
+  PlatformAssetType: 28
+  PrimaryAsset {
+    AssetType: "FontAssetRef"
+    AssetId: "CabinBold_ref"
   }
 }
 Assets {
@@ -116,6 +152,24 @@ Assets {
   }
 }
 Assets {
+  Id: 2745638872441161920
+  Name: "Cabin Condensed"
+  PlatformAssetType: 28
+  PrimaryAsset {
+    AssetType: "FontAssetRef"
+    AssetId: "CabinCondensed_ref"
+  }
+}
+Assets {
+  Id: 2471134518140213383
+  Name: "BG Flat 016"
+  PlatformAssetType: 9
+  PrimaryAsset {
+    AssetType: "PlatformBrushAssetRef"
+    AssetId: "BackgroundNoOutline_33"
+  }
+}
+Assets {
   Id: 2437827589681022749
   Name: "Sci-fi Ability Misc 006"
   PlatformAssetType: 9
@@ -125,11 +179,29 @@ Assets {
   }
 }
 Assets {
+  Id: 1641512795081380093
+  Name: "Oswald"
+  PlatformAssetType: 28
+  PrimaryAsset {
+    AssetType: "FontAssetRef"
+    AssetId: "OswaldRegular_ref"
+  }
+}
+Assets {
   Id: 1283463588493558965
   Name: "Fantasy Gold 001"
   PlatformAssetType: 9
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
     AssetId: "UI_Fantasy_Equip_Gold_002"
+  }
+}
+Assets {
+  Id: 36392559837228630
+  Name: "Roboto"
+  PlatformAssetType: 28
+  PrimaryAsset {
+    AssetType: "FontAssetRef"
+    AssetId: "RobotoRegular_ref"
   }
 }
