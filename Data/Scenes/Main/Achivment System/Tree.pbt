@@ -6337,19 +6337,20 @@ Objects {
     }
   }
   ParentId: 12203276273885711893
+  ChildIds: 18099032217019889719
   Collidable_v2 {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
   Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
+    Value: "mc:evisibilitysetting:forceoff"
   }
   CameraCollidable {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
   Control {
-    Width: 650
-    Height: 475
-    UIY: 76.8798218
+    Width: 640
+    Height: 515
+    UIY: 50
     RenderTransformPivot {
       Anchor {
         Value: "mc:euianchor:middlecenter"
@@ -6363,14 +6364,206 @@ Objects {
     AnchorLayout {
       SelfAnchor {
         Anchor {
-          Value: "mc:euianchor:topleft"
+          Value: "mc:euianchor:topcenter"
         }
       }
       TargetAnchor {
         Anchor {
-          Value: "mc:euianchor:topleft"
+          Value: "mc:euianchor:topcenter"
         }
       }
+    }
+  }
+}
+Objects {
+  Id: 18099032217019889719
+  Name: "ACHIEVEMENT_Panel_Template"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 15122635705639078188
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  TemplateInstance {
+    ParameterOverrideMap {
+      key: 521241944743914303
+      value {
+        Overrides {
+          Name: "ShadowOffset"
+          Vector2 {
+            Y: 1
+          }
+        }
+        Overrides {
+          Name: "ShadowColor"
+          Color {
+            A: 1
+          }
+        }
+        Overrides {
+          Name: "UIX"
+          Float: -20
+        }
+        Overrides {
+          Name: "UIY"
+          Float: 0
+        }
+      }
+    }
+    ParameterOverrideMap {
+      key: 10947188256612946297
+      value {
+        Overrides {
+          Name: "UIX"
+          Float: -35
+        }
+      }
+    }
+    ParameterOverrideMap {
+      key: 12682774266491044911
+      value {
+        Overrides {
+          Name: "Width"
+          Int: 170
+        }
+        Overrides {
+          Name: "UIX"
+          Float: -20
+        }
+      }
+    }
+    ParameterOverrideMap {
+      key: 13621743958722221900
+      value {
+        Overrides {
+          Name: "Width"
+          Int: 170
+        }
+        Overrides {
+          Name: "Height"
+          Int: 20
+        }
+        Overrides {
+          Name: "UIY"
+          Float: 12
+        }
+        Overrides {
+          Name: "Anchor"
+          Enum {
+            Value: "mc:euianchor:topright"
+          }
+        }
+        Overrides {
+          Name: "Dock"
+          Enum {
+            Value: "mc:euianchor:topright"
+          }
+        }
+      }
+    }
+    ParameterOverrideMap {
+      key: 14591153556103743282
+      value {
+        Overrides {
+          Name: "Name"
+          String: "ACHIEVEMENT_Panel_Template"
+        }
+        Overrides {
+          Name: "Position"
+          Vector {
+          }
+        }
+        Overrides {
+          Name: "Rotation"
+          Rotator {
+          }
+        }
+        Overrides {
+          Name: "Scale"
+          Vector {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+      }
+    }
+    ParameterOverrideMap {
+      key: 14932133501947642849
+      value {
+        Overrides {
+          Name: "Visible"
+          Enum {
+            Value: "mc:evisibilitysetting:forceoff"
+          }
+        }
+        Overrides {
+          Name: "Font"
+          AssetReference {
+            Id: 10954408705157073863
+          }
+        }
+        Overrides {
+          Name: "OutlineSize"
+          Int: 1
+        }
+        Overrides {
+          Name: "OutlineColor"
+          Color {
+            A: 0.958000064
+          }
+        }
+        Overrides {
+          Name: "UIY"
+          Float: 13.8880978
+        }
+        Overrides {
+          Name: "Anchor"
+          Enum {
+            Value: "mc:euianchor:topcenter"
+          }
+        }
+        Overrides {
+          Name: "Dock"
+          Enum {
+            Value: "mc:euianchor:topcenter"
+          }
+        }
+      }
+    }
+    ParameterOverrideMap {
+      key: 17046162155834822212
+      value {
+        Overrides {
+          Name: "OutlineSize"
+          Int: 1
+        }
+        Overrides {
+          Name: "OutlineColor"
+          Color {
+            A: 1
+          }
+        }
+        Overrides {
+          Name: "UIY"
+          Float: -1
+        }
+      }
+    }
+    TemplateAsset {
+      Id: 9930410147520302911
     }
   }
 }
