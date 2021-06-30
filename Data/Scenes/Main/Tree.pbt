@@ -383,6 +383,10 @@ Objects {
       Bool: false
     }
     Overrides {
+      Name: "cs:HideRepeatable"
+      Bool: true
+    }
+    Overrides {
       Name: "cs:GiveRewardsRoundEnd:tooltip"
       String: "Set to true to give rewards for repeatable achievements at the end of a round"
     }

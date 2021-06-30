@@ -349,7 +349,7 @@ end
 --@params Int value
 --@return bool true if player has enough to unlock achievement
 function API.IsUnlocked(player, id, value)
-    value = value and value + 1 or API.GetCurrentProgress(player, id)
+    value = value or API.GetCurrentProgress(player, id)
     if IsValidPlayer(player) and API.GetAchievementInfo(id) and value >= API.GetAchievementRequired(id) and value ~= 1 then
         return true
     else

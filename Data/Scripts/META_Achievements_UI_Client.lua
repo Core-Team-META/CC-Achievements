@@ -63,6 +63,8 @@ local LOCAL_PLAYER = Game.GetLocalPlayer()
 
 local ACHIEVEMENT_PANEL_TEMPLATE = script:GetCustomProperty("ACHIEVEMENT_Panel_Template")
 
+local shouldHideRepeatable = ROOT:GetCustomProperty("HideRepeatable")
+
 local spamPrevent = time()
 local lastCamera = {}
 local listeners = {}
@@ -215,7 +217,7 @@ local function AddNewPanel(index, achievement, parent)
         panel:GetCustomProperty("CLAIMED_TEXT"):WaitForObject().visibility = Visibility.FORCE_ON
     end
 
-    panel.y = (index - 1) * 150
+    panel.y = (index - 1) * 155
 end
 
 -- Used to build achievement panel, of all repeatable achievements unlocked in a round
@@ -270,7 +272,9 @@ function BuildAchievmentPanels()
         if API.IsCompleted(LOCAL_PLAYER, achievement.id) then
             table.insert(completedAchievements, achievement)
         else
-            table.insert(activeAchievements, achievement)
+            if not shouldHideRepeatable or shouldHideRepeatable and not achievement.isRepeatable then
+                table.insert(activeAchievements, achievement)
+            end
         end
     end
     table.sort(activeAchievements, CompareAchievement)

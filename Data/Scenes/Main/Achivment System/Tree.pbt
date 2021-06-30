@@ -1682,7 +1682,7 @@ Objects {
     }
     Overrides {
       Name: "cs:IsRepeatable"
-      Bool: false
+      Bool: true
     }
     Overrides {
       Name: "cs:Family"
@@ -1694,6 +1694,10 @@ Objects {
     }
     Overrides {
       Name: "cs:GivesReward"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:ResetOnRoundStart"
       Bool: true
     }
   }
@@ -1714,7 +1718,7 @@ Objects {
 }
 Objects {
   Id: 6588962993211753932
-  Name: "Gold"
+  Name: "XP"
   Transform {
     Location {
     }
@@ -1844,9 +1848,8 @@ Objects {
     Overrides {
       Name: "cs:InactiveButton"
       Color {
-        R: 1
-        G: 1
-        B: 1
+        G: 0.224105909
+        B: 0.36
         A: 1
       }
     }
