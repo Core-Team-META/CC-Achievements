@@ -17,15 +17,6 @@ Assets {
   }
 }
 Assets {
-  Id: 13575128885289472533
-  Name: "Frame Outlined Thick 001"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "FrameFlat_020"
-  }
-}
-Assets {
   Id: 12705424273405346558
   Name: "Roboto Black"
   PlatformAssetType: 28
@@ -140,14 +131,5 @@ Assets {
   PrimaryAsset {
     AssetType: "FontAssetRef"
     AssetId: "OswaldRegular_ref"
-  }
-}
-Assets {
-  Id: 36392559837228630
-  Name: "Roboto"
-  PlatformAssetType: 28
-  PrimaryAsset {
-    AssetType: "FontAssetRef"
-    AssetId: "RobotoRegular_ref"
   }
 }

@@ -92,6 +92,26 @@ Objects {
       Name: "cs:OnRewardWinningTeam:tooltip"
       String: "Set to true if only the winning team should get repetable achievement rewards at the end of a round."
     }
+    Overrides {
+      Name: "cs:Enabled:tooltip"
+      String: "Enable / Disable the entire Achievement System easily"
+    }
+    Overrides {
+      Name: "cs:SaveProgress:tooltip"
+      String: "Set to true if the Achievement System should use player storage to track progress. (Make sure you have player storage enabled)"
+    }
+    Overrides {
+      Name: "cs:UseSharedKey:tooltip"
+      String: "Set this to true if you would like the Achievement System to be stored in a Shared Storage Key."
+    }
+    Overrides {
+      Name: "cs:SharedKey:tooltip"
+      String: "The Netrefrence of the Shared Key you wish to store achievement progress. (Make sure UseSharedKey is set to true)"
+    }
+    Overrides {
+      Name: "cs:HideRepeatable:tooltip"
+      String: "Use this is you\'d like to hide Repeatable Achievements from the primary Achievement UI"
+    }
   }
   Collidable_v2 {
     Value: "mc:ecollisionsetting:inheritfromparent"
