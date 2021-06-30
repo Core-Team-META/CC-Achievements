@@ -15,9 +15,9 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 ------------------------------------------------------------------------------------------------------------------------
--- Achievement API
+-- Meta Achievements API
 -- Author Morticai (META) - (https://www.coregames.com/user/d1073dbcc404405cbef8ce728e53d380)
--- Date: 2021/5/9
+-- Date: 2021/5/29
 -- Version 0.1.0-CC
 ------------------------------------------------------------------------------------------------------------------------
 local API = {}
@@ -25,6 +25,11 @@ _G.META_ACHIEVEMENTS = API
 ------------------------------------------------------------------------------------------------------------------------
 -- CONSTANTS
 ------------------------------------------------------------------------------------------------------------------------
+API.CONSTANT_KEYS = {
+    ACHIEVEMENT_ID = "METAA",
+    ACHIEVEMENT_COUNT_ID = "METAC",
+    TIME_KEY = "METAT"
+}
 
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
@@ -32,28 +37,13 @@ _G.META_ACHIEVEMENTS = API
 
 local achievements = {}
 local repeatable = {}
+local playerData = {}
+
+local dailyResetTime = (60 * 60 * 12)
 
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
-
---@params Object player
---@params String key
---@params Int value
--- Sets the progress of a achievement for a player
-local function SetProgress(player, key, value)
-    local currentProgress = player:GetPrivateNetworkedData(key)
-    if currentProgress == 1 then
-        return
-    end
-    value = value + 1
-    local required = API.GetAchievementRequired(key)
-    if value < required then
-        player:SetPrivateNetworkedData(key, value)
-    elseif value >= required then
-        player:SetPrivateNetworkedData(key, required)
-    end
-end
 
 --@params Object Player
 --@return Bool true if player
@@ -73,7 +63,10 @@ local function InfiniteLoopProtect(count)
     return count
 end
 
-local function SetProgress(player, id, value)
+--@params Object player
+--@params String id
+--@params Int value
+local function SetNetworkedData(player, id, value)
     player:SetPrivateNetworkedData(id, value)
 end
 
@@ -85,47 +78,55 @@ end
 function API.RegisterAchievements(list)
     if not next(achievements) then
         local sort = 0
-        for _, child in ipairs(list:GetChildren()) do
-            local enabled = child:GetCustomProperty("Enabled")
+        for _, achievementType in ipairs(list:GetChildren()) do
+            for _, child in ipairs(achievementType:GetChildren()) do
+                local enabled = child:GetCustomProperty("Enabled")
 
-            local id = child:GetCustomProperty("ID")
-            local required = child:GetCustomProperty("Required")
-            local givesReward = child:GetCustomProperty("GivesReward") or false
+                local id = API.GetAchievementID(child)
+                local required = child:GetCustomProperty("Required")
 
-            local achievement = {
-                id = id,
-                countId = id .. "C",
-                sort = sort,
-                name = child.name,
-                required = required + 1,
-                description = child:GetCustomProperty("Description"),
-                family = child:GetCustomProperty("Family"),
-                iconBG = child:GetCustomProperty("IconBG"),
-                icon = child:GetCustomProperty("Icon"),
-                isRepeatable = child:GetCustomProperty("IsRepeatable"),
-                givesReward = givesReward,
-                tier = child:GetCustomProperty("AchievementTier"),
-                saveCount = child:GetCustomProperty("SaveCompletedCount"),
-                preReq = child:GetCustomProperty("PreRequisite"),
-                shouldReset = child:GetCustomProperty("ResetOnRoundStart")
-            }
+                local givesReward = child:GetCustomProperty("GivesReward") or false
 
-            if givesReward then
-                local rewardsTbl = {}
-                for i, reward in ipairs(child:GetChildren()) do
-                    local rewardEnabled = reward:GetCustomProperty("Enabled")
-                    if rewardEnabled then
-                        rewardsTbl[i] = reward
+                local achievement = {
+                    id = id,
+                    countId = id .. API.CONSTANT_KEYS.ACHIEVEMENT_COUNT_ID,
+                    sort = sort,
+                    name = child.name,
+                    required = required + 1,
+                    description = child:GetCustomProperty("Description"),
+                    family = child:GetCustomProperty("Family"),
+                    iconBG = child:GetCustomProperty("IconBG"),
+                    icon = child:GetCustomProperty("Icon"),
+                    isRepeatable = child:GetCustomProperty("IsRepeatable"),
+                    givesReward = givesReward,
+                    tier = child:GetCustomProperty("AchievementTier"),
+                    saveCount = child:GetCustomProperty("SaveCompletedCount"),
+                    preReq = child:GetCustomProperty("PreRequisite"),
+                    shouldReset = child:GetCustomProperty("ResetOnRoundStart"),
+                    isDaily = child:GetCustomProperty("IsDaily")
+                }
+
+                if givesReward then
+                    local rewardsTbl = {}
+                    for i, reward in ipairs(child:GetChildren()) do
+                        local rewardEnabled = reward:GetCustomProperty("Enabled")
+                        if rewardEnabled then
+                            rewardsTbl[i] = reward
+                        end
                     end
+                    achievement.rewards = rewardsTbl
                 end
-                achievement.rewards = rewardsTbl
-            end
 
-            if enabled then
-                sort = sort + 1
-                achievements[id] = achievement
-                if achievement.isRepeatable then
-                    repeatable[id] = achievement
+                if achievements[id] then
+                    warn(achievement.name .. " ID Is Not Unique Conflicts With " .. achievements[id].name)
+                end
+
+                if enabled then
+                    sort = sort + 1
+                    achievements[id] = achievement
+                    if achievement.isRepeatable then
+                        repeatable[id] = achievement
+                    end
                 end
             end
         end
@@ -145,7 +146,7 @@ end
 --@params String id
 --@return Table achievement
 function API.GetAchievementInfo(id)
-    if not achievements then
+    if not achievements or id and not achievements[id] then
         return nil
     end
     return achievements[id]
@@ -154,8 +155,8 @@ end
 --@params String id
 --@return String achievement name
 function API.GetAchievementName(id)
-    if not achievements then
-        warn("Achievement Name Doesn't Exsist")
+    if not achievements or id and not achievements[id] then
+        warn("Achievement Doesn't Exsist of ID: " .. id)
         return nil
     end
     if not id or id == 0 then
@@ -167,8 +168,8 @@ end
 --@params String id
 --@return String achievement name
 function API.GetAchievementRequired(id)
-    if not achievements then
-        warn("Achievement Requirements Don't Exsist id: " .. id)
+    if not achievements or id and not achievements[id] then
+        warn("Achievement Doesn't Exsist of ID: " .. id)
         return nil
     end
     return achievements[id].required
@@ -177,8 +178,8 @@ end
 --@params String id
 --@return String achievement description
 function API.GetAchievementDescription(id)
-    if not achievements then
-        warn("Achievement Description Doesn't Exsist for id: " .. id)
+    if not achievements or id and not achievements[id] then
+        warn("Achievement Doesn't Exsist of ID: " .. id)
         return nil
     end
     return achievements[id].description
@@ -187,8 +188,8 @@ end
 --@params String id
 --@return String achievement icon MUID
 function API.GetAchievementIcon(id)
-    if not achievements then
-        warn("Achievement Icon Doesn't Exsist id: " .. id)
+    if not achievements or id and not achievements[id] then
+        warn("Achievement Doesn't Exsist of ID: " .. id)
         return nil
     end
     return achievements[id].icon
@@ -197,8 +198,8 @@ end
 --@params String id
 --@return String achievement background icon MUID
 function API.GetAchievementIconBG(id)
-    if not achievements then
-        warn("Achievement IconBG Doesn't Exsist id: " .. id)
+    if not achievements or id and not achievements[id] then
+        warn("Achievement Doesn't Exsist of ID: " .. id)
         return nil
     end
     return achievements[id].iconBG
@@ -207,11 +208,19 @@ end
 --@params String id
 --@return String reward icon MUID
 function API.GetRewardIcon(id)
-    if not achievements then
-        warn("Achievement Reward Icon Doesn't Exsist")
+    if not achievements or id and not achievements[id] then
+        warn("Achievement Doesn't Exsist of ID: " .. id)
         return nil
     end
     return achievements[id].rewardIcon
+end
+
+function API.GetRewards(id)
+    if not achievements or id and not achievements[id] then
+        warn("Achievement Doesn't Exsist of ID: " .. id)
+        return {}
+    end
+    return achievements[id].rewards
 end
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -221,7 +230,7 @@ end
 --@params String id
 --@return Bool true if has rewards
 function API.HasRewards(id)
-    return achievements[id].givesReward and next(achievements[id].rewards)
+    return achievements[id].givesReward and achievements[id].rewards and next(achievements[id].rewards)
 end
 
 --@params Object player
@@ -288,13 +297,13 @@ end
 --@params Object player
 --@params String id
 function API.SetClaimed(player, id)
-    SetProgress(player, id, 1)
+    SetNetworkedData(player, id, 1)
 end
 
 --@params Object player
 --@params String id
 function API.ResetAchievement(player, id)
-    SetProgress(player, id, 0)
+    SetNetworkedData(player, id, 0)
 end
 
 --@params Object player
@@ -347,6 +356,7 @@ function API.CheckUnlockedAchievements(player)
     local familyTbl = {}
     local tempTbl = {}
     local count = 0
+
     --Loop through unlocked achievements and filter out achievements with a family
     for id, achievement in pairs(unlockedTbl) do
         if achievement.family ~= "" then
@@ -381,10 +391,30 @@ end
 function API.UnlockAchievement(player, id)
     local achievement = API.GetAchievementInfo(id)
     if IsValidPlayer(player) and achievement and API.HasPreRequsistCompleted(player, id) then
-        SetProgress(player, id, API.GetAchievementRequired(id))
+        API.SetProgress(player, id, API.GetAchievementRequired(id))
         if achievement.isRepeatable and achievement.saveCount then
             API.AddCompletedCount(player, achievement)
         end
+    end
+end
+
+--@params Object player
+--@params String key
+--@params Int value
+-- Sets the progress of a achievement for a player
+function API.SetProgress(player, key, value)
+    local currentProgress = player:GetPrivateNetworkedData(key)
+
+    if currentProgress == 1 then
+        return
+    end
+
+    value = value + 1
+    local required = API.GetAchievementRequired(key)
+    if value < required then
+        SetNetworkedData(player, key, value)
+    elseif value >= required then
+        SetNetworkedData(player, key, required)
     end
 end
 
@@ -405,12 +435,13 @@ function API.AddProgress(player, id, value)
         end
 
         local required = API.GetAchievementRequired(id)
+
         if currentProgress == 0 then
-            SetProgress(player, id, value + 1)
+            SetNetworkedData(player, id, value + 1)
         elseif currentProgress + value < required then
-            SetProgress(player, id, currentProgress + value)
+            SetNetworkedData(player, id, currentProgress + value)
         elseif currentProgress + value >= required then
-            SetProgress(player, id, required)
+            SetNetworkedData(player, id, required)
         end
     end
 end
@@ -419,17 +450,19 @@ end
 --@params Table achievement
 function API.AddCompletedCount(player, achievement)
     local currentProgress = API.GetCurrentProgress(player, achievement.countId)
+
     if API.IsUnlocked(player, achievement.id) then
-        SetProgress(player, achievement.countId, currentProgress + 1)
+        SetNetworkedData(player, achievement.countId, currentProgress + 1)
     end
 end
 
 --@params Object player
 function API.ResetRepeatable(player)
     local count = 0
+
     for id, achievement in pairs(API.GetAchievements()) do
         if achievement.isRepeatable then
-            SetProgress(player, id, 0)
+            SetNetworkedData(player, id, 0)
         end
         count = InfiniteLoopProtect(count)
     end
@@ -440,32 +473,47 @@ end
 --@params Netrefrence sharedKeyNetRef
 function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     local data = {}
+
     if useSharedKey then
         data = Storage.GetSharedPlayerData(sharedKeyNetRef, player)
     else
         data = Storage.GetPlayerData(player)
     end
+
+    --Daily Achievement Time Reset
+    local shouldReset = false
+    if
+        data.META_ACH and data.META_ACH[API.CONSTANT_KEYS.TIME_KEY] and
+            data.META_ACH[API.CONSTANT_KEYS.TIME_KEY] < os.time(os.date("!*t")) or
+            data.META_ACH
+     then
+        playerData[player.id].resetTime = os.time(os.date("!*t")) + dailyResetTime
+        shouldReset = true
+    end
+
     if data.META_ACH then
         local achievementData = data.META_ACH
         for key, value in pairs(achievementData) do
-            SetProgress(player, key, value)
+            SetNetworkedData(player, key, value)
         end
         for _, achievement in pairs(achievements) do
             if achievement.id and not API.GetCurrentProgress(player, achievement.id) then
-                SetProgress(player, achievement.id, 0)
+                SetNetworkedData(player, achievement.id, 0)
+            elseif achievement.id and shouldReset and achievement.isDaily and API.IsCompleted(player, achievement.id) then
+                SetNetworkedData(player, achievement.id, 0)
             elseif
                 achievement.isRepeatable and achievement.saveCount and achievement.countId and
                     not API.GetCurrentProgress(player, achievement.id)
              then
-                SetProgress(player, achievement.countId, 0)
+                SetNetworkedData(player, achievement.countId, 0)
             end
         end
     else
         for _, achievement in pairs(achievements) do
             if achievement.id then
-                SetProgress(player, achievement.id, 0)
+                SetNetworkedData(player, achievement.id, 0)
             elseif achievement.isRepeatable and achievement.saveCount and achievement.countId then
-                SetProgress(player, achievement.countId, 0)
+                SetNetworkedData(player, achievement.countId, 0)
             end
         end
     end
@@ -474,12 +522,15 @@ end
 --@params object player
 function API.SaveAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     local data = {}
+
     if useSharedKey then
         data = Storage.GetSharedPlayerData(sharedKeyNetRef, player)
     else
         data = Storage.GetPlayerData(player)
     end
+
     local tempTbl = {}
+
     for id, achievement in pairs(API.GetAchievements()) do
         if not achievement.isRepeatable and not achievement.saveCount then
             tempTbl[id] = API.GetCurrentProgress(player, achievement.id)
@@ -487,12 +538,26 @@ function API.SaveAchievementStorage(player, useSharedKey, sharedKeyNetRef)
             tempTbl[achievement.countId] = API.GetCurrentProgress(player, achievement.countId)
         end
     end
+
+    tempTbl[API.CONSTANT_KEYS.TIME_KEY] = playerData[player.id].resetTime
+
     data.META_ACH = tempTbl
+
     if useSharedKey then
         Storage.SetSharedPlayerData(sharedKeyNetRef, player, data)
     else
         Storage.SetPlayerData(player, data)
     end
+end
+
+--@params Object player
+function API.OnPlayerJoined(player)
+    playerData[player.id] = {}
+end
+
+--@params Object player
+function API.OnPlayerLeft(player)
+    playerData[player.id] = nil
 end
 
 --@params Int number
@@ -511,6 +576,15 @@ end
 function API.GetProgressText(currentResource, requiredResource)
     return tostring(API.FormatInt((currentResource == 0 and 0) or (currentResource > 0 and currentResource - 1))) ..
         " / " .. tostring(API.FormatInt(CoreMath.Round(requiredResource - 1, 0)))
+end
+
+--@params Object object
+--@return String Achievement ID with Namespace
+function API.GetAchievementID(object)
+    local id = object:GetCustomProperty("ID")
+    if id then
+        return id .. API.CONSTANT_KEYS.ACHIEVEMENT_ID
+    end
 end
 
 return API

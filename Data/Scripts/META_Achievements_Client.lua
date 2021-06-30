@@ -15,9 +15,9 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 ------------------------------------------------------------------------------------------------------------------------
--- Achievement System Client
+-- Meta Achievements Client
 -- Author Morticai (META) - (https://www.coregames.com/user/d1073dbcc404405cbef8ce728e53d380)
--- Date: 2021/5/9
+-- Date: 2021/5/29
 -- Version 0.1.0-CC
 ------------------------------------------------------------------------------------------------------------------------
 local ROOT = script:GetCustomProperty("AchievementSystem"):WaitForObject()
@@ -53,6 +53,8 @@ local achievementQueue = {}
 local achievementIds = {}
 local listeners = {}
 local scriptListeners = {}
+
+local friendsOnline = 0
 
 NOTIFICATION.visibility = Visibility.FORCE_OFF
 ------------------------------------------------------------------------------------------------------------------------
@@ -133,6 +135,21 @@ function OnResourceChanged(player, resName)
     end
 end
 
+--@params Object player
+function OnPlayerJoined(player)
+    if CoreSocial.IsFriendsWithLocalPlayer(player) then
+        friendsOnline = friendsOnline + 1
+        Events.BroadcastToServer("AS.FriendOnline", friendsOnline)
+    end
+end
+
+--@params Object player
+function OnPlayerLeft(player)
+    if CoreSocial.IsFriendsWithLocalPlayer(player) then
+        friendsOnline = friendsOnline - 1
+    end
+end
+
 function Tick()
     if shouldShow and #achievementQueue > 0 then
         for _, id in ipairs(achievementQueue) do
@@ -146,3 +163,5 @@ end
 -- INITIALIZATION
 ------------------------------------------------------------------------------------------------------------------------
 Init()
+Game.playerJoinedEvent:Connect(OnPlayerJoined)
+Game.playerLeftEvent:Connect(OnPlayerLeft)

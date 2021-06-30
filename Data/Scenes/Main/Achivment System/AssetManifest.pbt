@@ -35,15 +35,6 @@ Assets {
   }
 }
 Assets {
-  Id: 12646299857235602397
-  Name: "Coin"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Fantasy_Icon_Coin"
-  }
-}
-Assets {
   Id: 12143753135822676382
   Name: "Sci-fi Ability Red 034"
   PlatformAssetType: 9
@@ -125,6 +116,15 @@ Assets {
   }
 }
 Assets {
+  Id: 4426746368885012124
+  Name: "Survival Binoculars 001"
+  PlatformAssetType: 9
+  PrimaryAsset {
+    AssetType: "PlatformBrushAssetRef"
+    AssetId: "UI_Survival_Equip_Binoculars_001"
+  }
+}
+Assets {
   Id: 4187099593478357732
   Name: "Cabin Bold"
   PlatformAssetType: 28
@@ -194,6 +194,15 @@ Assets {
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
     AssetId: "UI_Fantasy_Equip_Gold_002"
+  }
+}
+Assets {
+  Id: 1100564518078940420
+  Name: "Military Ability Healing 001"
+  PlatformAssetType: 9
+  PrimaryAsset {
+    AssetType: "PlatformBrushAssetRef"
+    AssetId: "Icon_Military_Ability_Green_003"
   }
 }
 Assets {

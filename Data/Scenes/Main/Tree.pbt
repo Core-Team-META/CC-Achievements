@@ -23,6 +23,7 @@ Objects {
   ChildIds: 15721658923682352833
   ChildIds: 5045153958130871664
   ChildIds: 4971569551433963456
+  ChildIds: 206534362267524491
   UnregisteredParameters {
   }
   Collidable_v2 {
@@ -35,6 +36,51 @@ Objects {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
   Folder {
+  }
+}
+Objects {
+  Id: 206534362267524491
+  Name: "Main Street Exterior Stairs - Side Template"
+  Transform {
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 4781671109827199097
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  TemplateInstance {
+    ParameterOverrideMap {
+      key: 17252557063804443016
+      value {
+        Overrides {
+          Name: "Name"
+          String: "Main Street Exterior Stairs - Side Template"
+        }
+        Overrides {
+          Name: "Position"
+          Vector {
+            X: 1852
+            Y: -1349
+          }
+        }
+        Overrides {
+          Name: "Rotation"
+          Rotator {
+            Yaw: 90
+          }
+        }
+      }
+    }
+    TemplateAsset {
+      Id: 10848361812431759938
+    }
   }
 }
 Objects {

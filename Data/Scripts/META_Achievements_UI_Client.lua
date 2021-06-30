@@ -15,9 +15,9 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 ------------------------------------------------------------------------------------------------------------------------
--- Achievement System UI
+-- Meta Achievements UI Client
 -- Author Morticai (META) - (https://www.coregames.com/user/d1073dbcc404405cbef8ce728e53d380)
--- Date: 2021/5/9
+-- Date: 2021/5/29
 -- Version 0.1.0-CC
 ------------------------------------------------------------------------------------------------------------------------
 local ROOT = script:GetCustomProperty("AchievementSystem"):WaitForObject()

@@ -1,6 +1,6 @@
 Assets {
   Id: 8563684984866158969
-  Name: "ACHIEVEMENT_Data_RESOURCE_REWARD_Example"
+  Name: "META_Achievements_ResourceReward_Data"
   PlatformAssetType: 3
   TextAsset {
     CustomParameters {

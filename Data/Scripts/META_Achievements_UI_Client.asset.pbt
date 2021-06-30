@@ -1,6 +1,6 @@
 Assets {
   Id: 18150383576270310824
-  Name: "ACHIEVEMENT_UI_Client"
+  Name: "META_Achievements_UI_Client"
   PlatformAssetType: 3
   TextAsset {
     CustomParameters {

@@ -1,6 +1,6 @@
 Assets {
-  Id: 15718075383189814537
-  Name: "ACHIEVEMENT_C"
+  Id: 10176602259573205050
+  Name: "META_Achievements_Client"
   PlatformAssetType: 3
   TextAsset {
   }

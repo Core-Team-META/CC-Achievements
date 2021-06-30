@@ -1,6 +1,6 @@
 Assets {
   Id: 9244640314906994747
-  Name: "Achievement_Test"
+  Name: "META_Achievements_Test"
   PlatformAssetType: 3
   TextAsset {
     CustomParameters {
