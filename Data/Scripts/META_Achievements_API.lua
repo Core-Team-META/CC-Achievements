@@ -46,6 +46,11 @@ API.REPEAT_TYPE = {
     DAILY = 2
 }
 
+API.REWARD_TYPES = {
+    RESOURCE = 1,
+    REWARD_POINTS = 2
+}
+
 API.DAILY_RESET_TIME = (60 * 60 * 12) -- Daily achievements reset every 12 hours
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -279,11 +284,19 @@ function API.GiveRewards(player, id)
         if API.IsUnlocked(player, id) and API.HasRewards(id) then
             -- Check to see if player unlocked achievement
             for _, reward in ipairs(achievements[id].rewards) do
-                local resourceName = reward:GetCustomProperty("ResourceName")
-                local rewardAmount = reward:GetCustomProperty("Amount")
-
-                if resourceName and rewardAmount then
-                    player:AddResource(resourceName, rewardAmount)
+                local rewardType = reward:GetCustomProperty("Type")
+                if rewardType == API.REWARD_TYPES.RESOURCE then
+                    local resourceName = reward:GetCustomProperty("ResourceName")
+                    local rewardAmount = reward:GetCustomProperty("Amount")
+                    if resourceName and rewardAmount then
+                        player:AddResource(resourceName, CoreMath.Round(rewardAmount))
+                    end
+                elseif rewardType == API.REWARD_TYPES.REWARD_POINTS then
+                    local activityName = reward:GetCustomProperty("ActivityName")
+                    local rewardAmount = reward:GetCustomProperty("Amount")
+                    if activityName and rewardAmount and player.GrantRewardPoints then
+                        player:GrantRewardPoints(CoreMath.Round(rewardAmount), activityName)
+                    end
                 end
             end
             API.SetClaimed(player, id)

@@ -1,6 +1,6 @@
 Assets {
   Id: 8563684984866158969
-  Name: "META_Achievements_ResourceReward_Data"
+  Name: "META_Achievements_Resource_Reward"
   PlatformAssetType: 3
   TextAsset {
     CustomParameters {
@@ -9,8 +9,10 @@ Assets {
         Bool: false
       }
       Overrides {
-        Name: "cs:RewardDescription"
-        String: ""
+        Name: "cs:Icon"
+        AssetReference {
+          Id: 1283463588493558965
+        }
       }
       Overrides {
         Name: "cs:Amount"
@@ -21,10 +23,16 @@ Assets {
         String: ""
       }
       Overrides {
-        Name: "cs:Icon"
-        AssetReference {
-          Id: 1283463588493558965
-        }
+        Name: "cs:RewardDescription"
+        String: ""
+      }
+      Overrides {
+        Name: "cs:Type"
+        Int: 1
+      }
+      Overrides {
+        Name: "cs:Type:tooltip"
+        String: "Don\'t Change --  Leave as 1"
       }
     }
     Assets {

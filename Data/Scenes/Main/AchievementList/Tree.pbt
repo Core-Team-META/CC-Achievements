@@ -216,6 +216,7 @@ Objects {
   }
   ParentId: 7419535860803553179
   ChildIds: 9950150083507955664
+  ChildIds: 1723601552891941222
   UnregisteredParameters {
     Overrides {
       Name: "cs:Enabled"
@@ -289,6 +290,59 @@ Objects {
   Script {
     ScriptAsset {
       Id: 16794930379744816061
+    }
+  }
+}
+Objects {
+  Id: 1723601552891941222
+  Name: "RP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 5147207736104633905
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:ActivityName"
+      String: "Explore"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 15
+    }
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 13665796067699909329
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 15928942484550257200
     }
   }
 }
