@@ -107,6 +107,15 @@ Assets {
   }
 }
 Assets {
+  Id: 4722053012440403280
+  Name: "Survival Badge 001"
+  PlatformAssetType: 9
+  PrimaryAsset {
+    AssetType: "PlatformBrushAssetRef"
+    AssetId: "UI_Survival_Equip_Badge_001"
+  }
+}
+Assets {
   Id: 4504686085818425438
   Name: "BG Flat 001"
   PlatformAssetType: 9
@@ -167,6 +176,15 @@ Assets {
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
     AssetId: "BackgroundNoOutline_33"
+  }
+}
+Assets {
+  Id: 2455975641699973488
+  Name: "Fantasy Book 004"
+  PlatformAssetType: 9
+  PrimaryAsset {
+    AssetType: "PlatformBrushAssetRef"
+    AssetId: "UI_Fantasy_Equip_Book_004"
   }
 }
 Assets {

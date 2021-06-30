@@ -139,7 +139,7 @@ end
 function OnPlayerJoined(player)
     if CoreSocial.IsFriendsWithLocalPlayer(player) then
         friendsOnline = friendsOnline + 1
-        Events.BroadcastToServer("AS.FriendOnline", friendsOnline)
+        API.BroadcastFriendsOnline(friendsOnline)
     end
 end
 

@@ -54,8 +54,9 @@ end
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
 
---@params Int team
-local function OnBeginOverlap(trigger, other)
+--@params Object trigger
+--@params Object other
+local function OnTrigger(trigger, other)
     if trigger == TRIGGER and Object.IsValid(other) and other:IsA("Player") then
         API.UnlockAchievement(other, ACHIEVEMENT_ID)
     end
@@ -66,8 +67,11 @@ end
 ------------------------------------------------------------------------------------------------------------------------
 
 function Init()
-    -- handler params: Trigger_trigger, Object_other
-    TRIGGER.beginOverlapEvent:Connect(OnBeginOverlap)
+    if TRIGGER.isInteractable then
+        TRIGGER.interactedEvent:Connect(OnTrigger)
+    else
+        TRIGGER.beginOverlapEvent:Connect(OnTrigger)
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------

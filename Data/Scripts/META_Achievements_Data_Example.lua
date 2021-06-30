@@ -33,12 +33,17 @@ local ROOT = script.parent
 -- CUSTOM PROPERTIES
 ------------------------------------------------------------------------------------------------------------------------
 local isEnabled = script:GetCustomProperty("Enabled")
+
 local ACHIEVEMENT_ID = API.GetAchievementID(script)
+local IS_TIME_BASED = script:GetCustomProperty("isTimeBased")
+local SECONDS_TO_COMPLETE = script:GetCustomProperty("CompleteInSeconds")
+
 local RESOURCE_NAME = script:GetCustomProperty("ResourceName")
 
 --Types: RESOURCE, KILL, DAMAGE, WIN, ROUND, SCORE
 local ACHIEVEMENT_TYPE = ROOT.name
 
+local roundStartTime = time()
 ------------------------------------------------------------------------------------------------------------------------
 -- ERROR HANDLING
 ------------------------------------------------------------------------------------------------------------------------
@@ -56,7 +61,7 @@ if not ACHIEVEMENT_TYPE then
     return
 end
 
-if ACHIEVEMENT_TYPE == "RESOURCE" and not RESOURCE_NAME then
+if ACHIEVEMENT_TYPE == API.ACHIEVEMENT_TYPES.RESOURCE and not RESOURCE_NAME then
     warn(ACHIEVEMENT_ID .. " type is RESOURCE but ResourceName is missing.")
     return
 end
@@ -65,85 +70,105 @@ end
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
 
---@params Object player
---@params String resName
---@params Int resAmt
-local function OnResourceChanged(player, resName, resAmt)
-    if string.lower(resName) == string.lower(RESOURCE_NAME) then
-        API.AddProgress(player, ACHIEVEMENT_ID, resAmt)
+local function IsValidTime()
+    if IS_TIME_BASED then
+        if roundStartTime + SECONDS_TO_COMPLETE > time() then
+            return true
+        else
+            return false
+        end
+    else
+        return true
     end
 end
 
---@params Object player
---@params Object damage
-local function OnPlayerDied(player, damage)
-    local source = damage.sourcePlayer
-    player.serverUserData.ACH_killCredited = true
-    API.AddProgress(source, ACHIEVEMENT_ID, 1)
-end
+--#TODO A bit sloppy, but will save memory
 
---@params Object player
---@params Object damage
-local function OnPlayerDamaged(player, damage)
-    local amount = damage.amount
-    local source = damage.sourcePlayer
-    API.AddProgress(source, ACHIEVEMENT_ID, CoreMath.Round(amount))
-end
-
---@params Object player
---@params Object damage
-local function OnPlayerHealed(player, damage)
-    local amount = damage.amount
-    if amount > 0 then
-        return
-    end
-    local source = damage.sourcePlayer
-    API.AddProgress(source, ACHIEVEMENT_ID, CoreMath.Round(amount * -1))
-end
-
---@params Table playersWon | key Object player | value Bool true if won
---@params Object damage
-local function OnRoundEnd(playersWon)
-    for player, didWin in pairs(playersWon) do
-        if ACHIEVEMENT_TYPE == "WIN" and didWin and Object.IsValid(player) then
-            API.AddProgress(player, ACHIEVEMENT_ID, 1)
-        elseif ACHIEVEMENT_TYPE == "ROUND" and Object.IsValid(player) then
-            API.AddProgress(player, ACHIEVEMENT_ID, 1)
+if ACHIEVEMENT_TYPE == API.ACHIEVEMENT_TYPES.RESOURCE and RESOURCE_NAME then
+    --@params Object player
+    --@params String resName
+    --@params Int resAmt
+    local function OnResourceChanged(player, resName, resAmt)
+        if not IsValidTime() then return end
+        if string.lower(resName) == string.lower(RESOURCE_NAME) then
+            if API.IsUnlocked(player, ACHIEVEMENT_ID, resAmt + 1) then
+                API.UnlockAchievement(player, ACHIEVEMENT_ID)
+            end
         end
     end
-end
 
---@params Int team
-local function OnTeamScore(team)
-    for _, player in ipairs(Game.GetPlayers()) do
-        if player.team == team then
-            API.AddProgress(player, ACHIEVEMENT_ID, 1)
+    API.ConnectResource(OnResourceChanged)
+elseif ACHIEVEMENT_TYPE == API.ACHIEVEMENT_TYPES.KILL then
+    --@params Object player
+    --@params Object damage
+    local function OnPlayerDied(player, damage)
+        if not IsValidTime() then return end
+        local source = damage.sourcePlayer
+        player.serverUserData.ACH_killCredited = true
+        API.AddProgress(source, ACHIEVEMENT_ID, 1)
+    end
+
+    API.ConnectDiedEvent(OnPlayerDied)
+elseif ACHIEVEMENT_TYPE == API.ACHIEVEMENT_TYPES.DAMAGE then
+    --@params Object player
+    --@params Object damage
+    local function OnPlayerDamaged(player, damage)
+        if not IsValidTime() then return end
+        local amount = damage.amount
+        local source = damage.sourcePlayer
+        API.AddProgress(source, ACHIEVEMENT_ID, CoreMath.Round(amount))
+    end
+
+    API.ConnectDamageEvent(OnPlayerDamaged)
+elseif ACHIEVEMENT_TYPE == API.ACHIEVEMENT_TYPES.HEALING then
+    --@params Object player
+    --@params Object damage
+    local function OnPlayerHealed(player, damage)
+        if not IsValidTime() then return end
+        local amount = damage.amount
+        if amount > 0 then
+            return
+        end
+        local source = damage.sourcePlayer
+        API.AddProgress(source, ACHIEVEMENT_ID, CoreMath.Round(amount * -1))
+    end
+
+    API.ConnectDamageEvent(OnPlayerHealed)
+elseif ACHIEVEMENT_TYPE == API.ACHIEVEMENT_TYPES.WIN or ACHIEVEMENT_TYPE == API.ACHIEVEMENT_TYPES.ROUND then
+    --@params Table playersWon | key Object player | value Bool true if won
+    --@params Object damage
+    local function OnRoundEnd(playersWon)
+        if not IsValidTime() then return end
+        for player, didWin in pairs(playersWon) do
+            if ACHIEVEMENT_TYPE == API.ACHIEVEMENT_TYPES.WIN and didWin and Object.IsValid(player) then
+                API.AddProgress(player, ACHIEVEMENT_ID, 1)
+            elseif ACHIEVEMENT_TYPE == API.ACHIEVEMENT_TYPES.ROUND and Object.IsValid(player) then
+                API.AddProgress(player, ACHIEVEMENT_ID, 1)
+            end
         end
     end
-end
 
-------------------------------------------------------------------------------------------------------------------------
--- GLOBAL FUNCTIONS
-------------------------------------------------------------------------------------------------------------------------
-
-function Init()
-    if ACHIEVEMENT_TYPE == "RESOURCE" and RESOURCE_NAME then
-        Events.Connect("AS.ResChange", OnResourceChanged)
-    elseif ACHIEVEMENT_TYPE == "KILL" then
-        Events.Connect("AS.DiedEvent", OnPlayerDied)
-    elseif ACHIEVEMENT_TYPE == "DAMAGE" then
-        Events.Connect("AS.DamageEvent", OnPlayerDamaged)
-    elseif ACHIEVEMENT_TYPE == "HEALING" then
-        Events.Connect("AS.DamageEvent", OnPlayerHealed)
-    elseif ACHIEVEMENT_TYPE == "WIN" or ACHIEVEMENT_TYPE == "ROUND" then
-        Events.Connect("AS.RoundEndEvent", OnRoundEnd)
-    elseif ACHIEVEMENT_TYPE == "SCORE" then
-        Events.Connect("AS.TeamScoreEvent", OnTeamScore)
+    API.ConnectRoundEnd(OnRoundEnd)
+elseif ACHIEVEMENT_TYPE == API.ACHIEVEMENT_TYPES.SCORE then
+    --@params Int team
+    local function OnTeamScore(team)
+        if not IsValidTime() then return end
+        for _, player in ipairs(Game.GetPlayers()) do
+            if player.team == team then
+                API.AddProgress(player, ACHIEVEMENT_ID, 1)
+            end
+        end
     end
+
+    API.ConnectTeamScored(OnTeamScore)
 end
 
-------------------------------------------------------------------------------------------------------------------------
--- INITIALIZATION
-------------------------------------------------------------------------------------------------------------------------
+if IS_TIME_BASED then
+    Game.roundStartEvent:Connect(
+        function()
+            roundStartTime = time()
+        end
+    )
+end
 
-Init()
+

@@ -79,7 +79,7 @@ function Init()
     if CHAT_BASED then
         Chat.receiveMessageHook:Connect(OnReceiveMessage)
     else
-        Events.ConnectForPlayer("AS.FriendOnline", FriendsOnline)
+        API.ConnectFriendsOnline(FriendsOnline)
     end
 end
 

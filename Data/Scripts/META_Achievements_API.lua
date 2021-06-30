@@ -31,6 +31,23 @@ API.CONSTANT_KEYS = {
     TIME_KEY = "METAT"
 }
 
+API.ACHIEVEMENT_TYPES = {
+    RESOURCE = "RESOURCE",
+    KILL = "KILL",
+    DAMAGE = "DAMAGE",
+    HEALING = "HEALING",
+    WIN = "WIN",
+    ROUND = "ROUND",
+    SCORE = "SCORE"
+}
+
+API.REPEAT_TYPE = {
+    ROUND = 1,
+    DAILY = 2
+}
+
+API.DAILY_RESET_TIME = (60 * 60 * 12) -- Daily achievements reset every 12 hours
+
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 ------------------------------------------------------------------------------------------------------------------------
@@ -38,8 +55,6 @@ API.CONSTANT_KEYS = {
 local achievements = {}
 local repeatable = {}
 local playerData = {}
-
-local dailyResetTime = (60 * 60 * 12)
 
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -63,18 +78,25 @@ local function InfiniteLoopProtect(count)
     return count
 end
 
+--#TODO Broke this out, to allow creators multiple type of data transfers in future
 --@params Object player
 --@params String id
 --@params Int value
-local function SetNetworkedData(player, id, value)
+local function SetAchievementData(player, id, value)
     player:SetPrivateNetworkedData(id, value)
+end
+
+--@params String id
+local function WarnMissingAchievement(id)
+    warn("Achievement Doesn't Exsist of ID: " .. id)
 end
 
 ------------------------------------------------------------------------------------------------------------------------
 -- PUBLIC API
 ------------------------------------------------------------------------------------------------------------------------
 
---@params table list
+-- Pass the parent Achievement list from heirarchy and build the Achievements table
+--@params Oject list
 function API.RegisterAchievements(list)
     if not next(achievements) then
         local sort = 0
@@ -103,7 +125,9 @@ function API.RegisterAchievements(list)
                     saveCount = child:GetCustomProperty("SaveCompletedCount"),
                     preReq = child:GetCustomProperty("PreRequisite"),
                     shouldReset = child:GetCustomProperty("ResetOnRoundStart"),
-                    isDaily = child:GetCustomProperty("IsDaily")
+                    isDaily = child:GetCustomProperty("ResetDaily"),
+                    isOnComplete = child:GetCustomProperty("ResetOnlyOnComplete"),
+                    isTimeBased = child:GetCustomProperty("IsTimeBased")
                 }
 
                 if givesReward then
@@ -147,6 +171,7 @@ end
 --@return Table achievement
 function API.GetAchievementInfo(id)
     if not achievements or id and not achievements[id] then
+        WarnMissingAchievement(id)
         return nil
     end
     return achievements[id]
@@ -156,11 +181,8 @@ end
 --@return String achievement name
 function API.GetAchievementName(id)
     if not achievements or id and not achievements[id] then
-        warn("Achievement Doesn't Exsist of ID: " .. id)
+        WarnMissingAchievement(id)
         return nil
-    end
-    if not id or id == 0 then
-        return ""
     end
     return achievements[id].name
 end
@@ -169,7 +191,7 @@ end
 --@return String achievement name
 function API.GetAchievementRequired(id)
     if not achievements or id and not achievements[id] then
-        warn("Achievement Doesn't Exsist of ID: " .. id)
+        WarnMissingAchievement(id)
         return nil
     end
     return achievements[id].required
@@ -179,7 +201,7 @@ end
 --@return String achievement description
 function API.GetAchievementDescription(id)
     if not achievements or id and not achievements[id] then
-        warn("Achievement Doesn't Exsist of ID: " .. id)
+        WarnMissingAchievement(id)
         return nil
     end
     return achievements[id].description
@@ -189,7 +211,7 @@ end
 --@return String achievement icon MUID
 function API.GetAchievementIcon(id)
     if not achievements or id and not achievements[id] then
-        warn("Achievement Doesn't Exsist of ID: " .. id)
+        WarnMissingAchievement(id)
         return nil
     end
     return achievements[id].icon
@@ -199,7 +221,7 @@ end
 --@return String achievement background icon MUID
 function API.GetAchievementIconBG(id)
     if not achievements or id and not achievements[id] then
-        warn("Achievement Doesn't Exsist of ID: " .. id)
+        WarnMissingAchievement(id)
         return nil
     end
     return achievements[id].iconBG
@@ -209,7 +231,7 @@ end
 --@return String reward icon MUID
 function API.GetRewardIcon(id)
     if not achievements or id and not achievements[id] then
-        warn("Achievement Doesn't Exsist of ID: " .. id)
+        WarnMissingAchievement(id)
         return nil
     end
     return achievements[id].rewardIcon
@@ -217,7 +239,7 @@ end
 
 function API.GetRewards(id)
     if not achievements or id and not achievements[id] then
-        warn("Achievement Doesn't Exsist of ID: " .. id)
+        WarnMissingAchievement(id)
         return {}
     end
     return achievements[id].rewards
@@ -251,7 +273,7 @@ function API.HasPreRequsistCompleted(player, id)
     end
 end
 
--- Give rewards to a player for a certain achievement
+-- Give rewards to a player if an achievement is unlocked
 --@params Object player
 --@params String id
 function API.GiveRewards(player, id)
@@ -297,13 +319,13 @@ end
 --@params Object player
 --@params String id
 function API.SetClaimed(player, id)
-    SetNetworkedData(player, id, 1)
+    SetAchievementData(player, id, 1)
 end
 
 --@params Object player
 --@params String id
 function API.ResetAchievement(player, id)
-    SetNetworkedData(player, id, 0)
+    SetAchievementData(player, id, 0)
 end
 
 --@params Object player
@@ -327,7 +349,7 @@ end
 --@params Int value
 --@return bool true if player has enough to unlock achievement
 function API.IsUnlocked(player, id, value)
-    value = value or API.GetCurrentProgress(player, id)
+    value = value and value + 1 or API.GetCurrentProgress(player, id)
     if IsValidPlayer(player) and API.GetAchievementInfo(id) and value >= API.GetAchievementRequired(id) and value ~= 1 then
         return true
     else
@@ -412,9 +434,9 @@ function API.SetProgress(player, key, value)
     value = value + 1
     local required = API.GetAchievementRequired(key)
     if value < required then
-        SetNetworkedData(player, key, value)
+        SetAchievementData(player, key, value)
     elseif value >= required then
-        SetNetworkedData(player, key, required)
+        SetAchievementData(player, key, required)
     end
 end
 
@@ -437,11 +459,11 @@ function API.AddProgress(player, id, value)
         local required = API.GetAchievementRequired(id)
 
         if currentProgress == 0 then
-            SetNetworkedData(player, id, value + 1)
+            SetAchievementData(player, id, value + 1)
         elseif currentProgress + value < required then
-            SetNetworkedData(player, id, currentProgress + value)
+            SetAchievementData(player, id, currentProgress + value)
         elseif currentProgress + value >= required then
-            SetNetworkedData(player, id, required)
+            SetAchievementData(player, id, required)
         end
     end
 end
@@ -452,17 +474,27 @@ function API.AddCompletedCount(player, achievement)
     local currentProgress = API.GetCurrentProgress(player, achievement.countId)
 
     if API.IsUnlocked(player, achievement.id) then
-        SetNetworkedData(player, achievement.countId, currentProgress + 1)
+        SetAchievementData(player, achievement.countId, currentProgress + 1)
     end
 end
 
 --@params Object player
-function API.ResetRepeatable(player)
+--@params Int repeatType
+--@params Bool forceReset
+function API.ResetRepeatable(player, repeatType, forceReset)
     local count = 0
 
     for id, achievement in pairs(API.GetAchievements()) do
         if achievement.isRepeatable then
-            SetNetworkedData(player, id, 0)
+            if achievement.isOnComplete and API.IsCompleted(player, id) or not achievement.isOnComplete then
+                if repeatType == API.REPEAT_TYPE.ROUND and achievement.shouldReset then
+                    SetAchievementData(player, id, 0)
+                elseif repeatType == API.REPEAT_TYPE.DAILY and achievement.isDaily then
+                    SetAchievementData(player, id, 0)
+                end
+            elseif forceReset then
+                SetAchievementData(player, id, 0)
+            end
         end
         count = InfiniteLoopProtect(count)
     end
@@ -483,37 +515,42 @@ function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     --Daily Achievement Time Reset
     local shouldReset = false
     if
-        data.META_ACH and data.META_ACH[API.CONSTANT_KEYS.TIME_KEY] and
-            data.META_ACH[API.CONSTANT_KEYS.TIME_KEY] < os.time(os.date("!*t")) or
-            data.META_ACH
+        data.META_ACHIEVEMENTS and data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] and
+            data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] < os.time(os.date("!*t")) or
+            not data.META_ACHIEVEMENTS
      then
-        playerData[player.id].resetTime = os.time(os.date("!*t")) + dailyResetTime
+        playerData[player.id].resetTime = os.time(os.date("!*t")) + API.DAILY_RESET_TIME
         shouldReset = true
+    elseif data.META_ACHIEVEMENTS and data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] then
+        playerData[player.id].resetTime = data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY]
     end
 
-    if data.META_ACH then
-        local achievementData = data.META_ACH
+    if data.META_ACHIEVEMENTS then
+        local achievementData = data.META_ACHIEVEMENTS
         for key, value in pairs(achievementData) do
-            SetNetworkedData(player, key, value)
+            SetAchievementData(player, key, value)
         end
         for _, achievement in pairs(achievements) do
             if achievement.id and not API.GetCurrentProgress(player, achievement.id) then
-                SetNetworkedData(player, achievement.id, 0)
-            elseif achievement.id and shouldReset and achievement.isDaily and API.IsCompleted(player, achievement.id) then
-                SetNetworkedData(player, achievement.id, 0)
+                SetAchievementData(player, achievement.id, 0)
+            elseif
+                achievement.id and shouldReset and achievement.isDaily and achievement.isOnComplete and
+                    API.IsCompleted(player, achievement.id)
+             then
+                SetAchievementData(player, achievement.id, 0)
             elseif
                 achievement.isRepeatable and achievement.saveCount and achievement.countId and
                     not API.GetCurrentProgress(player, achievement.id)
              then
-                SetNetworkedData(player, achievement.countId, 0)
+                SetAchievementData(player, achievement.countId, 0)
             end
         end
     else
         for _, achievement in pairs(achievements) do
             if achievement.id then
-                SetNetworkedData(player, achievement.id, 0)
+                SetAchievementData(player, achievement.id, 0)
             elseif achievement.isRepeatable and achievement.saveCount and achievement.countId then
-                SetNetworkedData(player, achievement.countId, 0)
+                SetAchievementData(player, achievement.countId, 0)
             end
         end
     end
@@ -541,7 +578,7 @@ function API.SaveAchievementStorage(player, useSharedKey, sharedKeyNetRef)
 
     tempTbl[API.CONSTANT_KEYS.TIME_KEY] = playerData[player.id].resetTime
 
-    data.META_ACH = tempTbl
+    data.META_ACHIEVEMENTS = tempTbl
 
     if useSharedKey then
         Storage.SetSharedPlayerData(sharedKeyNetRef, player, data)
@@ -585,6 +622,83 @@ function API.GetAchievementID(object)
     if id then
         return id .. API.CONSTANT_KEYS.ACHIEVEMENT_ID
     end
+end
+
+------------------------------------------------------------------------------------------------------------------------
+-- PUBLIC EVENTS
+------------------------------------------------------------------------------------------------------------------------
+
+-- Same Context Broadcasts
+
+--@params Object player
+--@parms String resName
+--@params Int resAmt
+function API.BroadcastResource(player, resName, resAmt)
+    Events.Broadcast("AS.ResChange", player, resName, resAmt)
+end
+
+function API.ConnectResource(func)
+    return Events.Connect("AS.ResChange", func)
+end
+
+
+--@params Object player
+--@parms Object damage
+function API.BroadcastDiedEvent(player, damage)
+    Events.Broadcast("AS.DiedEvent", player, damage)
+end
+
+function API.ConnectDiedEvent(func)
+    return Events.Connect("AS.DiedEvent", func)
+end
+
+--@params Object player
+--@parms Object damage
+function API.BroadcastDamageEvent(player, damage)
+    Events.Broadcast("AS.DamageEvent", player, damage)
+end
+
+function API.ConnectDamageEvent(func)
+    return Events.Connect("AS.DamageEvent", func)
+end
+
+--@params Table playersWonTbl
+function API.BroadcastRoundEnd(playersWonTbl)
+    Events.Broadcast("AS.RoundEndEvent", playersWonTbl)
+end
+
+function API.ConnectRoundEnd(func)
+    return Events.Connect("AS.RoundEndEvent", func)
+end
+
+--@params Int team
+function API.BroadcastTeamScoredEvent(team)
+    Events.Broadcast("AS.TeamScoreEvent", team)
+end
+
+function API.ConnectTeamScored(func)
+    return Events.Connect("AS.TeamScoreEvent", func)
+end
+
+
+-- Client To Server Broadcasts
+
+--@params Int friendsOnline
+function API.BroadcastFriendsOnline(friendsOnline)
+    Events.BroadcastToServer("AS.FriendOnline", friendsOnline)
+end
+
+function API.ConnectFriendsOnline(func)
+    return Events.ConnectForPlayer("AS.FriendOnline", func)
+end
+
+--@params String id
+function API.BroadcastRewardClaim(id)
+    Events.BroadcastToServer("AS.RewardClaim", id)
+end
+
+function API.ConnectRewardClaim(func)
+    return Events.ConnectForPlayer("AS.RewardClaim", func)
 end
 
 return API

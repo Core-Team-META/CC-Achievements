@@ -47,6 +47,7 @@ local API = _G.META_ACHIEVEMENTS
 -- OBJECTS
 ------------------------------------------------------------------------------------------------------------------------
 local listeners = {}
+local roundTime = time()
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
@@ -67,9 +68,10 @@ end
 -- Resets player flags and repeatable achievements when a new round starts
 local function OnRoundStart()
     for _, player in ipairs(Game.GetPlayers()) do
-        API.ResetRepeatable(player)
+        API.ResetRepeatable(player, API.REPEAT_TYPE.ROUND)
         SetPlayerFlags(player)
     end
+    roundTime = time()
 end
 
 --@params Object player
@@ -79,7 +81,7 @@ local function OnResourceChanged(player, resName, resAmt)
     if resAmt == 0 then
         return
     end
-    Events.Broadcast("AS.ResChange", player, resName, resAmt)
+    API.BroadcastResource(player, resName, resAmt)
 end
 
 -- Used for Round & Win Achievement types.
@@ -104,7 +106,7 @@ local function OnRoundEnd()
         end
     end
 
-    Events.Broadcast("AS.RoundEndEvent", playersWonTbl)
+    API.BroadcastRoundEnd(playersWonTbl)
 
     if shouldGiveRewardsRoundEnd then
         Task.Wait(3)
@@ -137,7 +139,7 @@ local function OnPlayerDied(player, damage)
     local source = damage.sourcePlayer
     if IsValidPlayer(player) and IsValidPlayer(source) then
         if not player.serverUserData.ACH_killCredited then
-            Events.Broadcast("AS.DiedEvent", player, damage)
+            API.BroadcastDiedEvent(player, damage)
         end
     end
 end
@@ -148,14 +150,14 @@ local function OnPlayerDamaged(player, damage)
     local source = damage.sourcePlayer
     if IsValidPlayer(player) and IsValidPlayer(source) then
         if not player.serverUserData.ACH_killCredited then
-            Events.Broadcast("AS.DamageEvent", player, damage)
+            API.BroadcastDamageEvent(player, damage)
         end
     end
 end
 
 --@params Int team
 local function OnTeamScored(team)
-    Events.Broadcast("AS.TeamScoreEvent", team)
+    API.BroadcastTeamScoredEvent(team)
 end
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -211,7 +213,7 @@ Game.playerJoinedEvent:Connect(OnPlayerJoined)
 Game.playerLeftEvent:Connect(OnPlayerLeft)
 
 -- Client Broadcast Listeners
-Events.ConnectForPlayer("AS.RewardClaim", OnRewardCollected)
+API.ConnectRewardClaim(OnRewardCollected)
 
 -- Setup Achievements
 API.RegisterAchievements(ACHIEVEMENT_LIST)

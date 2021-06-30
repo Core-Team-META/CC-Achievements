@@ -109,7 +109,6 @@ local function ClearAchievementPanels()
     listeners = {}
 end
 
-
 --@param Bool bool
 local function ToggleUI(bool)
     UI.SetCursorVisible(bool)
@@ -135,12 +134,16 @@ end
 local function OnClaimButtonPressed(button)
     local panel = button.clientUserData.panel
     button.visibility = Visibility.FORCE_OFF
-    panel:GetCustomProperty("REWARD_TEXT"):WaitForObject().visibility = Visibility.FORCE_OFF
+    --panel:GetCustomProperty("REWARD_PANEL"):WaitForObject().visibility = Visibility.FORCE_OFF
     panel:GetCustomProperty("CLAIMED_TEXT"):WaitForObject().visibility = Visibility.FORCE_ON
-    Events.BroadcastToServer("AS.RewardClaim", button.clientUserData.key)
+    API.BroadcastRewardClaim(button.clientUserData.key)
     World.SpawnAsset(SFX_CLAIM)
-    Task.Spawn(function() BuildAchievmentPanels() end, 2)
-    
+    Task.Spawn(
+        function()
+            BuildAchievmentPanels()
+        end,
+        2
+    )
 end
 
 local function EnableRewardButton(button, panel, achievement)
@@ -156,7 +159,6 @@ local function EnableRewardButton(button, panel, achievement)
     )
 end
 
-
 --@param Int index
 --@param Table achievement
 --@param Object parent
@@ -170,18 +172,24 @@ local function AddNewPanel(index, achievement, parent)
     panel:GetCustomProperty("NAME"):WaitForObject().text = achievement.name
     panel:GetCustomProperty("DESC"):WaitForObject().text = achievement.description
     panel:GetCustomProperty("ICON"):WaitForObject():SetImage(achievement.icon)
+    local REWARD_PANEL = panel:GetCustomProperty("REWARD_PANEL"):WaitForObject()
 
     if achievement.givesReward then
-        panel:GetCustomProperty("REWARD_TEXT"):WaitForObject().text =
-            API.FormatInt(achievement.rewards[1]:GetCustomProperty("Amount")) .. " " .. achievement.rewards[1].name
+        for i, rewardPanel in ipairs(REWARD_PANEL:GetChildren()) do
+            if i <= 3 and achievement.rewards[i] then
+                rewardPanel:GetCustomProperty("REWARD_TEXT"):WaitForObject().text =
+                    API.FormatInt(achievement.rewards[i]:GetCustomProperty("Amount")) ..
+                    " " .. achievement.rewards[i].name
 
-        local icon = achievement.rewards[1]:GetCustomProperty("Icon")
-        if icon then
-            panel:GetCustomProperty("REWARD_ICON"):WaitForObject():SetImage(icon)
+                local icon = achievement.rewards[i]:GetCustomProperty("Icon")
+                if icon then
+                    rewardPanel:GetCustomProperty("REWARD_ICON"):WaitForObject():SetImage(icon)
+                end
+                rewardPanel.visibility = Visibility.FORCE_ON
+            end
         end
     else
-        panel:GetCustomProperty("REWARD_TEXT"):WaitForObject().visibility = Visibility.FORCE_OFF
-        panel:GetCustomProperty("REWARD_ICON"):WaitForObject().visibility = Visibility.FORCE_OFF
+        REWARD_PANEL.visibility = Visibility.FORCE_OFF
     end
 
     panel:GetCustomProperty("PROGRESS_TEXT"):WaitForObject().text =
@@ -189,6 +197,7 @@ local function AddNewPanel(index, achievement, parent)
 
     if not API.IsUnlocked(LOCAL_PLAYER, achievement.id, currentResource) and currentResource ~= 1 then
         CLAIM_BUTTON.isEnabled = false
+        CLAIM_BUTTON.visibility = Visibility.FORCE_OFF
         PROGRESS.progress = currentResource / requiredResource
     elseif API.IsUnlocked(LOCAL_PLAYER, achievement.id, currentResource) then
         PROGRESS.visibility = Visibility.FORCE_OFF
@@ -197,13 +206,17 @@ local function AddNewPanel(index, achievement, parent)
         end
     elseif currentResource == 1 then
         PROGRESS.visibility = Visibility.FORCE_OFF
-        panel:GetCustomProperty("REWARD_TEXT"):WaitForObject().visibility = Visibility.FORCE_OFF
         panel:GetCustomProperty("CLAIMED_TEXT"):WaitForObject().visibility = Visibility.FORCE_ON
         CLAIM_BUTTON.isEnabled = false
+        CLAIM_BUTTON.visibility = Visibility.FORCE_OFF
     end
-    panel.y = (index - 1) * 100
-end
+    if parent == COMPLETED_ACHIEVEMENT_LIST then
+        CLAIM_BUTTON.visibility = Visibility.FORCE_OFF
+        panel:GetCustomProperty("CLAIMED_TEXT"):WaitForObject().visibility = Visibility.FORCE_ON
+    end
 
+    panel.y = (index - 1) * 150
+end
 
 -- Used to build achievement panel, of all repeatable achievements unlocked in a round
 local function BuildAchievementEndRoundPanel()
@@ -286,7 +299,6 @@ function OnButtonPressed(button)
         ACTIVE_BUTTON:SetButtonColor(INACTIVE_BUTTON_COLOR)
     end
 end
-
 
 --@params Object player
 --@params String keybind

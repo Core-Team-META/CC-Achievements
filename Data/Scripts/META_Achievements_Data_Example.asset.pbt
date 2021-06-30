@@ -39,6 +39,14 @@ Assets {
         Bool: false
       }
       Overrides {
+        Name: "cs:ResetDaily"
+        Bool: false
+      }
+      Overrides {
+        Name: "cs:ResetOnlyOnComplete"
+        Bool: false
+      }
+      Overrides {
         Name: "cs:SaveCompletedCount"
         Bool: false
       }
@@ -53,6 +61,14 @@ Assets {
       Overrides {
         Name: "cs:ResourceName"
         String: "RESOURCE"
+      }
+      Overrides {
+        Name: "cs:isTimeBased"
+        Bool: false
+      }
+      Overrides {
+        Name: "cs:CompleteInSeconds"
+        Float: 0
       }
       Overrides {
         Name: "cs:PreRequisite:tooltip"
