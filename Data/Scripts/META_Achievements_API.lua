@@ -88,7 +88,12 @@ end
 
 --@params String id
 local function WarnMissingAchievement(id)
-    warn("Achievement Doesn't Exsist of ID: " .. id)
+    if not achievements or id and not achievements[id] then
+        warn("Achievement Doesn't Exsist of ID: " .. id)
+        return true
+    else
+        return false
+    end
 end
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -170,8 +175,7 @@ end
 --@params String id
 --@return Table achievement
 function API.GetAchievementInfo(id)
-    if not achievements or id and not achievements[id] then
-        WarnMissingAchievement(id)
+    if WarnMissingAchievement(id) then
         return nil
     end
     return achievements[id]
@@ -180,8 +184,7 @@ end
 --@params String id
 --@return String achievement name
 function API.GetAchievementName(id)
-    if not achievements or id and not achievements[id] then
-        WarnMissingAchievement(id)
+    if WarnMissingAchievement(id) then
         return nil
     end
     return achievements[id].name
@@ -190,8 +193,7 @@ end
 --@params String id
 --@return String achievement name
 function API.GetAchievementRequired(id)
-    if not achievements or id and not achievements[id] then
-        WarnMissingAchievement(id)
+    if WarnMissingAchievement(id) then
         return nil
     end
     return achievements[id].required
@@ -200,8 +202,7 @@ end
 --@params String id
 --@return String achievement description
 function API.GetAchievementDescription(id)
-    if not achievements or id and not achievements[id] then
-        WarnMissingAchievement(id)
+    if WarnMissingAchievement(id) then
         return nil
     end
     return achievements[id].description
@@ -210,8 +211,7 @@ end
 --@params String id
 --@return String achievement icon MUID
 function API.GetAchievementIcon(id)
-    if not achievements or id and not achievements[id] then
-        WarnMissingAchievement(id)
+    if WarnMissingAchievement(id) then
         return nil
     end
     return achievements[id].icon
@@ -220,8 +220,7 @@ end
 --@params String id
 --@return String achievement background icon MUID
 function API.GetAchievementIconBG(id)
-    if not achievements or id and not achievements[id] then
-        WarnMissingAchievement(id)
+    if WarnMissingAchievement(id) then
         return nil
     end
     return achievements[id].iconBG
@@ -230,16 +229,14 @@ end
 --@params String id
 --@return String reward icon MUID
 function API.GetRewardIcon(id)
-    if not achievements or id and not achievements[id] then
-        WarnMissingAchievement(id)
+    if WarnMissingAchievement(id) then
         return nil
     end
     return achievements[id].rewardIcon
 end
 
 function API.GetRewards(id)
-    if not achievements or id and not achievements[id] then
-        WarnMissingAchievement(id)
+    if WarnMissingAchievement(id) then
         return {}
     end
     return achievements[id].rewards
@@ -641,7 +638,6 @@ function API.ConnectResource(func)
     return Events.Connect("AS.ResChange", func)
 end
 
-
 --@params Object player
 --@parms Object damage
 function API.BroadcastDiedEvent(player, damage)
@@ -679,7 +675,6 @@ end
 function API.ConnectTeamScored(func)
     return Events.Connect("AS.TeamScoreEvent", func)
 end
-
 
 -- Client To Server Broadcasts
 

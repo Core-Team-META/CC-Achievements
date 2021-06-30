@@ -35,15 +35,6 @@ Assets {
   }
 }
 Assets {
-  Id: 12143753135822676382
-  Name: "Sci-fi Ability Red 034"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_SciFi_Ability_Red_034"
-  }
-}
-Assets {
   Id: 10954408705157073863
   Name: "Roboto Bold"
   PlatformAssetType: 28
@@ -98,24 +89,6 @@ Assets {
   }
 }
 Assets {
-  Id: 7255218789601085746
-  Name: "Sci-fi Ability Blue 002"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_SciFi_Ability_Blue_002"
-  }
-}
-Assets {
-  Id: 4722053012440403280
-  Name: "Survival Badge 001"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Survival_Equip_Badge_001"
-  }
-}
-Assets {
   Id: 4504686085818425438
   Name: "BG Flat 001"
   PlatformAssetType: 9
@@ -125,30 +98,12 @@ Assets {
   }
 }
 Assets {
-  Id: 4426746368885012124
-  Name: "Survival Binoculars 001"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Survival_Equip_Binoculars_001"
-  }
-}
-Assets {
   Id: 4187099593478357732
   Name: "Cabin Bold"
   PlatformAssetType: 28
   PrimaryAsset {
     AssetType: "FontAssetRef"
     AssetId: "CabinBold_ref"
-  }
-}
-Assets {
-  Id: 3920114757902846138
-  Name: "Fantasy Chicken 001"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Fantasy_Food_Chicken_001"
   }
 }
 Assets {
@@ -179,48 +134,12 @@ Assets {
   }
 }
 Assets {
-  Id: 2455975641699973488
-  Name: "Fantasy Book 004"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Fantasy_Equip_Book_004"
-  }
-}
-Assets {
-  Id: 2437827589681022749
-  Name: "Sci-fi Ability Misc 006"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_SciFi_Ability_Misc_006"
-  }
-}
-Assets {
   Id: 1641512795081380093
   Name: "Oswald"
   PlatformAssetType: 28
   PrimaryAsset {
     AssetType: "FontAssetRef"
     AssetId: "OswaldRegular_ref"
-  }
-}
-Assets {
-  Id: 1283463588493558965
-  Name: "Fantasy Gold 001"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Fantasy_Equip_Gold_002"
-  }
-}
-Assets {
-  Id: 1100564518078940420
-  Name: "Military Ability Healing 001"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "Icon_Military_Ability_Green_003"
   }
 }
 Assets {
