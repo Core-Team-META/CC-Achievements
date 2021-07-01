@@ -34,6 +34,7 @@ local isEnabled = script:GetCustomProperty("Enabled")
 local ACHIEVEMENT_ID = API.GetAchievementID(script)
 local CHAT_BASED = script:GetCustomProperty("ChatBased")
 local CHAT_STRING = script:GetCustomProperty("ChatString")
+local FRIENDS_ONLINE = script:GetCustomProperty("FriendOnline")
 ------------------------------------------------------------------------------------------------------------------------
 -- ERROR HANDLING
 ------------------------------------------------------------------------------------------------------------------------
@@ -48,6 +49,11 @@ end
 
 if ACHIEVEMENT_ID and not API.GetAchievementInfo(ACHIEVEMENT_ID) then
     warn("Invalid ID:" .. ACHIEVEMENT_ID .. " Please check this ID is valid")
+    return
+end
+
+if FRIENDS_ONLINE and CHAT_BASED then
+    warn(ACHIEVEMENT_ID .. " Has both ChatBased and FriendOnline enabled. Please select only one option.")
     return
 end
 
@@ -78,7 +84,7 @@ end
 function Init()
     if CHAT_BASED then
         Chat.receiveMessageHook:Connect(OnReceiveMessage)
-    else
+    elseif FRIENDS_ONLINE then
         API.ConnectFriendsOnline(FriendsOnline)
     end
 end

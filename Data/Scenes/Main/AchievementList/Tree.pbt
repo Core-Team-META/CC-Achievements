@@ -1473,7 +1473,7 @@ Objects {
 }
 Objects {
   Id: 13042350571798531422
-  Name: "Slayer"
+  Name: "Kill Example"
   Transform {
     Location {
     }
@@ -1495,7 +1495,7 @@ Objects {
     }
     Overrides {
       Name: "cs:Required"
-      Float: 2
+      Float: 25
     }
     Overrides {
       Name: "cs:ID"

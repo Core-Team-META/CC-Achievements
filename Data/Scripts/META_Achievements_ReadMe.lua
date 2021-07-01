@@ -15,36 +15,35 @@
     Setup
     =====
 
-    1. To begin adjusting how the Portal Slideshow system first selects the SlideshowSettings Client Context.
-
-    2. Once selected you'll see several options available to you:
-        1) Enabled - Make sure this is checked to enable the component.
-        2) ToggleUIKeybind  - The keybind players will use to toggle the tutorial on / off. T is the default.
-        3) LeftJumpKeybind - Keybind players can press to move left in the slideshow. The left arrow key is the default.
-        4) RightJumpKeybind - Keybind players can press to move right in the slideshow. The right arrow key is the default.
-        5) TotalImages - The total amount of images to be shown in your slide show.
-        6) ImageSpacing - The width of each image in the slide show. Default is 1000, which has no spacing between images.
-        Increasing this to say 1200 will add a slight gap between each image in the slide show.
-        7) ImageZoom - Increasing this number will make the images further from the players screen. Setting this to 5 will
-        make the image fullscreen.
-
-    Adding Images
-    =============
-
-    1. To add images to your slideshow, you first must upload the images to a live Core Game. The game can be a blank
-    unlisted project, to better organize your images. When publishing the game, simply add your images as screenshots.
-
-    2. Once published, save the link somewhere it's easily accessible on your computer.
-
-    You should have a link such as:
-    https://www.coregames.com/games/1b3aa6/meta-portal-image-examples
+    1. To begin add the Achievement System to your heirarchy.
+    2. Select the Achievement System folder to view it's custom properties. Each custom property impacts how the system will work
+    in your game. For more information on each option, hover over the custom property name to reveal the tooltip explaining each setting.
 
 
-    3. Copy Game ID info in the link to your clipboard such as:
-    1b3aa6/meta-portal-image-examples
+    Adding / Editing Achievements
+    =============================
 
-    4. Under SlideshowSettings > ScreenGroup > Pivot
-    There will be five Game Portals as default. Simply click on each portal and change the Game ID to the Game ID where your images will be stored.
+    1. Expand the Achievement System to view it's children and expand the AchievementList:
+        1) As children of the AchievementList you'll see several groups. As an example expand the "KILL" group to see the "Kill Example"
+        object. 
+        2) This is an example Achievement, click on it to reveal the different options as custom properties, which all impact how
+        the Achievement will function in your game.
+        3) Hover over any of the custom properties to reveal the tooltip to see what each option does.
+
+    Note: If an Achievement will grant rewards on completion, be sure that the GivesReward custom property is set to true, and that reward
+    data templates are added as children, under the Achievement. Out of the box, the Achievement system allows 1 - 3 different resource based
+    rewards.
+
+
+    Editing UI
+    ==========
+
+    1. Expand the Achievement System to view it's children and expand the AchievementList:
+        1) As children of the AchievementList you'll see several groups. As an example expand the "KILL" group to see the "Kill Example"
+        object. 
+        2) This is an example Achievement, click on it to reveal the different options as custom properties, which all impact how
+        the Achievement will function in your game.
+        3) Hover over any of the custom properties to reveal the tooltip to see what each option does.
 
     Note: Multiple projects can be used if your game requires more than 5 slideshow images. Simply repeat all steps above
     but make sure to adjust the Screenshot Index of the new images to match up with the index of any further published 

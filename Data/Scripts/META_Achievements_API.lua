@@ -266,6 +266,7 @@ function API.HasPreRequsistCompleted(player, id)
     else
         local tempTbl = {CoreString.Split(achievements[id].preReq, ",")}
         for _, preReqId in ipairs(tempTbl) do
+            preReqId = preReqId .. API.CONSTANT_KEYS.ACHIEVEMENT_ID
             local preReqValue = API.GetCurrentProgress(player, preReqId)
             if not API.IsUnlocked(player, preReqId) and preReqValue ~= 1 then
                 return false
