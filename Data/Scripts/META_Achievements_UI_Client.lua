@@ -52,12 +52,15 @@ local END_ROUND_ACHIEVEMENTS_PANEL = script:GetCustomProperty("AchievementsPanel
 local SFX_CLAIM = script:GetCustomProperty("SFX_UI_AchievementClaim")
 local SFX_OPEN = script:GetCustomProperty("SFX_UI_OpenInventoryPanel")
 local SFX_HOVER = script:GetCustomProperty("SFX_UI_Hover")
+
 local END_ROUND_ACHIEVEMENT_TEMPLATE = script:GetCustomProperty("Achievement_EndScreen_Template")
 
 local ACTIVE_BUTTON_COLOR = CLIENT_SETTINGS:GetCustomProperty("ActiveButton")
 local INACTIVE_BUTTON_COLOR = CLIENT_SETTINGS:GetCustomProperty("InactiveButton")
-local KEYPRESS = CLIENT_SETTINGS:GetCustomProperty("Keybind")
 local SHOULD_SHOW_REPEATABLE = CLIENT_SETTINGS:GetCustomProperty("ShowRepeatable")
+local SHOULD_CLOSE_ON_DEATH = CLIENT_SETTINGS:GetCustomProperty("CloseUIOnDeath")
+
+local KEYPRESS = ROOT:GetCustomProperty("Keybind")
 
 local LOCAL_PLAYER = Game.GetLocalPlayer()
 
@@ -142,6 +145,7 @@ local function OnClaimButtonPressed(button)
     World.SpawnAsset(SFX_CLAIM)
     Task.Spawn(
         function()
+            ClearAchievementPanels()
             BuildAchievmentPanels()
         end,
         2
@@ -326,6 +330,17 @@ end
 function OnRoundEnd()
     if SHOULD_SHOW_REPEATABLE then
         BuildAchievementEndRoundPanel()
+    end
+end
+
+if SHOULD_CLOSE_ON_DEATH then
+    function Tick()
+        if LOCAL_PLAYER.isDead and PRIMARY_PANEL.visibility == Visibility.FORCE_ON then
+            UI.SetCursorVisible(false)
+            UI.SetCanCursorInteractWithUI(false)
+            UI.SetCursorLockedToViewport(false)
+            PRIMARY_PANEL.visibility = Visibility.FORCE_OFF
+        end
     end
 end
 

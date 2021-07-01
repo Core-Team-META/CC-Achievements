@@ -35,10 +35,12 @@ local API = _G.META_ACHIEVEMENTS
 ------------------------------------------------------------------------------------------------------------------------
 
 local ACHIEVEMENT_LIST = script:GetCustomProperty("Achievement_List"):WaitForObject()
+
 local NOTIFICATION = script:GetCustomProperty("NOTIFICATION"):WaitForObject()
 local NOTIFICATION_ICON_BG = NOTIFICATION:GetCustomProperty("ICONBG"):WaitForObject()
 local NOTIFICATION_ICON = NOTIFICATION:GetCustomProperty("ICON"):WaitForObject()
 local ACHIEVEMENT_NAME_TEXT = NOTIFICATION:GetCustomProperty("ACHIEVEMENT_NAME_TEXT"):WaitForObject()
+
 local LOCAL_PLAYER = Game.GetLocalPlayer()
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -54,7 +56,7 @@ local achievementIds = {}
 local listeners = {}
 local scriptListeners = {}
 
-local friendsOnline = 0
+local friendsOnline = 1
 
 NOTIFICATION.visibility = Visibility.FORCE_OFF
 ------------------------------------------------------------------------------------------------------------------------
@@ -108,9 +110,10 @@ end
 function Init()
     API.RegisterAchievements(ACHIEVEMENT_LIST)
     Task.Wait()
+
     BuildIdTable()
     shouldShow = true
-    -- handler params: Player_player, string_key
+
     scriptListeners[#scriptListeners + 1] = LOCAL_PLAYER.privateNetworkedDataChangedEvent:Connect(OnResourceChanged)
     scriptListeners[#scriptListeners + 1] =
         Game.playerLeftEvent:Connect(
@@ -120,6 +123,10 @@ function Init()
             end
         end
     )
+    Task.Wait()
+    for _, player in ipairs(Game.GetPlayers()) do
+        OnPlayerJoined(player)
+    end
 end
 
 --@params Object player

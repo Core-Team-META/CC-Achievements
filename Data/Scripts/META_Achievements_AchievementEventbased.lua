@@ -51,13 +51,13 @@ if not isEnabled then
     return
 end
 
-if not ACHIEVEMENT_ID then
-    warn("Achievement ID Missing, Please Check All Achievements Have A Unique ID")
+if not ACHIEVEMENT_TYPE then
+    warn(ACHIEVEMENT_ID .. " missing Achievement Type make sure it has a parent")
     return
 end
 
-if not ACHIEVEMENT_TYPE then
-    warn(ACHIEVEMENT_ID .. " missing Achievement Type")
+if not ACHIEVEMENT_ID then
+    warn("Achievement ID Missing in " .. ACHIEVEMENT_TYPE .. " Please Check All Achievements Have A Unique ID")
     return
 end
 

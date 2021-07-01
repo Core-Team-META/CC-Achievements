@@ -522,6 +522,8 @@ function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     else
         data = Storage.GetPlayerData(player)
     end
+    --#FIXME For Testing
+    data = {}
 
     --Daily Achievement Time Reset
     local shouldReset = false
@@ -630,6 +632,12 @@ end
 --@return String Achievement ID with Namespace
 function API.GetAchievementID(object)
     local id = object:GetCustomProperty("ID")
+    if id then
+        return id .. API.CONSTANT_KEYS.ACHIEVEMENT_ID
+    end
+end
+
+function API.GetAchievementIdString(id)
     if id then
         return id .. API.CONSTANT_KEYS.ACHIEVEMENT_ID
     end

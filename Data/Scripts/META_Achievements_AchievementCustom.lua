@@ -15,7 +15,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 ------------------------------------------------------------------------------------------------------------------------
--- Meta Achievements Explore Server
+-- Meta Achievements Achievement Custom
 -- Author Morticai (META) - (https://www.coregames.com/user/d1073dbcc404405cbef8ce728e53d380)
 -- Date: 2021/5/29
 -- Version 0.1.0-CC
@@ -27,12 +27,17 @@ while not _G.META_ACHIEVEMENTS do
     Task.Wait()
 end
 local API = _G.META_ACHIEVEMENTS
+
+local ROOT = script.parent
 ------------------------------------------------------------------------------------------------------------------------
 -- CUSTOM PROPERTIES
 ------------------------------------------------------------------------------------------------------------------------
-local TRIGGER = script:GetCustomProperty("Trigger"):WaitForObject(2)
 local isEnabled = script:GetCustomProperty("Enabled")
+
 local ACHIEVEMENT_ID = API.GetAchievementID(script)
+
+local ACHIEVEMENT_TYPE = ROOT.name
+
 ------------------------------------------------------------------------------------------------------------------------
 -- ERROR HANDLING
 ------------------------------------------------------------------------------------------------------------------------
@@ -40,18 +45,13 @@ if not isEnabled then
     return
 end
 
-if not Object.IsValid(TRIGGER) then
-    warn("Missing Trigger Object Reference In EXPLORE ID:" .. ACHIEVEMENT_ID)
+if not ACHIEVEMENT_TYPE then
+    warn(ACHIEVEMENT_ID .. " missing Achievement Type make sure it has a parent")
     return
 end
 
 if not ACHIEVEMENT_ID then
-    warn("Achievement ID Missing, Please Make Sure The Trigger Has an Achievement ID")
-    return
-end
-
-if ACHIEVEMENT_ID and not API.GetAchievementInfo(ACHIEVEMENT_ID) then
-    warn("Invalid ID:" .. ACHIEVEMENT_ID .. " Please check this ID is valid")
+    warn("Achievement ID Missing in " .. ACHIEVEMENT_TYPE .. " Please Check All Achievements Have A Unique ID")
     return
 end
 
@@ -59,28 +59,28 @@ end
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
 
---@params Object trigger
---@params Object other
-local function OnTrigger(trigger, other)
-    if trigger == TRIGGER and Object.IsValid(other) and other:IsA("Player") then
-        API.UnlockAchievement(other, ACHIEVEMENT_ID)
+--@params String id
+--@return Bool 
+local function IsAchievement(id)
+    return API.GetAchievementIdString(id) == ACHIEVEMENT_ID
+end
+
+--@params Object player
+--@params String id
+--@params Int value
+function AddProgress(player, id, value)
+    if IsAchievement(id) then
+        API.AddProgress(player, ACHIEVEMENT_ID, value)
     end
 end
 
-------------------------------------------------------------------------------------------------------------------------
--- GLOBAL FUNCTIONS
-------------------------------------------------------------------------------------------------------------------------
-
-function Init()
-    if TRIGGER.isInteractable then
-        TRIGGER.interactedEvent:Connect(OnTrigger)
-    else
-        TRIGGER.beginOverlapEvent:Connect(OnTrigger)
+--@params Object player
+--@params String id
+function UnlockAchievement(player, id)
+    if IsAchievement(id) then
+        API.UnlockAchievement(player, ACHIEVEMENT_ID)
     end
 end
 
-------------------------------------------------------------------------------------------------------------------------
--- INITIALIZATION
-------------------------------------------------------------------------------------------------------------------------
-
-Init()
+Events.Connect("Achievment_AddProgress", AddProgress)
+Events.Connect("Achievment_Unlock", UnlockAchievement)

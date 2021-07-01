@@ -1,22 +1,4 @@
 Assets {
-  Id: 14400738210255419518
-  Name: "Sci-fi Parts 023"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_SciFi_Equip_Parts_023"
-  }
-}
-Assets {
-  Id: 13913059803195293947
-  Name: "Survival Money 001"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Survival_Equip_Money_001"
-  }
-}
-Assets {
   Id: 12705424273405346558
   Name: "Roboto Black"
   PlatformAssetType: 28
@@ -62,15 +44,6 @@ Assets {
   }
 }
 Assets {
-  Id: 7887978635932231235
-  Name: "Fantasy Ability Blue 006"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Fantasy_Ability_Blue_006"
-  }
-}
-Assets {
   Id: 7362890836181251075
   Name: "Roboto Italic"
   PlatformAssetType: 28
@@ -98,15 +71,6 @@ Assets {
   }
 }
 Assets {
-  Id: 3884726409041590116
-  Name: "Sci-fi Ability Green 025"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_SciFi_Ability_Green_025"
-  }
-}
-Assets {
   Id: 2745638872441161920
   Name: "Cabin Condensed"
   PlatformAssetType: 28
@@ -122,14 +86,5 @@ Assets {
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
     AssetId: "BackgroundNoOutline_33"
-  }
-}
-Assets {
-  Id: 1641512795081380093
-  Name: "Oswald"
-  PlatformAssetType: 28
-  PrimaryAsset {
-    AssetType: "FontAssetRef"
-    AssetId: "OswaldRegular_ref"
   }
 }

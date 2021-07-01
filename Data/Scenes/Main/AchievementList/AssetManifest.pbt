@@ -1,19 +1,19 @@
 Assets {
+  Id: 17696206355182599423
+  Name: "Military Ability Communicate"
+  PlatformAssetType: 9
+  PrimaryAsset {
+    AssetType: "PlatformBrushAssetRef"
+    AssetId: "Icon_Military_Ability_Blue_001"
+  }
+}
+Assets {
   Id: 13665796067699909329
   Name: "Sci-fi Ability Blue 034"
   PlatformAssetType: 9
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
     AssetId: "UI_SciFi_Ability_Blue_034"
-  }
-}
-Assets {
-  Id: 12143753135822676382
-  Name: "Sci-fi Ability Red 034"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_SciFi_Ability_Red_034"
   }
 }
 Assets {
@@ -32,15 +32,6 @@ Assets {
   PrimaryAsset {
     AssetType: "PlatformBrushAssetRef"
     AssetId: "UI_SciFi_Ability_Blue_002"
-  }
-}
-Assets {
-  Id: 4722053012440403280
-  Name: "Survival Badge 001"
-  PlatformAssetType: 9
-  PrimaryAsset {
-    AssetType: "PlatformBrushAssetRef"
-    AssetId: "UI_Survival_Equip_Badge_001"
   }
 }
 Assets {

@@ -7,47 +7,107 @@
 
     This package is a work in progress.
 
+
        Description:
     Meta Achievements is a simple component that allows creators to drag and drop goals that players can strive for in their games.
-    With a lot of customization options, creators have full control on how, when and why players can unlock Achievements. 
+    With a lot of customization options, creators have full control over how, when, and why players can unlock Achievements. 
     
     
     Setup
     =====
 
-    1. To begin add the Achievement System to your heirarchy.
-    2. Select the Achievement System folder to view it's custom properties. Each custom property impacts how the system will work
-    in your game. For more information on each option, hover over the custom property name to reveal the tooltip explaining each setting.
+    1. To begin add the Achievement System to your hierarchy.
+    2. Select the Achievement System folder to view its custom properties. 
+    3. Each custom property impacts how the system will work in your game. 
+    
+    For more information on each option, hover over the custom property name to reveal the tooltip explaining each setting.
+
+
+    Achievement Types
+    =================
+
+    1. KILL - grants 1 progress when one player kills another
+    2. DAMAGE - grants the amount of damage done to another player as progress
+    3. HEALING - grants the amount of -damage done to another player as progress
+    4. WIN - grants 1 progress if the player is on the winning team at the end of around
+    5. ROUND - grants 1 progress for each round played - determined by the onRoundEndEvent
+    6. RESOURCE - unlocks the achievement if the player has enough of that particular resource
+    7. SOCIAL - Has both Chat-based and Friend based achievement types. 
+        1) Chat - each time a player's in-game message includes the ChatString for an achievement they're granted 1 progress
+        2) Friends - if the player is Core Friends with other players that are player your game, it'll unlock
+    8. EXPLORE - Trigger-based achievements, can use both Interaction & Overlap triggers to unlock and achievement
+    9. CUSTOM (Advanced) - A section allowing creators to add their custom achievements through the use of the API.
 
 
     Adding / Editing Achievements
     =============================
 
-    1. Expand the Achievement System to view it's children and expand the AchievementList:
-        1) As children of the AchievementList you'll see several groups. As an example expand the "KILL" group to see the "Kill Example"
-        object. 
-        2) This is an example Achievement, click on it to reveal the different options as custom properties, which all impact how
+    1. Expand the Achievement System to view its children and expand the AchievementList:
+    2. As children of the AchievementList you'll see several groups. As an example expand the "KILL" group to see the "Kill Example"
+    object. 
+
+        1) This is an example of Achievement, click on it to reveal the different options as custom properties, which all impact how 
         the Achievement will function in your game.
-        3) Hover over any of the custom properties to reveal the tooltip to see what each option does.
 
-    Note: If an Achievement will grant rewards on completion, be sure that the GivesReward custom property is set to true, and that reward
-    data templates are added as children, under the Achievement. Out of the box, the Achievement system allows 1 - 3 different resource based
-    rewards.
+        2) Hover over any of the custom properties to reveal the tooltip to see what each option does.
 
+
+    Adding / Editing Rewards
+    ========================
+
+    If an Achievement will grant rewards on completion, be sure that the GivesReward custom property is set to true, and that 
+    reward data templates are added as children, under the Achievement. 
+    
+    Out of the box, the Achievement system allows 1 - 3 different resources based rewards. While it is possible to give more rewards
+    for an Achievement, the reward simply will not show up in the UI.
+    
 
     Editing UI
     ==========
 
-    1. Expand the Achievement System to view it's children and expand the AchievementList:
-        1) As children of the AchievementList you'll see several groups. As an example expand the "KILL" group to see the "Kill Example"
-        object. 
-        2) This is an example Achievement, click on it to reveal the different options as custom properties, which all impact how
-        the Achievement will function in your game.
-        3) Hover over any of the custom properties to reveal the tooltip to see what each option does.
+    1. To edit the default UI expands the following in your hierarchy: Achievement System > ClientContext > UI > UI Container.
+    2. Under UI Container you'll find three panels:
 
-    Note: Multiple projects can be used if your game requires more than 5 slideshow images. Simply repeat all steps above
-    but make sure to adjust the Screenshot Index of the new images to match up with the index of any further published 
-    screenshot games.
+            1) PRIMARY:
+            A panel that opens when a player presses a keybind during the game. By default, this shows Active & Completed
+            Achievements.
+
+            To edit this panel, set Visibility to Force On, but remember to set this back to Force Off before publishing.
+
+            All the children of this panel are static and are changed directly in the hierarch. Though it is only recommended
+            to change Colors, Fonts, Borders. 
+            
+            Changing the width/height of the parent panel can result in spacing issues due to the Achievement panels being spawned 
+            at run time.
+
+            To edit the spawned Achievement panels find the scrollable panel named: "ACHIEVEMENT_LIST". You'll find "ACHIEVEMENT_Panel_Template"
+            as a child. To edit simply right-click then click "Deinstance This Object" to begin editing. 
+                
+            Once you're happy with your edits, be sure to right-click and press "Update Template From This". There is no need to delete 
+            the template from the hierarchy, as all children of both "ACHIEVEMENT_LIST" and "COMPLETED_ACHIEVEMENT_LIST", are deleted at 
+            run time.
+
+            2) NOTIFICATION: 
+            The dialog that popups informing the player of which Achievement they completed. 
+            
+            Currently when an Achievement has completed the visibility of this panel is toggled on for 2 seconds and then back off. 
+            
+            To edit, change the Visibility from Force Off to Force On. 
+
+            Feel free to change its colors and position. Just do not delete objects as missing object references will cause errors.
+
+            Once you're happy with the edits, change the Visibility back to Force off.
+
+            3) EndRound: 
+            A panel set up for creators allows players to view all of the repeatable Achievements they completed in a round. 
+            
+            Achievements that are set to IsRepeatable will show up here. 
+            
+            This panel can be moved if you have a custom End Screen UI where you wish for it to be displayed. 
+
+            Note: Changing Colors, Text & Borders are quite easy. It's not recommended at this time, to change the size of the scroll panels
+            as that would require some coding knowledge at this time.
+
 
 
 

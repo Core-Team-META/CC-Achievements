@@ -81,8 +81,8 @@ Objects {
       Bool: false
     }
     Overrides {
-      Name: "cs:HideRepeatable"
-      Bool: true
+      Name: "cs:Keybind"
+      String: "ability_extra_0"
     }
     Overrides {
       Name: "cs:GiveRewardsRoundEnd:tooltip"
@@ -109,8 +109,8 @@ Objects {
       String: "The Netrefrence of the Shared Key you wish to store achievement progress. (Make sure UseSharedKey is set to true)"
     }
     Overrides {
-      Name: "cs:HideRepeatable:tooltip"
-      String: "Use this is you\'d like to hide Repeatable Achievements from the primary Achievement UI"
+      Name: "cs:Keybind:tooltip"
+      String: "The keybind players will use to toggle the Achievement panel on and off"
     }
   }
   Collidable_v2 {
