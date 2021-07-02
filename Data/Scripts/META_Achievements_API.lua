@@ -51,7 +51,7 @@ API.REWARD_TYPES = {
     REWARD_POINTS = 2
 }
 
-API.DAILY_RESET_TIME = (60 * 60 * 12) -- Daily achievements reset every 12 hours
+API.DAILY_RESET_TIME = 60--(60 * 60 * 12) -- Daily achievements reset every 12 hours
 
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
@@ -121,7 +121,7 @@ function API.RegisterAchievements(list)
 
                 local achievement = {
                     id = id,
-                    countId = id .. API.CONSTANT_KEYS.ACHIEVEMENT_COUNT_ID,
+                    countId = id,
                     sort = sort,
                     name = child.name,
                     required = required + 1,
@@ -434,11 +434,12 @@ end
 --@params Object player
 --@params String key
 --@params Int value
+--@params Bool forceSet
 -- Sets the progress of a achievement for a player
-function API.SetProgress(player, key, value)
+function API.SetProgress(player, key, value, forceSet)
     local currentProgress = player:GetPrivateNetworkedData(key)
 
-    if currentProgress == 1 then
+    if currentProgress == 1 and not forceSet then
         return
     end
 
@@ -522,11 +523,10 @@ function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     else
         data = Storage.GetPlayerData(player)
     end
-    --#FIXME For Testing
-    data = {}
-
+  
     --Daily Achievement Time Reset
     local shouldReset = false
+    local currentTime = os.time(os.date("!*t"))
     if
         data.META_ACHIEVEMENTS and data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] and
             data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] < os.time(os.date("!*t")) or
@@ -567,6 +567,9 @@ function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
             end
         end
     end
+
+    local secondsLeftUntilReset = playerData[player.id].resetTime - currentTime
+    SetAchievementData(player, API.CONSTANT_KEYS.TIME_KEY, {shouldReset = shouldReset, secondsLeft = secondsLeftUntilReset})
 end
 
 --@params object player
@@ -696,6 +699,15 @@ end
 
 function API.ConnectTeamScored(func)
     return Events.Connect("AS.TeamScoreEvent", func)
+end
+
+--@params Int team
+function API.BroadcastPlayerJoined(player)
+    Events.Broadcast("AS.PlayerJoinedEvent", player)
+end
+
+function API.ConnectPlayerJoined(func)
+    return Events.Connect("AS.PlayerJoinedEvent", func)
 end
 
 -- Client To Server Broadcasts

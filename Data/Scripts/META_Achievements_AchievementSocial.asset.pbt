@@ -39,10 +39,6 @@ Assets {
         Bool: false
       }
       Overrides {
-        Name: "cs:SaveCompletedCount"
-        Bool: false
-      }
-      Overrides {
         Name: "cs:GivesReward"
         Bool: false
       }
@@ -97,10 +93,6 @@ Assets {
       Overrides {
         Name: "cs:ResetOnRoundStart:tooltip"
         String: "Make sure IsRepeatable is set to true - If ResetOnRoundStart is set to true, all repeatable Achievements will have their progress set to 0 each time the RoundStart even is fired."
-      }
-      Overrides {
-        Name: "cs:SaveCompletedCount:tooltip"
-        String: "If an Achievement is repeatable and want to display how many times this achievement has been completed, set this to true."
       }
       Overrides {
         Name: "cs:GivesReward:tooltip"

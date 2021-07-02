@@ -117,6 +117,249 @@ Objects {
   }
 }
 Objects {
+  Id: 10345856437601932854
+  Name: "RETENTION"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 8957336992361993
+  ChildIds: 17428558780441419872
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Folder {
+    IsGroup: true
+  }
+}
+Objects {
+  Id: 17428558780441419872
+  Name: "Daily Login"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 10345856437601932854
+  ChildIds: 5415211829116377942
+  ChildIds: 2049976508380316078
+  ChildIds: 13614008560818155002
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:GivesReward"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:Description"
+      String: "Login Once A Day"
+    }
+    Overrides {
+      Name: "cs:ID"
+      String: "RET1"
+    }
+    Overrides {
+      Name: "cs:SaveCompletedCount"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:IsRepeatable"
+      Bool: true
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 9968610648830694869
+    }
+  }
+}
+Objects {
+  Id: 13614008560818155002
+  Name: "Gold"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 17428558780441419872
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:ResourceName"
+      String: "GOLD"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 25
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 1283463588493558965
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Script {
+    ScriptAsset {
+      Id: 8563684984866158969
+    }
+  }
+}
+Objects {
+  Id: 2049976508380316078
+  Name: "RP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 17428558780441419872
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:ActivityName"
+      String: "Daily Login"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 10
+    }
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: false
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 13665796067699909329
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 15928942484550257200
+    }
+  }
+}
+Objects {
+  Id: 5415211829116377942
+  Name: "XP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 17428558780441419872
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:ResourceName"
+      String: "XP"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 25
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 2455975641699973488
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Script {
+    ScriptAsset {
+      Id: 8563684984866158969
+    }
+  }
+}
+Objects {
   Id: 7419535860803553179
   Name: "EXPLORE"
   Transform {
@@ -163,8 +406,9 @@ Objects {
     }
   }
   ParentId: 7419535860803553179
-  ChildIds: 9950150083507955664
-  ChildIds: 1723601552891941222
+  ChildIds: 9260538295577500663
+  ChildIds: 6502050276305607657
+  ChildIds: 12819998624504961863
   UnregisteredParameters {
     Overrides {
       Name: "cs:Enabled"
@@ -242,7 +486,57 @@ Objects {
   }
 }
 Objects {
-  Id: 1723601552891941222
+  Id: 12819998624504961863
+  Name: "Gold"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 5147207736104633905
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:ResourceName"
+      String: "GOLD"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 25
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 1283463588493558965
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Script {
+    ScriptAsset {
+      Id: 8563684984866158969
+    }
+  }
+}
+Objects {
+  Id: 6502050276305607657
   Name: "RP"
   Transform {
     Location {
@@ -259,15 +553,15 @@ Objects {
   UnregisteredParameters {
     Overrides {
       Name: "cs:ActivityName"
-      String: "Explore"
+      String: "Overlap Example"
     }
     Overrides {
       Name: "cs:Amount"
-      Int: 15
+      Int: 10
     }
     Overrides {
       Name: "cs:Enabled"
-      Bool: true
+      Bool: false
     }
     Overrides {
       Name: "cs:Icon"
@@ -295,8 +589,8 @@ Objects {
   }
 }
 Objects {
-  Id: 9950150083507955664
-  Name: "Gold"
+  Id: 9260538295577500663
+  Name: "XP"
   Transform {
     Location {
     }
@@ -316,11 +610,17 @@ Objects {
     }
     Overrides {
       Name: "cs:ResourceName"
-      String: "GOLD"
+      String: "XP"
     }
     Overrides {
       Name: "cs:Amount"
       Int: 25
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 2455975641699973488
+      }
     }
   }
   Collidable_v2 {
@@ -386,7 +686,9 @@ Objects {
     }
   }
   ParentId: 5049856719790018181
-  ChildIds: 5731656958929575366
+  ChildIds: 7984457043354884979
+  ChildIds: 16532132993339271593
+  ChildIds: 5383668809882539567
   UnregisteredParameters {
     Overrides {
       Name: "cs:GivesReward"
@@ -442,7 +744,7 @@ Objects {
   }
 }
 Objects {
-  Id: 5731656958929575366
+  Id: 5383668809882539567
   Name: "Gold"
   Transform {
     Location {
@@ -492,6 +794,109 @@ Objects {
   }
 }
 Objects {
+  Id: 16532132993339271593
+  Name: "RP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 3153681448868314166
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:ActivityName"
+      String: "Friend Example"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 10
+    }
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: false
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 13665796067699909329
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 15928942484550257200
+    }
+  }
+}
+Objects {
+  Id: 7984457043354884979
+  Name: "XP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 3153681448868314166
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:ResourceName"
+      String: "XP"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 25
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 2455975641699973488
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Script {
+    ScriptAsset {
+      Id: 8563684984866158969
+    }
+  }
+}
+Objects {
   Id: 2103634428970817865
   Name: "Chat Example"
   Transform {
@@ -506,7 +911,9 @@ Objects {
     }
   }
   ParentId: 5049856719790018181
-  ChildIds: 6319871132161730326
+  ChildIds: 14429665123752589179
+  ChildIds: 3356178900784524697
+  ChildIds: 15576000756664020966
   UnregisteredParameters {
     Overrides {
       Name: "cs:GivesReward"
@@ -544,7 +951,110 @@ Objects {
   }
 }
 Objects {
-  Id: 6319871132161730326
+  Id: 15576000756664020966
+  Name: "RP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 2103634428970817865
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:ActivityName"
+      String: "Chat Example"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 10
+    }
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: false
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 13665796067699909329
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 15928942484550257200
+    }
+  }
+}
+Objects {
+  Id: 3356178900784524697
+  Name: "XP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 2103634428970817865
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:ResourceName"
+      String: "XP"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 25
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 2455975641699973488
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Script {
+    ScriptAsset {
+      Id: 8563684984866158969
+    }
+  }
+}
+Objects {
+  Id: 14429665123752589179
   Name: "Gold"
   Transform {
     Location {
@@ -640,7 +1150,9 @@ Objects {
     }
   }
   ParentId: 17684381964563825790
-  ChildIds: 12099464027444946263
+  ChildIds: 8791940009429814485
+  ChildIds: 353486161564021708
+  ChildIds: 10963141385763754460
   UnregisteredParameters {
     Overrides {
       Name: "cs:Description"
@@ -701,7 +1213,110 @@ Objects {
   }
 }
 Objects {
-  Id: 12099464027444946263
+  Id: 10963141385763754460
+  Name: "RP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 6292435641859814922
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:ActivityName"
+      String: "Resource Example"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 10
+    }
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: false
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 13665796067699909329
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 15928942484550257200
+    }
+  }
+}
+Objects {
+  Id: 353486161564021708
+  Name: "XP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 6292435641859814922
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:ResourceName"
+      String: "XP"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 25
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 2455975641699973488
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Script {
+    ScriptAsset {
+      Id: 8563684984866158969
+    }
+  }
+}
+Objects {
+  Id: 8791940009429814485
   Name: "Gold"
   Transform {
     Location {
@@ -797,7 +1412,9 @@ Objects {
     }
   }
   ParentId: 5761952804541571744
-  ChildIds: 7686020403851636969
+  ChildIds: 8763137360395591032
+  ChildIds: 10938475704725008530
+  ChildIds: 4625569579301270238
   UnregisteredParameters {
     Overrides {
       Name: "cs:Description"
@@ -858,7 +1475,110 @@ Objects {
   }
 }
 Objects {
-  Id: 7686020403851636969
+  Id: 4625569579301270238
+  Name: "RP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 14553489483320326151
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:ActivityName"
+      String: "Round Example"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 10
+    }
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: false
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 13665796067699909329
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 15928942484550257200
+    }
+  }
+}
+Objects {
+  Id: 10938475704725008530
+  Name: "XP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 14553489483320326151
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:ResourceName"
+      String: "XP"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 25
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 2455975641699973488
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Script {
+    ScriptAsset {
+      Id: 8563684984866158969
+    }
+  }
+}
+Objects {
+  Id: 8763137360395591032
   Name: "Gold"
   Transform {
     Location {
@@ -954,7 +1674,9 @@ Objects {
     }
   }
   ParentId: 11093250378794844954
-  ChildIds: 16511419471377897602
+  ChildIds: 5500601491146805087
+  ChildIds: 9576579181551468974
+  ChildIds: 18316788622205929216
   UnregisteredParameters {
     Overrides {
       Name: "cs:Description"
@@ -1015,7 +1737,110 @@ Objects {
   }
 }
 Objects {
-  Id: 16511419471377897602
+  Id: 18316788622205929216
+  Name: "RP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 12125540138785748763
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:ActivityName"
+      String: "Win Example"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 10
+    }
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: false
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 13665796067699909329
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 15928942484550257200
+    }
+  }
+}
+Objects {
+  Id: 9576579181551468974
+  Name: "XP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 12125540138785748763
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:ResourceName"
+      String: "XP"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 25
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 2455975641699973488
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Script {
+    ScriptAsset {
+      Id: 8563684984866158969
+    }
+  }
+}
+Objects {
+  Id: 5500601491146805087
   Name: "Gold"
   Transform {
     Location {
@@ -1111,7 +1936,9 @@ Objects {
     }
   }
   ParentId: 15709441807261003131
-  ChildIds: 10671274918570671187
+  ChildIds: 17315829017517509583
+  ChildIds: 11036534868565728346
+  ChildIds: 12246196847229328847
   UnregisteredParameters {
     Overrides {
       Name: "cs:Description"
@@ -1172,7 +1999,110 @@ Objects {
   }
 }
 Objects {
-  Id: 10671274918570671187
+  Id: 12246196847229328847
+  Name: "RP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 14613672884999264600
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:ActivityName"
+      String: "Healing Example"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 10
+    }
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: false
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 13665796067699909329
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 15928942484550257200
+    }
+  }
+}
+Objects {
+  Id: 11036534868565728346
+  Name: "XP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 14613672884999264600
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:ResourceName"
+      String: "XP"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 25
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 2455975641699973488
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Script {
+    ScriptAsset {
+      Id: 8563684984866158969
+    }
+  }
+}
+Objects {
+  Id: 17315829017517509583
   Name: "Gold"
   Transform {
     Location {
@@ -1268,7 +2198,9 @@ Objects {
     }
   }
   ParentId: 5250709386240608115
-  ChildIds: 1695847932514400044
+  ChildIds: 10304977580393115589
+  ChildIds: 16421893423910097294
+  ChildIds: 15500252163881031713
   UnregisteredParameters {
     Overrides {
       Name: "cs:Description"
@@ -1337,7 +2269,110 @@ Objects {
   }
 }
 Objects {
-  Id: 1695847932514400044
+  Id: 15500252163881031713
+  Name: "RP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 3364571106326207186
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:ActivityName"
+      String: "Damage Example"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 10
+    }
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: false
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 13665796067699909329
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 15928942484550257200
+    }
+  }
+}
+Objects {
+  Id: 16421893423910097294
+  Name: "XP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 3364571106326207186
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: true
+    }
+    Overrides {
+      Name: "cs:ResourceName"
+      String: "XP"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 25
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 2455975641699973488
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Script {
+    ScriptAsset {
+      Id: 8563684984866158969
+    }
+  }
+}
+Objects {
+  Id: 10304977580393115589
   Name: "Gold"
   Transform {
     Location {
@@ -1435,6 +2470,7 @@ Objects {
   ParentId: 8034432642397811515
   ChildIds: 3392439161035871061
   ChildIds: 6588962993211753932
+  ChildIds: 565405283280697909
   UnregisteredParameters {
     Overrides {
       Name: "cs:Description"
@@ -1491,6 +2527,59 @@ Objects {
   Script {
     ScriptAsset {
       Id: 4954130354820301591
+    }
+  }
+}
+Objects {
+  Id: 565405283280697909
+  Name: "RP"
+  Transform {
+    Location {
+    }
+    Rotation {
+    }
+    Scale {
+      X: 1
+      Y: 1
+      Z: 1
+    }
+  }
+  ParentId: 13042350571798531422
+  UnregisteredParameters {
+    Overrides {
+      Name: "cs:ActivityName"
+      String: "Kill Example"
+    }
+    Overrides {
+      Name: "cs:Amount"
+      Int: 10
+    }
+    Overrides {
+      Name: "cs:Enabled"
+      Bool: false
+    }
+    Overrides {
+      Name: "cs:Icon"
+      AssetReference {
+        Id: 13665796067699909329
+      }
+    }
+  }
+  Collidable_v2 {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  Visible_v2 {
+    Value: "mc:evisibilitysetting:inheritfromparent"
+  }
+  CameraCollidable {
+    Value: "mc:ecollisionsetting:inheritfromparent"
+  }
+  EditorIndicatorVisibility {
+    Value: "mc:eindicatorvisibility:visiblewhenselected"
+  }
+  Script {
+    ScriptAsset {
+      Id: 15928942484550257200
     }
   }
 }

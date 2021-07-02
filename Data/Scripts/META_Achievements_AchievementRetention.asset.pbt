@@ -1,16 +1,16 @@
 Assets {
-  Id: 4954130354820301591
-  Name: "META_Achievements_AchievementEventbased"
+  Id: 9968610648830694869
+  Name: "META_Achievements_AchievementRetention"
   PlatformAssetType: 3
   TextAsset {
     CustomParameters {
       Overrides {
         Name: "cs:Enabled"
-        Bool: false
+        Bool: true
       }
       Overrides {
         Name: "cs:ID"
-        String: ""
+        String: "RE1"
       }
       Overrides {
         Name: "cs:Family"
@@ -18,17 +18,17 @@ Assets {
       }
       Overrides {
         Name: "cs:Required"
-        Float: 0
+        Float: 1
       }
       Overrides {
         Name: "cs:Icon"
         AssetReference {
-          Id: 841534158063459245
+          Id: 2951009027446743391
         }
       }
       Overrides {
         Name: "cs:Description"
-        String: ""
+        String: "Type \"GG\" In Game"
       }
       Overrides {
         Name: "cs:IsRepeatable"
@@ -39,36 +39,12 @@ Assets {
         Bool: false
       }
       Overrides {
-        Name: "cs:ResetDaily"
-        Bool: false
-      }
-      Overrides {
-        Name: "cs:ResetOnlyOnComplete"
-        Bool: false
-      }
-      Overrides {
         Name: "cs:GivesReward"
         Bool: false
       }
       Overrides {
         Name: "cs:PreRequisite"
         String: ""
-      }
-      Overrides {
-        Name: "cs:ResourceName"
-        String: "RESOURCE"
-      }
-      Overrides {
-        Name: "cs:isTimeBased"
-        Bool: false
-      }
-      Overrides {
-        Name: "cs:CompleteInSeconds"
-        Float: 0
-      }
-      Overrides {
-        Name: "cs:PreRequisite:tooltip"
-        String: "Achievment needing to be completed before progress can begin"
       }
       Overrides {
         Name: "cs:Enabled:tooltip"
@@ -103,28 +79,21 @@ Assets {
         String: "Make sure IsRepeatable is set to true - If ResetOnRoundStart is set to true, all repeatable Achievements will have their progress set to 0 each time the RoundStart even is fired."
       }
       Overrides {
-        Name: "cs:ResetDaily:tooltip"
-        String: "Set this to true, if you\'d like all repeatable & claimed Achievements to have their progress reset each day."
-      }
-      Overrides {
-        Name: "cs:ResetOnlyOnComplete:tooltip"
-        String: "Setting this to true will only allow Repeatable Achievements to be reset if their rewards have been claimed."
-      }
-      Overrides {
         Name: "cs:GivesReward:tooltip"
         String: "Set this to true if the Achievement gives rewards upon completion of the Achievement."
       }
       Overrides {
-        Name: "cs:ResourceName:tooltip"
-        String: "Resource name that this Achievement progression is tied to. (If it\'s a resource based Achievement)"
+        Name: "cs:PreRequisite:tooltip"
+        String: "Achievment needing to be completed before progress can begin"
       }
-      Overrides {
-        Name: "cs:isTimeBased:tooltip"
-        String: "Set this to true if an Achievement can only be completed within a certain amount of time. (Timer starts OnRoundStart)"
-      }
-      Overrides {
-        Name: "cs:CompleteInSeconds:tooltip"
-        String: "Time a player has to complete this Achievement in seconds, if time based."
+    }
+    Assets {
+      Id: 2951009027446743391
+      Name: "Military Ability Camp"
+      PlatformAssetType: 9
+      PrimaryAsset {
+        AssetType: "PlatformBrushAssetRef"
+        AssetId: "Icon_Military_Ability_Green_001"
       }
     }
   }

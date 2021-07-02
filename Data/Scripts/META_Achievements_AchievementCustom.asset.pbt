@@ -47,10 +47,6 @@ Assets {
         Bool: false
       }
       Overrides {
-        Name: "cs:SaveCompletedCount"
-        Bool: false
-      }
-      Overrides {
         Name: "cs:GivesReward"
         Bool: true
       }
@@ -97,10 +93,6 @@ Assets {
       Overrides {
         Name: "cs:ResetOnlyOnComplete:tooltip"
         String: "Setting this to true will only allow Repeatable Achievements to be reset if their rewards have been claimed."
-      }
-      Overrides {
-        Name: "cs:SaveCompletedCount:tooltip"
-        String: "If an Achievement is repeatable and want to display how many times this achievement has been completed, set this to true."
       }
       Overrides {
         Name: "cs:GivesReward:tooltip"

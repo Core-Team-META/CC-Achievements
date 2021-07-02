@@ -72,6 +72,7 @@ local spamPrevent = time()
 local lastCamera = {}
 local listeners = {}
 local endRoundListeners = {}
+local timeUntilReset = nil
 
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -267,6 +268,11 @@ function Init()
     LOCAL_PLAYER.bindingPressedEvent:Connect(OnBindingPressed)
     ACTIVE_BUTTON.clickedEvent:Connect(OnButtonPressed)
     COMPLETED_BUTTON.clickedEvent:Connect(OnButtonPressed)
+    Task.Wait(1)
+    local timeTbl = LOCAL_PLAYER:GetPrivateNetworkedData(API.CONSTANT_KEYS.TIME_KEY)
+    if timeTbl.secondsLeft then
+        timeUntilReset = time() + timeTbl.secondsLeft
+    end
 end
 
 function BuildAchievmentPanels()
@@ -333,14 +339,17 @@ function OnRoundEnd()
     end
 end
 
-if SHOULD_CLOSE_ON_DEATH then
-    function Tick()
+function Tick()
+    if SHOULD_CLOSE_ON_DEATH then
         if LOCAL_PLAYER.isDead and PRIMARY_PANEL.visibility == Visibility.FORCE_ON then
             UI.SetCursorVisible(false)
             UI.SetCanCursorInteractWithUI(false)
             UI.SetCursorLockedToViewport(false)
             PRIMARY_PANEL.visibility = Visibility.FORCE_OFF
         end
+    end
+    if timeUntilReset then
+
     end
 end
 

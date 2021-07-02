@@ -39,10 +39,6 @@ Assets {
         Bool: false
       }
       Overrides {
-        Name: "cs:SaveCompletedCount"
-        Bool: false
-      }
-      Overrides {
         Name: "cs:GivesReward"
         Bool: false
       }
@@ -99,10 +95,6 @@ Assets {
       Overrides {
         Name: "cs:Trigger:tooltip"
         String: "Object refrence to the trigger that will be us to unlock this achievement."
-      }
-      Overrides {
-        Name: "cs:SaveCompletedCount:tooltip"
-        String: "If an Achievement is repeatable and want to display how many times this achievement has been completed, set this to true."
       }
     }
     Assets {

@@ -186,6 +186,8 @@ function OnPlayerJoined(player)
     playerListeners.damage = player.damagedEvent:Connect(OnPlayerDamaged)
 
     listeners[player.id] = playerListeners
+
+    API.BroadcastPlayerJoined(player)
 end
 
 -- Save player achievement progression & disconnect listeners
