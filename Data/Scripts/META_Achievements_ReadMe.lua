@@ -9,8 +9,10 @@
 
 
        Description:
-    Meta Achievements is a simple component that allows creators to drag and drop goals that players can strive for in their games.
-    With a lot of customization options, creators have full control over how, when, and why players can unlock Achievements. 
+    Meta Achievements is a simple component that allows creators to drag and drop goals that players can strive for in their games. 
+    This component features a lot of customization options. Creators have full control over how, when, and why players can unlock Achievements
+    with a lot of examples out of the box. Achievements also provides a full-featured API, allowing for complete customization and integration 
+    with any game.
     
     
     Setup
@@ -36,7 +38,8 @@
         1) Chat - each time a player's in-game message includes the ChatString for an achievement they're granted 1 progress
         2) Friends - if the player is Core Friends with other players that are player your game, it'll unlock
     8. EXPLORE - Trigger-based achievements, can use both Interaction & Overlap triggers to unlock and achievement
-    9. CUSTOM (Advanced) - A section allowing creators to add their custom achievements through the use of the API.
+    9. RETENTION - Daily login based Achievements
+    10. CUSTOM (Advanced) - A section allowing creators to add their custom achievements through the use of the API.
 
 
     Adding / Editing Achievements
@@ -69,6 +72,7 @@
     2. Under UI Container you'll find three panels:
 
             1) PRIMARY:
+
             A panel that opens when a player presses a keybind during the game. By default, this shows Active & Completed
             Achievements.
 
@@ -80,14 +84,14 @@
             Changing the width/height of the parent panel can result in spacing issues due to the Achievement panels being spawned 
             at run time.
 
-            To edit the spawned Achievement panels find the scrollable panel named: "ACHIEVEMENT_LIST". You'll find "ACHIEVEMENT_Panel_Template"
-            as a child. To edit simply right-click then click "Deinstance This Object" to begin editing. 
+            To edit the spawned Achievement find "ACHIEVEMENT_Panel_Template" in the dependancies. To better visalize your changes, drag
+            the template as a child of "ACHIEVEMENT_LIST". To edit simply right-click then click "Deinstance This Object" to begin editing. 
                 
-            Once you're happy with your edits, be sure to right-click and press "Update Template From This". There is no need to delete 
-            the template from the hierarchy, as all children of both "ACHIEVEMENT_LIST" and "COMPLETED_ACHIEVEMENT_LIST", are deleted at 
-            run time.
+            Once you're happy with your edits, be sure to right-click and press "Update Template From This". Then delete the template from
+            the heirarchy.
 
             2) NOTIFICATION: 
+
             The dialog that popups informing the player of which Achievement they completed. 
             
             Currently when an Achievement has completed the visibility of this panel is toggled on for 2 seconds and then back off. 
@@ -99,6 +103,7 @@
             Once you're happy with the edits, change the Visibility back to Force off.
 
             3) EndRound: 
+
             A panel set up for creators allows players to view all of the repeatable Achievements they completed in a round. 
             
             Achievements that are set to IsRepeatable will show up here. 

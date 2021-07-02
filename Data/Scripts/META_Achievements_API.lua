@@ -51,7 +51,7 @@ API.REWARD_TYPES = {
     REWARD_POINTS = 2
 }
 
-API.DAILY_RESET_TIME = 60--(60 * 60 * 12) -- Daily achievements reset every 12 hours
+API.DAILY_RESET_TIME = (60 * 60 * 12) -- Daily achievements reset every 12 hours
 
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
