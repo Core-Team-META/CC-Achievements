@@ -13,6 +13,10 @@
     This component features a lot of customization options. Creators have full control over how, when, and why players can unlock Achievements
     with a lot of examples out of the box. Achievements also provides a full-featured API, allowing for complete customization and integration 
     with any game.
+
+
+    Video Tutorial Link: 
+    https://www.youtube.com/watch?v=WGpzIQEMOBo
     
     
     Setup
