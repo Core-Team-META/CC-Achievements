@@ -15,14 +15,15 @@ Assets {
             Z: 1
           }
         }
-        ParentId: 2812792799141805338
+        ParentId: 3949741111211767800
         ChildIds: 15850988520257377321
         ChildIds: 3174429637011668408
         ChildIds: 2928655598752361091
         ChildIds: 7854333540060957155
         ChildIds: 2041174039010241112
         ChildIds: 13621743958722221900
-        ChildIds: 521241944743914303
+        ChildIds: 10524565535998620637
+        ChildIds: 442028626700089927
         ChildIds: 12682774266491044911
         ChildIds: 14932133501947642849
         UnregisteredParameters {
@@ -57,27 +58,21 @@ Assets {
             }
           }
           Overrides {
-            Name: "cs:REWARD_TEXT"
-            ObjectReference {
-              SubObjectId: 521241944743914303
-            }
-          }
-          Overrides {
             Name: "cs:CLAIMED_TEXT"
             ObjectReference {
               SubObjectId: 14932133501947642849
             }
           }
           Overrides {
-            Name: "cs:REWARD_ICON"
-            ObjectReference {
-              SubObjectId: 10947188256612946297
-            }
-          }
-          Overrides {
             Name: "cs:PROGRESS_TEXT"
             ObjectReference {
               SubObjectId: 17046162155834822212
+            }
+          }
+          Overrides {
+            Name: "cs:REWARD_PANEL"
+            ObjectReference {
+              SubObjectId: 442028626700089927
             }
           }
         }
@@ -91,8 +86,8 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Control {
-          Width: 650
-          Height: 100
+          Width: -10
+          Height: 150
           UIX: 1
           UIY: 5
           RenderTransformPivot {
@@ -100,6 +95,8 @@ Assets {
               Value: "mc:euianchor:middlecenter"
             }
           }
+          AddSizeToParentIfUsingParentSize: true
+          UseParentWidth: true
           Panel {
             Opacity: 1
           }
@@ -153,12 +150,12 @@ Assets {
           UseParentHeight: true
           Image {
             Brush {
-              Id: 7946634531565250888
+              Id: 4504686085818425438
             }
             Color {
-              R: 0.0437350273
-              G: 0.0437350273
-              B: 0.0395462364
+              R: 0.02
+              G: 0.013744452
+              B: 0.0181579236
               A: 1
             }
             TeamSettings {
@@ -213,15 +210,21 @@ Assets {
           UseParentHeight: true
           Image {
             Brush {
-              Id: 17066449609679557524
+              Id: 9325337250500072279
             }
             Color {
-              R: 1
-              G: 1
-              B: 1
+              R: 0.603827536
+              G: 0.0331047736
+              B: 0.0343398117
               A: 1
             }
             TeamSettings {
+            }
+            ShadowColor {
+              A: 0.582
+            }
+            ShadowOffset {
+              Y: 1
             }
           }
           AnchorLayout {
@@ -266,7 +269,7 @@ Assets {
         Control {
           Width: 80
           Height: 80
-          UIX: 25
+          UIX: 12
           UIY: 10
           RenderTransformPivot {
             Anchor {
@@ -337,9 +340,9 @@ Assets {
               Id: 10071982093329629272
             }
             Color {
-              R: 1
-              G: 1
-              B: 1
+              R: 0.603827536
+              G: 0.0331047736
+              B: 0.0343398117
               A: 1
             }
             TeamSettings {
@@ -386,8 +389,8 @@ Assets {
         Control {
           Width: 500
           Height: 60
-          UIX: 125
-          UIY: 2.5
+          UIX: 100
+          UIY: 10
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -396,17 +399,24 @@ Assets {
           Text {
             Label: "LONG NAME TEST BLAH BLAH"
             Color {
-              R: 1
-              G: 1
-              B: 1
+              R: 0.0331047736
+              G: 0.603827536
+              B: 0.597202
               A: 1
             }
-            Size: 20
+            Size: 17
             Justification {
               Value: "mc:etextjustify:left"
             }
             AutoWrapText: true
             Font {
+              Id: 10954408705157073863
+            }
+            ShadowColor {
+              A: 0.755000055
+            }
+            ShadowOffset {
+              Y: 2
             }
           }
           AnchorLayout {
@@ -448,17 +458,17 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Control {
-          Width: 317
-          Height: 60
-          UIX: 127.144836
-          UIY: 40.3654175
+          Width: 513
+          Height: 61
+          UIX: 100
+          UIY: 39.1549301
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
             }
           }
           Text {
-            Label: "Just a description test blah blah balh  Just a description test blah blah balh "
+            Label: "Just a description test blah blah balh  Just a description test blah blah balh. asdfjh djfh skdfh sdhif oi hsiaf hakj hdsljf hsdfj hasdjfh "
             Color {
               R: 1
               G: 1
@@ -472,6 +482,13 @@ Assets {
             AutoWrapText: true
             ClipTextToSize: true
             Font {
+              Id: 36392559837228630
+            }
+            ShadowColor {
+              A: 1
+            }
+            ShadowOffset {
+              Y: 1
             }
           }
           AnchorLayout {
@@ -508,16 +525,16 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Visible_v2 {
-          Value: "mc:evisibilitysetting:inheritfromparent"
+          Value: "mc:evisibilitysetting:forceon"
         }
         CameraCollidable {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Control {
-          Width: 180
-          Height: 30
+          Width: 170
+          Height: 20
           UIX: -20
-          UIY: -20
+          UIY: 12
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -525,8 +542,9 @@ Assets {
           }
           StatBar {
             Color {
-              R: 0.144105926
-              G: 0.679999948
+              R: 0.215860531
+              G: 0.603827536
+              B: 0.0331047736
               A: 1
             }
             BackgroundColor {
@@ -541,12 +559,12 @@ Assets {
           AnchorLayout {
             SelfAnchor {
               Anchor {
-                Value: "mc:euianchor:middleright"
+                Value: "mc:euianchor:topright"
               }
             }
             TargetAnchor {
               Anchor {
-                Value: "mc:euianchor:middleright"
+                Value: "mc:euianchor:topright"
               }
             }
           }
@@ -579,6 +597,7 @@ Assets {
         Control {
           Width: 161
           Height: 24
+          UIY: -1
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -599,6 +618,10 @@ Assets {
             AutoWrapText: true
             Font {
             }
+            OutlineColor {
+              A: 1
+            }
+            OutlineSize: 1
           }
           AnchorLayout {
             SelfAnchor {
@@ -615,8 +638,8 @@ Assets {
         }
       }
       Objects {
-        Id: 521241944743914303
-        Name: "REWARD_TEXT"
+        Id: 10524565535998620637
+        Name: "DIVIDER"
         Transform {
           Location {
           }
@@ -629,7 +652,6 @@ Assets {
           }
         }
         ParentId: 14591153556103743282
-        ChildIds: 10947188256612946297
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
@@ -640,40 +662,173 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Control {
-          Width: 138
-          Height: 33
-          UIX: -23.3008614
-          UIY: -14.9919968
+          Width: -10
+          Height: 2
+          UIX: 5
+          UIY: 100
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
             }
           }
-          Text {
-            Label: "Reward: 1,000 "
+          AddSizeToParentIfUsingParentSize: true
+          UseParentWidth: true
+          Image {
+            Brush {
+              Id: 4504686085818425438
+            }
             Color {
-              R: 1
-              G: 1
-              B: 1
+              R: 0.603827536
+              G: 0.0331047736
+              B: 0.0343398117
               A: 1
             }
-            Size: 15
-            Justification {
-              Value: "mc:etextjustify:left"
+            TeamSettings {
             }
-            AutoWrapText: true
-            Font {
+            ShadowColor {
+              A: 0.582
+            }
+            ShadowOffset {
+              Y: 1
             }
           }
           AnchorLayout {
             SelfAnchor {
               Anchor {
-                Value: "mc:euianchor:bottomright"
+                Value: "mc:euianchor:topleft"
               }
             }
             TargetAnchor {
               Anchor {
-                Value: "mc:euianchor:bottomright"
+                Value: "mc:euianchor:topleft"
+              }
+            }
+          }
+        }
+      }
+      Objects {
+        Id: 442028626700089927
+        Name: "REWARD_PANEL"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 14591153556103743282
+        ChildIds: 2705110451413428420
+        ChildIds: 7968500514779247084
+        ChildIds: 4899750587270432726
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        EditorIndicatorVisibility {
+          Value: "mc:eindicatorvisibility:visiblewhenselected"
+        }
+        Control {
+          Width: -40
+          Height: -110
+          UIX: 20
+          UIY: -10.2623577
+          RenderTransformPivot {
+            Anchor {
+              Value: "mc:euianchor:middlecenter"
+            }
+          }
+          AddSizeToParentIfUsingParentSize: true
+          UseParentWidth: true
+          UseParentHeight: true
+          Panel {
+            Opacity: 1
+          }
+          AnchorLayout {
+            SelfAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomleft"
+              }
+            }
+            TargetAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomleft"
+              }
+            }
+          }
+        }
+      }
+      Objects {
+        Id: 2705110451413428420
+        Name: "REWARD1"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 442028626700089927
+        ChildIds: 10947188256612946297
+        UnregisteredParameters {
+          Overrides {
+            Name: "cs:REWARD_ICON"
+            ObjectReference {
+              SubObjectId: 10947188256612946297
+            }
+          }
+          Overrides {
+            Name: "cs:REWARD_TEXT"
+            ObjectReference {
+              SubObjectId: 521241944743914303
+            }
+          }
+        }
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:forceoff"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        EditorIndicatorVisibility {
+          Value: "mc:eindicatorvisibility:visiblewhenselected"
+        }
+        Control {
+          Width: 175
+          Height: 50
+          UIY: 10
+          RenderTransformPivot {
+            Anchor {
+              Value: "mc:euianchor:middlecenter"
+            }
+          }
+          Panel {
+            Opacity: 1
+          }
+          AnchorLayout {
+            SelfAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomleft"
+              }
+            }
+            TargetAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomleft"
               }
             }
           }
@@ -693,7 +848,8 @@ Assets {
             Z: 1
           }
         }
-        ParentId: 521241944743914303
+        ParentId: 2705110451413428420
+        ChildIds: 521241944743914303
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
@@ -704,9 +860,8 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Control {
-          Width: 35
-          Height: 35
-          UIX: -41.5599976
+          Width: 30
+          Height: 30
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -728,12 +883,481 @@ Assets {
           AnchorLayout {
             SelfAnchor {
               Anchor {
-                Value: "mc:euianchor:topleft"
+                Value: "mc:euianchor:middleleft"
               }
             }
             TargetAnchor {
               Anchor {
-                Value: "mc:euianchor:topleft"
+                Value: "mc:euianchor:middleleft"
+              }
+            }
+          }
+        }
+      }
+      Objects {
+        Id: 521241944743914303
+        Name: "REWARD_TEXT"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 10947188256612946297
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Control {
+          Width: 138
+          Height: 33
+          UIX: 36
+          UIY: 5
+          RenderTransformPivot {
+            Anchor {
+              Value: "mc:euianchor:middlecenter"
+            }
+          }
+          Text {
+            Label: "Reward: 1,000 "
+            Color {
+              R: 1
+              G: 1
+              B: 1
+              A: 1
+            }
+            Size: 15
+            Justification {
+              Value: "mc:etextjustify:left"
+            }
+            AutoWrapText: true
+            Font {
+              Id: 36392559837228630
+            }
+            ShadowColor {
+              A: 1
+            }
+            ShadowOffset {
+              Y: 1
+            }
+          }
+          AnchorLayout {
+            SelfAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomleft"
+              }
+            }
+            TargetAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomleft"
+              }
+            }
+          }
+        }
+      }
+      Objects {
+        Id: 7968500514779247084
+        Name: "REWARD2"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 442028626700089927
+        ChildIds: 17813104217764636532
+        UnregisteredParameters {
+          Overrides {
+            Name: "cs:REWARD_ICON"
+            ObjectReference {
+              SubObjectId: 17813104217764636532
+            }
+          }
+          Overrides {
+            Name: "cs:REWARD_TEXT"
+            ObjectReference {
+              SubObjectId: 12524651275734989453
+            }
+          }
+        }
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:forceoff"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        EditorIndicatorVisibility {
+          Value: "mc:eindicatorvisibility:visiblewhenselected"
+        }
+        Control {
+          Width: 175
+          Height: 50
+          UIY: 10
+          RenderTransformPivot {
+            Anchor {
+              Value: "mc:euianchor:middlecenter"
+            }
+          }
+          Panel {
+            Opacity: 1
+          }
+          AnchorLayout {
+            SelfAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomcenter"
+              }
+            }
+            TargetAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomcenter"
+              }
+            }
+          }
+        }
+      }
+      Objects {
+        Id: 17813104217764636532
+        Name: "REWARD_ICON"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 7968500514779247084
+        ChildIds: 12524651275734989453
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Control {
+          Width: 30
+          Height: 30
+          RenderTransformPivot {
+            Anchor {
+              Value: "mc:euianchor:middlecenter"
+            }
+          }
+          Image {
+            Brush {
+              Id: 1283463588493558965
+            }
+            Color {
+              R: 1
+              G: 1
+              B: 1
+              A: 1
+            }
+            TeamSettings {
+            }
+          }
+          AnchorLayout {
+            SelfAnchor {
+              Anchor {
+                Value: "mc:euianchor:middleleft"
+              }
+            }
+            TargetAnchor {
+              Anchor {
+                Value: "mc:euianchor:middleleft"
+              }
+            }
+          }
+        }
+      }
+      Objects {
+        Id: 12524651275734989453
+        Name: "REWARD_TEXT"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 17813104217764636532
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Control {
+          Width: 138
+          Height: 33
+          UIX: 36
+          UIY: 5
+          RenderTransformPivot {
+            Anchor {
+              Value: "mc:euianchor:middlecenter"
+            }
+          }
+          Text {
+            Label: "Reward: 1,000 "
+            Color {
+              R: 1
+              G: 1
+              B: 1
+              A: 1
+            }
+            Size: 15
+            Justification {
+              Value: "mc:etextjustify:left"
+            }
+            AutoWrapText: true
+            Font {
+              Id: 36392559837228630
+            }
+            ShadowColor {
+              A: 1
+            }
+            ShadowOffset {
+              Y: 1
+            }
+          }
+          AnchorLayout {
+            SelfAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomleft"
+              }
+            }
+            TargetAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomleft"
+              }
+            }
+          }
+        }
+      }
+      Objects {
+        Id: 4899750587270432726
+        Name: "REWARD3"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 442028626700089927
+        ChildIds: 16417685626701833307
+        UnregisteredParameters {
+          Overrides {
+            Name: "cs:REWARD_ICON"
+            ObjectReference {
+              SubObjectId: 16417685626701833307
+            }
+          }
+          Overrides {
+            Name: "cs:REWARD_TEXT"
+            ObjectReference {
+              SubObjectId: 13334827282456467353
+            }
+          }
+        }
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:forceoff"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        EditorIndicatorVisibility {
+          Value: "mc:eindicatorvisibility:visiblewhenselected"
+        }
+        Control {
+          Width: 175
+          Height: 50
+          UIY: 10
+          RenderTransformPivot {
+            Anchor {
+              Value: "mc:euianchor:middlecenter"
+            }
+          }
+          Panel {
+            Opacity: 1
+          }
+          AnchorLayout {
+            SelfAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomright"
+              }
+            }
+            TargetAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomright"
+              }
+            }
+          }
+        }
+      }
+      Objects {
+        Id: 16417685626701833307
+        Name: "REWARD_ICON"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 4899750587270432726
+        ChildIds: 13334827282456467353
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Control {
+          Width: 30
+          Height: 30
+          RenderTransformPivot {
+            Anchor {
+              Value: "mc:euianchor:middlecenter"
+            }
+          }
+          Image {
+            Brush {
+              Id: 1283463588493558965
+            }
+            Color {
+              R: 1
+              G: 1
+              B: 1
+              A: 1
+            }
+            TeamSettings {
+            }
+          }
+          AnchorLayout {
+            SelfAnchor {
+              Anchor {
+                Value: "mc:euianchor:middleleft"
+              }
+            }
+            TargetAnchor {
+              Anchor {
+                Value: "mc:euianchor:middleleft"
+              }
+            }
+          }
+        }
+      }
+      Objects {
+        Id: 13334827282456467353
+        Name: "REWARD_TEXT"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 16417685626701833307
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Control {
+          Width: 138
+          Height: 33
+          UIX: 36
+          UIY: 5
+          RenderTransformPivot {
+            Anchor {
+              Value: "mc:euianchor:middlecenter"
+            }
+          }
+          Text {
+            Label: "Reward: 1,000 "
+            Color {
+              R: 1
+              G: 1
+              B: 1
+              A: 1
+            }
+            Size: 15
+            Justification {
+              Value: "mc:etextjustify:left"
+            }
+            AutoWrapText: true
+            Font {
+              Id: 36392559837228630
+            }
+            ShadowColor {
+              A: 1
+            }
+            ShadowOffset {
+              Y: 1
+            }
+          }
+          AnchorLayout {
+            SelfAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomleft"
+              }
+            }
+            TargetAnchor {
+              Anchor {
+                Value: "mc:euianchor:bottomleft"
               }
             }
           }
@@ -764,10 +1388,10 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Control {
-          Width: 150
-          Height: 43
-          UIX: -33.5654297
-          UIY: 6.8538208
+          Width: 195
+          Height: 34
+          UIX: -5
+          UIY: 5
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -776,12 +1400,16 @@ Assets {
           Button {
             Label: "CLAIM"
             FontColor {
+              R: 0.00750722922
+              G: 0.0210000016
+              B: 0.00115132274
               A: 1
             }
             FontSize: 15
             ButtonColor {
-              R: 0.144128487
-              G: 0.67954272
+              R: 0.215860531
+              G: 0.603827536
+              B: 0.0331047736
               A: 1
             }
             HoveredColor {
@@ -811,13 +1439,19 @@ Assets {
               Value: "mc:ebuttonclickmode:default"
             }
             Font {
-              Id: 10698833128597864431
+              Id: 10954408705157073863
             }
             Justification {
               Value: "mc:etextjustify:center"
             }
             VerticalJustification {
               Value: "mc:everticaljustification:center"
+            }
+            ShadowColor {
+              A: 0.708
+            }
+            ShadowOffset {
+              Y: 2
             }
           }
           AnchorLayout {
@@ -862,6 +1496,7 @@ Assets {
           Width: 200
           Height: 41
           UIX: 215.211182
+          UIY: 13.8880978
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -880,17 +1515,22 @@ Assets {
             }
             AutoWrapText: true
             Font {
+              Id: 10954408705157073863
             }
+            OutlineColor {
+              A: 0.958000064
+            }
+            OutlineSize: 1
           }
           AnchorLayout {
             SelfAnchor {
               Anchor {
-                Value: "mc:euianchor:middlecenter"
+                Value: "mc:euianchor:topcenter"
               }
             }
             TargetAnchor {
               Anchor {
-                Value: "mc:euianchor:middlecenter"
+                Value: "mc:euianchor:topcenter"
               }
             }
           }
@@ -898,21 +1538,21 @@ Assets {
       }
     }
     Assets {
-      Id: 7946634531565250888
-      Name: "BG Flat 002"
+      Id: 4504686085818425438
+      Name: "BG Flat 001"
       PlatformAssetType: 9
       PrimaryAsset {
         AssetType: "PlatformBrushAssetRef"
-        AssetId: "BackgroundNoOutline_019"
+        AssetId: "BackgroundNoOutline_020"
       }
     }
     Assets {
-      Id: 17066449609679557524
-      Name: "Frame Outline Thin 002"
+      Id: 9325337250500072279
+      Name: "Frame Outline Thin 001"
       PlatformAssetType: 9
       PrimaryAsset {
         AssetType: "PlatformBrushAssetRef"
-        AssetId: "FrameOutline_019"
+        AssetId: "FrameOutline_020"
       }
     }
     Assets {
@@ -934,6 +1574,24 @@ Assets {
       }
     }
     Assets {
+      Id: 10954408705157073863
+      Name: "Roboto Bold"
+      PlatformAssetType: 28
+      PrimaryAsset {
+        AssetType: "FontAssetRef"
+        AssetId: "RobotoBold_ref"
+      }
+    }
+    Assets {
+      Id: 36392559837228630
+      Name: "Roboto"
+      PlatformAssetType: 28
+      PrimaryAsset {
+        AssetType: "FontAssetRef"
+        AssetId: "RobotoRegular_ref"
+      }
+    }
+    Assets {
       Id: 1283463588493558965
       Name: "Fantasy Gold 001"
       PlatformAssetType: 9
@@ -942,19 +1600,10 @@ Assets {
         AssetId: "UI_Fantasy_Equip_Gold_002"
       }
     }
-    Assets {
-      Id: 10698833128597864431
-      Name: "Play Bold"
-      PlatformAssetType: 28
-      PrimaryAsset {
-        AssetType: "FontAssetRef"
-        AssetId: "PlayBold_ref"
-      }
-    }
     PrimaryAssetId {
       AssetType: "None"
       AssetId: "None"
     }
   }
-  SerializationVersion: 89
+  SerializationVersion: 91
 }

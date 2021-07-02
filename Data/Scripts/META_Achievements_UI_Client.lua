@@ -15,9 +15,9 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 ------------------------------------------------------------------------------------------------------------------------
--- Achievement System UI
+-- Meta Achievements UI Client
 -- Author Morticai (META) - (https://www.coregames.com/user/d1073dbcc404405cbef8ce728e53d380)
--- Date: 2021/5/9
+-- Date: 2021/5/29
 -- Version 0.1.0-CC
 ------------------------------------------------------------------------------------------------------------------------
 local ROOT = script:GetCustomProperty("AchievementSystem"):WaitForObject()
@@ -52,21 +52,27 @@ local END_ROUND_ACHIEVEMENTS_PANEL = script:GetCustomProperty("AchievementsPanel
 local SFX_CLAIM = script:GetCustomProperty("SFX_UI_AchievementClaim")
 local SFX_OPEN = script:GetCustomProperty("SFX_UI_OpenInventoryPanel")
 local SFX_HOVER = script:GetCustomProperty("SFX_UI_Hover")
+
 local END_ROUND_ACHIEVEMENT_TEMPLATE = script:GetCustomProperty("Achievement_EndScreen_Template")
 
 local ACTIVE_BUTTON_COLOR = CLIENT_SETTINGS:GetCustomProperty("ActiveButton")
 local INACTIVE_BUTTON_COLOR = CLIENT_SETTINGS:GetCustomProperty("InactiveButton")
-local KEYPRESS = CLIENT_SETTINGS:GetCustomProperty("Keybind")
 local SHOULD_SHOW_REPEATABLE = CLIENT_SETTINGS:GetCustomProperty("ShowRepeatable")
+local SHOULD_CLOSE_ON_DEATH = CLIENT_SETTINGS:GetCustomProperty("CloseUIOnDeath")
+
+local KEYPRESS = ROOT:GetCustomProperty("Keybind")
 
 local LOCAL_PLAYER = Game.GetLocalPlayer()
 
 local ACHIEVEMENT_PANEL_TEMPLATE = script:GetCustomProperty("ACHIEVEMENT_Panel_Template")
 
+local shouldHideRepeatable = ROOT:GetCustomProperty("HideRepeatable")
+
 local spamPrevent = time()
 local lastCamera = {}
 local listeners = {}
 local endRoundListeners = {}
+local timeUntilReset = nil
 
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -109,7 +115,6 @@ local function ClearAchievementPanels()
     listeners = {}
 end
 
-
 --@param Bool bool
 local function ToggleUI(bool)
     UI.SetCursorVisible(bool)
@@ -135,12 +140,17 @@ end
 local function OnClaimButtonPressed(button)
     local panel = button.clientUserData.panel
     button.visibility = Visibility.FORCE_OFF
-    panel:GetCustomProperty("REWARD_TEXT"):WaitForObject().visibility = Visibility.FORCE_OFF
+    --panel:GetCustomProperty("REWARD_PANEL"):WaitForObject().visibility = Visibility.FORCE_OFF
     panel:GetCustomProperty("CLAIMED_TEXT"):WaitForObject().visibility = Visibility.FORCE_ON
-    Events.BroadcastToServer("AS.RewardClaim", button.clientUserData.key)
+    API.BroadcastRewardClaim(button.clientUserData.key)
     World.SpawnAsset(SFX_CLAIM)
-    Task.Spawn(function() BuildAchievmentPanels() end, 2)
-    
+    Task.Spawn(
+        function()
+            ClearAchievementPanels()
+            BuildAchievmentPanels()
+        end,
+        2
+    )
 end
 
 local function EnableRewardButton(button, panel, achievement)
@@ -156,7 +166,6 @@ local function EnableRewardButton(button, panel, achievement)
     )
 end
 
-
 --@param Int index
 --@param Table achievement
 --@param Object parent
@@ -170,18 +179,24 @@ local function AddNewPanel(index, achievement, parent)
     panel:GetCustomProperty("NAME"):WaitForObject().text = achievement.name
     panel:GetCustomProperty("DESC"):WaitForObject().text = achievement.description
     panel:GetCustomProperty("ICON"):WaitForObject():SetImage(achievement.icon)
+    local REWARD_PANEL = panel:GetCustomProperty("REWARD_PANEL"):WaitForObject()
 
     if achievement.givesReward then
-        panel:GetCustomProperty("REWARD_TEXT"):WaitForObject().text =
-            API.FormatInt(achievement.rewards[1]:GetCustomProperty("Amount")) .. " " .. achievement.rewards[1].name
+        for i, rewardPanel in ipairs(REWARD_PANEL:GetChildren()) do
+            if i <= 3 and achievement.rewards[i] then
+                rewardPanel:GetCustomProperty("REWARD_TEXT"):WaitForObject().text =
+                    API.FormatInt(achievement.rewards[i]:GetCustomProperty("Amount")) ..
+                    " " .. achievement.rewards[i].name
 
-        local icon = achievement.rewards[1]:GetCustomProperty("Icon")
-        if icon then
-            panel:GetCustomProperty("REWARD_ICON"):WaitForObject():SetImage(icon)
+                local icon = achievement.rewards[i]:GetCustomProperty("Icon")
+                if icon then
+                    rewardPanel:GetCustomProperty("REWARD_ICON"):WaitForObject():SetImage(icon)
+                end
+                rewardPanel.visibility = Visibility.FORCE_ON
+            end
         end
     else
-        panel:GetCustomProperty("REWARD_TEXT"):WaitForObject().visibility = Visibility.FORCE_OFF
-        panel:GetCustomProperty("REWARD_ICON"):WaitForObject().visibility = Visibility.FORCE_OFF
+        REWARD_PANEL.visibility = Visibility.FORCE_OFF
     end
 
     panel:GetCustomProperty("PROGRESS_TEXT"):WaitForObject().text =
@@ -189,6 +204,7 @@ local function AddNewPanel(index, achievement, parent)
 
     if not API.IsUnlocked(LOCAL_PLAYER, achievement.id, currentResource) and currentResource ~= 1 then
         CLAIM_BUTTON.isEnabled = false
+        CLAIM_BUTTON.visibility = Visibility.FORCE_OFF
         PROGRESS.progress = currentResource / requiredResource
     elseif API.IsUnlocked(LOCAL_PLAYER, achievement.id, currentResource) then
         PROGRESS.visibility = Visibility.FORCE_OFF
@@ -197,13 +213,17 @@ local function AddNewPanel(index, achievement, parent)
         end
     elseif currentResource == 1 then
         PROGRESS.visibility = Visibility.FORCE_OFF
-        panel:GetCustomProperty("REWARD_TEXT"):WaitForObject().visibility = Visibility.FORCE_OFF
         panel:GetCustomProperty("CLAIMED_TEXT"):WaitForObject().visibility = Visibility.FORCE_ON
         CLAIM_BUTTON.isEnabled = false
+        CLAIM_BUTTON.visibility = Visibility.FORCE_OFF
     end
-    panel.y = (index - 1) * 100
-end
+    if parent == COMPLETED_ACHIEVEMENT_LIST then
+        CLAIM_BUTTON.visibility = Visibility.FORCE_OFF
+        panel:GetCustomProperty("CLAIMED_TEXT"):WaitForObject().visibility = Visibility.FORCE_ON
+    end
 
+    panel.y = (index - 1) * 155
+end
 
 -- Used to build achievement panel, of all repeatable achievements unlocked in a round
 local function BuildAchievementEndRoundPanel()
@@ -248,6 +268,11 @@ function Init()
     LOCAL_PLAYER.bindingPressedEvent:Connect(OnBindingPressed)
     ACTIVE_BUTTON.clickedEvent:Connect(OnButtonPressed)
     COMPLETED_BUTTON.clickedEvent:Connect(OnButtonPressed)
+    Task.Wait(1)
+    local timeTbl = LOCAL_PLAYER:GetPrivateNetworkedData(API.CONSTANT_KEYS.TIME_KEY)
+    if timeTbl.secondsLeft then
+        timeUntilReset = time() + timeTbl.secondsLeft
+    end
 end
 
 function BuildAchievmentPanels()
@@ -257,7 +282,9 @@ function BuildAchievmentPanels()
         if API.IsCompleted(LOCAL_PLAYER, achievement.id) then
             table.insert(completedAchievements, achievement)
         else
-            table.insert(activeAchievements, achievement)
+            if not shouldHideRepeatable or shouldHideRepeatable and not achievement.isRepeatable then
+                table.insert(activeAchievements, achievement)
+            end
         end
     end
     table.sort(activeAchievements, CompareAchievement)
@@ -287,7 +314,6 @@ function OnButtonPressed(button)
     end
 end
 
-
 --@params Object player
 --@params String keybind
 function OnBindingPressed(player, keybind)
@@ -310,6 +336,20 @@ end
 function OnRoundEnd()
     if SHOULD_SHOW_REPEATABLE then
         BuildAchievementEndRoundPanel()
+    end
+end
+
+function Tick()
+    if SHOULD_CLOSE_ON_DEATH then
+        if LOCAL_PLAYER.isDead and PRIMARY_PANEL.visibility == Visibility.FORCE_ON then
+            UI.SetCursorVisible(false)
+            UI.SetCanCursorInteractWithUI(false)
+            UI.SetCursorLockedToViewport(false)
+            PRIMARY_PANEL.visibility = Visibility.FORCE_OFF
+        end
+    end
+    if timeUntilReset then
+
     end
 end
 

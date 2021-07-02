@@ -15,9 +15,9 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 ------------------------------------------------------------------------------------------------------------------------
--- Achievement System Data
+-- Meta Achievements Explore Server
 -- Author Morticai (META) - (https://www.coregames.com/user/d1073dbcc404405cbef8ce728e53d380)
--- Date: 2021/5/9
+-- Date: 2021/5/29
 -- Version 0.1.0-CC
 ------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
@@ -30,13 +30,9 @@ local API = _G.META_ACHIEVEMENTS
 ------------------------------------------------------------------------------------------------------------------------
 -- CUSTOM PROPERTIES
 ------------------------------------------------------------------------------------------------------------------------
+local TRIGGER = script:GetCustomProperty("Trigger"):WaitForObject(2)
 local isEnabled = script:GetCustomProperty("Enabled")
-local ACHIEVEMENT_ID = script:GetCustomProperty("ID")
-local RESOURCE_NAME = script:GetCustomProperty("ResourceName")
-
---Types: RESOURCE, KILL, DAMAGE, WIN, ROUND, SCORE
-local ACHIEVEMENT_TYPE = script:GetCustomProperty("Type")
-
+local ACHIEVEMENT_ID = API.GetAchievementID(script)
 ------------------------------------------------------------------------------------------------------------------------
 -- ERROR HANDLING
 ------------------------------------------------------------------------------------------------------------------------
@@ -44,18 +40,18 @@ if not isEnabled then
     return
 end
 
+if not Object.IsValid(TRIGGER) then
+    warn("Missing Trigger Object Reference In EXPLORE ID:" .. ACHIEVEMENT_ID)
+    return
+end
+
 if not ACHIEVEMENT_ID then
-    warn("Achievement ID Missing, Please Check All Achievements Have A Unique ID")
+    warn("Achievement ID Missing, Please Make Sure The Trigger Has an Achievement ID")
     return
 end
 
-if not ACHIEVEMENT_TYPE then
-    warn(ACHIEVEMENT_ID .. " missing Achievement Type")
-    return
-end
-
-if ACHIEVEMENT_TYPE == "RESOURCE" and not RESOURCE_NAME then
-    warn(ACHIEVEMENT_ID .. " type is RESOURCE but ResourceName is missing.")
+if ACHIEVEMENT_ID and not API.GetAchievementInfo(ACHIEVEMENT_ID) then
+    warn("Invalid ID:" .. ACHIEVEMENT_ID .. " Please check this ID is valid")
     return
 end
 
@@ -63,49 +59,11 @@ end
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
 
---@params Object player
---@params String resName
---@params Int resAmt
-local function OnResourceChanged(player, resName, resAmt)
-    if resName == RESOURCE_NAME then
-        API.AddProgress(player, ACHIEVEMENT_ID, resAmt)
-    end
-end
-
---@params Object player
---@params Object damage
-local function OnPlayerDied(player, damage)
-    local source = damage.sourcePlayer
-    player.serverUserData.ACH_killCredited = true
-    API.AddProgress(source, ACHIEVEMENT_ID, 1)
-end
-
---@params Object player
---@params Object damage
-local function OnPlayerDamaged(player, damage)
-    local amount = damage.amount
-    local source = damage.sourcePlayer
-    API.AddProgress(source, ACHIEVEMENT_ID, CoreMath.Round(amount))
-end
-
---@params Table playersWon | key Object player | value Bool true if won
---@params Object damage
-local function OnRoundEnd(playersWon)
-    for player, didWin in pairs(playersWon) do
-        if ACHIEVEMENT_TYPE == "WIN" and didWin and Object.IsValid(player) then
-            API.AddProgress(player, ACHIEVEMENT_ID, 1)
-        elseif ACHIEVEMENT_TYPE == "ROUND" and Object.IsValid(player) then
-            API.AddProgress(player, ACHIEVEMENT_ID, 1)
-        end
-    end
-end
-
---@params Int team
-local function OnTeamScore(team)
-    for _, player in ipairs(Game.GetPlayers()) do
-        if player.team == team then
-            API.AddProgress(player, ACHIEVEMENT_ID, 1)
-        end
+--@params Object trigger
+--@params Object other
+local function OnTrigger(trigger, other)
+    if trigger == TRIGGER and Object.IsValid(other) and other:IsA("Player") then
+        API.UnlockAchievement(other, ACHIEVEMENT_ID)
     end
 end
 
@@ -114,16 +72,10 @@ end
 ------------------------------------------------------------------------------------------------------------------------
 
 function Init()
-    if ACHIEVEMENT_TYPE == "RESOURCE" and RESOURCE_NAME then
-        Events.Connect("AS.ResChange", OnResourceChanged)
-    elseif ACHIEVEMENT_TYPE == "KILL" then
-        Events.Connect("AS.DiedEvent", OnPlayerDied)
-    elseif ACHIEVEMENT_TYPE == "DAMAGE" then
-        Events.Connect("AS.DamageEvent", OnPlayerDamaged)
-    elseif ACHIEVEMENT_TYPE == "WIN" or ACHIEVEMENT_TYPE == "ROUND" then
-        Events.Connect("AS.RoundEndEvent", OnRoundEnd)
-    elseif ACHIEVEMENT_TYPE == "SCORE" then
-        Events.Connect("AS.TeamScoreEvent", OnTeamScore)
+    if TRIGGER.isInteractable then
+        TRIGGER.interactedEvent:Connect(OnTrigger)
+    else
+        TRIGGER.beginOverlapEvent:Connect(OnTrigger)
     end
 end
 

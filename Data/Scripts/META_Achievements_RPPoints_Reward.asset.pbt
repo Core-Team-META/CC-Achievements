@@ -1,6 +1,6 @@
 Assets {
-  Id: 8563684984866158969
-  Name: "ACHIEVEMENT_Data_RESOURCE_REWARD_Example"
+  Id: 15928942484550257200
+  Name: "META_Achievements_RPPoints_Reward"
   PlatformAssetType: 3
   TextAsset {
     CustomParameters {
@@ -17,7 +17,7 @@ Assets {
         Int: 1
       }
       Overrides {
-        Name: "cs:ResourceName"
+        Name: "cs:ActivityName"
         String: ""
       }
       Overrides {
@@ -25,6 +25,14 @@ Assets {
         AssetReference {
           Id: 1283463588493558965
         }
+      }
+      Overrides {
+        Name: "cs:Type"
+        Int: 2
+      }
+      Overrides {
+        Name: "cs:Type:tooltip"
+        String: "Don\'t Change -- Leave as 2"
       }
     }
     Assets {
@@ -37,5 +45,5 @@ Assets {
       }
     }
   }
-  SerializationVersion: 89
+  SerializationVersion: 91
 }

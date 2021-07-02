@@ -15,9 +15,9 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 ------------------------------------------------------------------------------------------------------------------------
--- Achievement System Server
+-- Meta Achievements System Server
 -- Author Morticai (META) - (https://www.coregames.com/user/d1073dbcc404405cbef8ce728e53d380)
--- Date: 2021/5/9
+-- Date: 2021/5/29
 -- Version 0.1.0-CC
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -47,6 +47,7 @@ local API = _G.META_ACHIEVEMENTS
 -- OBJECTS
 ------------------------------------------------------------------------------------------------------------------------
 local listeners = {}
+local roundTime = time()
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
@@ -67,9 +68,10 @@ end
 -- Resets player flags and repeatable achievements when a new round starts
 local function OnRoundStart()
     for _, player in ipairs(Game.GetPlayers()) do
-        API.ResetRepeatable(player)
+        API.ResetRepeatable(player, API.REPEAT_TYPE.ROUND)
         SetPlayerFlags(player)
     end
+    roundTime = time()
 end
 
 --@params Object player
@@ -79,7 +81,7 @@ local function OnResourceChanged(player, resName, resAmt)
     if resAmt == 0 then
         return
     end
-    Events.Broadcast("AS.ResChange", player, resName, resAmt)
+    API.BroadcastResource(player, resName, resAmt)
 end
 
 -- Used for Round & Win Achievement types.
@@ -104,7 +106,7 @@ local function OnRoundEnd()
         end
     end
 
-    Events.Broadcast("AS.RoundEndEvent", playersWonTbl)
+    API.BroadcastRoundEnd(playersWonTbl)
 
     if shouldGiveRewardsRoundEnd then
         Task.Wait(3)
@@ -137,7 +139,7 @@ local function OnPlayerDied(player, damage)
     local source = damage.sourcePlayer
     if IsValidPlayer(player) and IsValidPlayer(source) then
         if not player.serverUserData.ACH_killCredited then
-            Events.Broadcast("AS.DiedEvent", player, damage)
+            API.BroadcastDiedEvent(player, damage)
         end
     end
 end
@@ -148,14 +150,14 @@ local function OnPlayerDamaged(player, damage)
     local source = damage.sourcePlayer
     if IsValidPlayer(player) and IsValidPlayer(source) then
         if not player.serverUserData.ACH_killCredited then
-            Events.Broadcast("AS.DamageEvent", player, damage)
+            API.BroadcastDamageEvent(player, damage)
         end
     end
 end
 
 --@params Int team
 local function OnTeamScored(team)
-    Events.Broadcast("AS.TeamScoreEvent", team)
+    API.BroadcastTeamScoredEvent(team)
 end
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -171,6 +173,8 @@ end
 -- Load player achievement progression & connect listeners.
 --@params Object player
 function OnPlayerJoined(player)
+    API.OnPlayerJoined(player)
+    
     if shouldSaveProgress then
         API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     end
@@ -182,6 +186,8 @@ function OnPlayerJoined(player)
     playerListeners.damage = player.damagedEvent:Connect(OnPlayerDamaged)
 
     listeners[player.id] = playerListeners
+
+    API.BroadcastPlayerJoined(player)
 end
 
 -- Save player achievement progression & disconnect listeners
@@ -196,6 +202,7 @@ function OnPlayerLeft(player)
         end
         listeners[player.id] = nil
     end
+    API.OnPlayerLeft(player)
 end
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -208,7 +215,7 @@ Game.playerJoinedEvent:Connect(OnPlayerJoined)
 Game.playerLeftEvent:Connect(OnPlayerLeft)
 
 -- Client Broadcast Listeners
-Events.ConnectForPlayer("AS.RewardClaim", OnRewardCollected)
+API.ConnectRewardClaim(OnRewardCollected)
 
 -- Setup Achievements
 API.RegisterAchievements(ACHIEVEMENT_LIST)

@@ -1,16 +1,16 @@
 Assets {
-  Id: 9244640314906994747
-  Name: "Achievement_Test"
+  Id: 18150383576270310824
+  Name: "META_Achievements_UI_Client"
   PlatformAssetType: 3
   TextAsset {
     CustomParameters {
       Overrides {
-        Name: "cs:ACHIEVEMENT_API"
+        Name: "cs:ACH_API"
         AssetReference {
           Id: 10810744165101332779
         }
       }
     }
   }
-  SerializationVersion: 89
+  SerializationVersion: 91
 }

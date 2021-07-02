@@ -1,8 +1,8 @@
 Assets {
   Id: 10176602259573205050
-  Name: "ACHIEVEMENT_Client"
+  Name: "META_Achievements_Client"
   PlatformAssetType: 3
   TextAsset {
   }
-  SerializationVersion: 89
+  SerializationVersion: 91
 }

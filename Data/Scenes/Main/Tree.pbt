@@ -22,7 +22,6 @@ Objects {
   ChildIds: 13166939408216695751
   ChildIds: 15721658923682352833
   ChildIds: 5045153958130871664
-  ChildIds: 4971569551433963456
   UnregisteredParameters {
   }
   Collidable_v2 {
@@ -35,214 +34,6 @@ Objects {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
   Folder {
-  }
-}
-Objects {
-  Id: 4971569551433963456
-  Name: "Weapons"
-  Transform {
-    Location {
-      X: -207
-      Y: -87
-    }
-    Rotation {
-    }
-    Scale {
-      X: 1
-      Y: 1
-      Z: 1
-    }
-  }
-  ParentId: 4781671109827199097
-  ChildIds: 10577922040130020833
-  ChildIds: 381370201781018324
-  ChildIds: 11963617257637156202
-  WantsNetworking: true
-  Collidable_v2 {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
-  }
-  CameraCollidable {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  EditorIndicatorVisibility {
-    Value: "mc:eindicatorvisibility:visiblewhenselected"
-  }
-  Folder {
-    IsGroup: true
-  }
-}
-Objects {
-  Id: 11963617257637156202
-  Name: "Advanced Dual Katana"
-  Transform {
-    Location {
-      X: -310
-      Y: -52
-    }
-    Rotation {
-    }
-    Scale {
-      X: 1
-      Y: 1
-      Z: 1
-    }
-  }
-  ParentId: 4971569551433963456
-  WantsNetworking: true
-  Collidable_v2 {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
-  }
-  TemplateInstance {
-    ParameterOverrideMap {
-      key: 7967256371717441243
-      value {
-        Overrides {
-          Name: "Name"
-          String: "Advanced Dual Katana"
-        }
-        Overrides {
-          Name: "Position"
-          Vector {
-            X: -94
-            Y: -325
-          }
-        }
-        Overrides {
-          Name: "Rotation"
-          Rotator {
-          }
-        }
-        Overrides {
-          Name: "Scale"
-          Vector {
-            X: 1
-            Y: 1
-            Z: 1
-          }
-        }
-      }
-    }
-    TemplateAsset {
-      Id: 6440940219923499240
-    }
-  }
-}
-Objects {
-  Id: 381370201781018324
-  Name: "Advanced Dual Katana"
-  Transform {
-    Location {
-      X: -310
-      Y: -209
-    }
-    Rotation {
-    }
-    Scale {
-      X: 1
-      Y: 1
-      Z: 1
-    }
-  }
-  ParentId: 4971569551433963456
-  WantsNetworking: true
-  Collidable_v2 {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
-  }
-  TemplateInstance {
-    ParameterOverrideMap {
-      key: 7967256371717441243
-      value {
-        Overrides {
-          Name: "Name"
-          String: "Advanced Dual Katana"
-        }
-        Overrides {
-          Name: "Position"
-          Vector {
-            X: -103
-            Y: 35
-          }
-        }
-        Overrides {
-          Name: "Rotation"
-          Rotator {
-          }
-        }
-        Overrides {
-          Name: "Scale"
-          Vector {
-            X: 1
-            Y: 1
-            Z: 1
-          }
-        }
-      }
-    }
-    TemplateAsset {
-      Id: 6440940219923499240
-    }
-  }
-}
-Objects {
-  Id: 10577922040130020833
-  Name: "Advanced Dual Katana"
-  Transform {
-    Scale {
-      X: 1
-      Y: 1
-      Z: 1
-    }
-  }
-  ParentId: 4971569551433963456
-  WantsNetworking: true
-  Collidable_v2 {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Visible_v2 {
-    Value: "mc:evisibilitysetting:inheritfromparent"
-  }
-  TemplateInstance {
-    ParameterOverrideMap {
-      key: 7967256371717441243
-      value {
-        Overrides {
-          Name: "Name"
-          String: "Advanced Dual Katana"
-        }
-        Overrides {
-          Name: "Position"
-          Vector {
-            X: -103
-            Y: -122
-          }
-        }
-        Overrides {
-          Name: "Rotation"
-          Rotator {
-          }
-        }
-        Overrides {
-          Name: "Scale"
-          Vector {
-            X: 1
-            Y: 1
-            Z: 1
-          }
-        }
-      }
-    }
-    TemplateAsset {
-      Id: 6440940219923499240
-    }
   }
 }
 Objects {
@@ -290,12 +81,36 @@ Objects {
       Bool: false
     }
     Overrides {
+      Name: "cs:Keybind"
+      String: "ability_extra_0"
+    }
+    Overrides {
       Name: "cs:GiveRewardsRoundEnd:tooltip"
       String: "Set to true to give rewards for repeatable achievements at the end of a round"
     }
     Overrides {
       Name: "cs:OnRewardWinningTeam:tooltip"
       String: "Set to true if only the winning team should get repetable achievement rewards at the end of a round."
+    }
+    Overrides {
+      Name: "cs:Enabled:tooltip"
+      String: "Enable / Disable the entire Achievement System easily"
+    }
+    Overrides {
+      Name: "cs:SaveProgress:tooltip"
+      String: "Set to true if the Achievement System should use player storage to track progress. (Make sure you have player storage enabled)"
+    }
+    Overrides {
+      Name: "cs:UseSharedKey:tooltip"
+      String: "Set this to true if you would like the Achievement System to be stored in a Shared Storage Key."
+    }
+    Overrides {
+      Name: "cs:SharedKey:tooltip"
+      String: "The Netrefrence of the Shared Key you wish to store achievement progress. (Make sure UseSharedKey is set to true)"
+    }
+    Overrides {
+      Name: "cs:Keybind:tooltip"
+      String: "The keybind players will use to toggle the Achievement panel on and off"
     }
   }
   Collidable_v2 {

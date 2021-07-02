@@ -15,9 +15,9 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 ------------------------------------------------------------------------------------------------------------------------
--- Achievement System Client
+-- Meta Achievements Client
 -- Author Morticai (META) - (https://www.coregames.com/user/d1073dbcc404405cbef8ce728e53d380)
--- Date: 2021/5/9
+-- Date: 2021/5/29
 -- Version 0.1.0-CC
 ------------------------------------------------------------------------------------------------------------------------
 local ROOT = script:GetCustomProperty("AchievementSystem"):WaitForObject()
@@ -35,10 +35,12 @@ local API = _G.META_ACHIEVEMENTS
 ------------------------------------------------------------------------------------------------------------------------
 
 local ACHIEVEMENT_LIST = script:GetCustomProperty("Achievement_List"):WaitForObject()
+
 local NOTIFICATION = script:GetCustomProperty("NOTIFICATION"):WaitForObject()
 local NOTIFICATION_ICON_BG = NOTIFICATION:GetCustomProperty("ICONBG"):WaitForObject()
 local NOTIFICATION_ICON = NOTIFICATION:GetCustomProperty("ICON"):WaitForObject()
 local ACHIEVEMENT_NAME_TEXT = NOTIFICATION:GetCustomProperty("ACHIEVEMENT_NAME_TEXT"):WaitForObject()
+
 local LOCAL_PLAYER = Game.GetLocalPlayer()
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -54,17 +56,20 @@ local achievementIds = {}
 local listeners = {}
 local scriptListeners = {}
 
+local friendsOnline = 1
+
 NOTIFICATION.visibility = Visibility.FORCE_OFF
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
+
 local function BuildIdTable()
     for _, achievement in pairs(API.GetAchievements()) do
         achievementIds[achievement.sort] = achievement.id
     end
 end
 
---@param String id
+--@params String id
 --@return bool true if active
 local function IsAchievement(id)
     for _, achievementId in pairs(achievementIds) do
@@ -75,7 +80,7 @@ local function IsAchievement(id)
     return false
 end
 
---@param Table listeners
+--@params Table listeners
 local function ClearListeners(listeners)
     for _, listener in ipairs(listeners) do
         if listener and listener.isConnected then
@@ -105,10 +110,11 @@ end
 function Init()
     API.RegisterAchievements(ACHIEVEMENT_LIST)
     Task.Wait()
+
     BuildIdTable()
     shouldShow = true
 
-    scriptListeners[#scriptListeners + 1] = LOCAL_PLAYER.resourceChangedEvent:Connect(OnResourceChanged)
+    scriptListeners[#scriptListeners + 1] = LOCAL_PLAYER.privateNetworkedDataChangedEvent:Connect(OnResourceChanged)
     scriptListeners[#scriptListeners + 1] =
         Game.playerLeftEvent:Connect(
         function(player)
@@ -117,17 +123,37 @@ function Init()
             end
         end
     )
+    Task.Wait()
+    for _, player in ipairs(Game.GetPlayers()) do
+        OnPlayerJoined(player)
+    end
 end
 
 --@params Object player
 --@params String resName
 --@params Int resAmt
-function OnResourceChanged(player, resName, resAmt)
+function OnResourceChanged(player, resName)
+    local resAmt = player:GetPrivateNetworkedData(resName)
     if player == LOCAL_PLAYER and IsAchievement(resName) and resAmt == API.GetAchievementRequired(resName) then
         achievementQueue[#achievementQueue + 1] = resName
     elseif player == LOCAL_PLAYER and IsAchievement(resName) and resAmt == 1 then
     --#TODO Achievement Claimed
     --World.SpawnAsset(SFX_Achievement)
+    end
+end
+
+--@params Object player
+function OnPlayerJoined(player)
+    if CoreSocial.IsFriendsWithLocalPlayer(player) then
+        friendsOnline = friendsOnline + 1
+        API.BroadcastFriendsOnline(friendsOnline)
+    end
+end
+
+--@params Object player
+function OnPlayerLeft(player)
+    if CoreSocial.IsFriendsWithLocalPlayer(player) then
+        friendsOnline = friendsOnline - 1
     end
 end
 
@@ -144,3 +170,5 @@ end
 -- INITIALIZATION
 ------------------------------------------------------------------------------------------------------------------------
 Init()
+Game.playerJoinedEvent:Connect(OnPlayerJoined)
+Game.playerLeftEvent:Connect(OnPlayerLeft)
