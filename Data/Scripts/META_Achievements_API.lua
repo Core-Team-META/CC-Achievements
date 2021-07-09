@@ -257,6 +257,18 @@ function API.HasRewards(id)
     return achievements[id].givesReward and achievements[id].rewards and next(achievements[id].rewards)
 end
 
+--@params String id
+function API.HasRewardPoints(id)
+    if API.HasRewards(id) then
+        for _, reward in ipairs(achievements[id].rewards) do
+            local rewardType = reward:GetCustomProperty("Type")
+            if rewardType == 2 then
+                return reward
+            end
+        end
+    end
+end
+
 --@params Object player
 --@params String id
 --@return Bool
@@ -523,7 +535,7 @@ function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     else
         data = Storage.GetPlayerData(player)
     end
-  
+
     --Daily Achievement Time Reset
     local shouldReset = false
     local currentTime = os.time(os.date("!*t"))
@@ -569,7 +581,11 @@ function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     end
 
     local secondsLeftUntilReset = playerData[player.id].resetTime - currentTime
-    SetAchievementData(player, API.CONSTANT_KEYS.TIME_KEY, {shouldReset = shouldReset, secondsLeft = secondsLeftUntilReset})
+    SetAchievementData(
+        player,
+        API.CONSTANT_KEYS.TIME_KEY,
+        {shouldReset = shouldReset, secondsLeft = secondsLeftUntilReset}
+    )
 end
 
 --@params object player

@@ -1802,6 +1802,12 @@ Assets {
               SubObjectId: 18044800903340488859
             }
           }
+          Overrides {
+            Name: "cs:TITLE_TEXT"
+            ObjectReference {
+              SubObjectId: 10262471232823059713
+            }
+          }
         }
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
@@ -2446,7 +2452,7 @@ Assets {
       }
       Objects {
         Id: 10262471232823059713
-        Name: "MAKRO_TEXT"
+        Name: "TITLE_TEXT"
         Transform {
           Location {
           }
@@ -2469,9 +2475,9 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Control {
-          Width: 250
-          Height: 35
-          UIX: -19.3081055
+          Width: 274
+          Height: 28
+          UIX: 4.71325541
           UIY: 12
           RenderTransformPivot {
             Anchor {
@@ -2491,6 +2497,7 @@ Assets {
               Value: "mc:etextjustify:left"
             }
             AutoWrapText: true
+            ClipTextToSize: true
             Font {
               Id: 12705424273405346558
             }
@@ -3518,12 +3525,12 @@ Assets {
           }
           Overrides {
             Name: "cs:Enabled"
-            Bool: false
+            Bool: true
           }
           Overrides {
             Name: "cs:Icon"
             AssetReference {
-              Id: 13665796067699909329
+              Id: 14506272788171059350
             }
           }
         }
@@ -3788,12 +3795,12 @@ Assets {
           }
           Overrides {
             Name: "cs:Enabled"
-            Bool: false
+            Bool: true
           }
           Overrides {
             Name: "cs:Icon"
             AssetReference {
-              Id: 13665796067699909329
+              Id: 14506272788171059350
             }
           }
         }
@@ -4050,12 +4057,12 @@ Assets {
           }
           Overrides {
             Name: "cs:Enabled"
-            Bool: false
+            Bool: true
           }
           Overrides {
             Name: "cs:Icon"
             AssetReference {
-              Id: 13665796067699909329
+              Id: 14506272788171059350
             }
           }
         }
@@ -4312,12 +4319,12 @@ Assets {
           }
           Overrides {
             Name: "cs:Enabled"
-            Bool: false
+            Bool: true
           }
           Overrides {
             Name: "cs:Icon"
             AssetReference {
-              Id: 13665796067699909329
+              Id: 14506272788171059350
             }
           }
         }
@@ -4574,12 +4581,12 @@ Assets {
           }
           Overrides {
             Name: "cs:Enabled"
-            Bool: false
+            Bool: true
           }
           Overrides {
             Name: "cs:Icon"
             AssetReference {
-              Id: 13665796067699909329
+              Id: 14506272788171059350
             }
           }
         }
@@ -4836,12 +4843,12 @@ Assets {
           }
           Overrides {
             Name: "cs:Enabled"
-            Bool: false
+            Bool: true
           }
           Overrides {
             Name: "cs:Icon"
             AssetReference {
-              Id: 13665796067699909329
+              Id: 14506272788171059350
             }
           }
         }
@@ -5076,12 +5083,12 @@ Assets {
           }
           Overrides {
             Name: "cs:Enabled"
-            Bool: false
+            Bool: true
           }
           Overrides {
             Name: "cs:Icon"
             AssetReference {
-              Id: 13665796067699909329
+              Id: 14506272788171059350
             }
           }
         }
@@ -5118,9 +5125,9 @@ Assets {
           }
         }
         ParentId: 6097991021071954196
+        ChildIds: 7564148445022716673
         ChildIds: 1908539025416090469
         ChildIds: 1258403851104938554
-        ChildIds: 7564148445022716673
         UnregisteredParameters {
           Overrides {
             Name: "cs:GivesReward"
@@ -5172,6 +5179,56 @@ Assets {
         Script {
           ScriptAsset {
             Id: 12978403627420390039
+          }
+        }
+      }
+      Objects {
+        Id: 7564148445022716673
+        Name: "Gold"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 16508995100831544250
+        UnregisteredParameters {
+          Overrides {
+            Name: "cs:Enabled"
+            Bool: true
+          }
+          Overrides {
+            Name: "cs:ResourceName"
+            String: "GOLD"
+          }
+          Overrides {
+            Name: "cs:Amount"
+            Int: 25
+          }
+          Overrides {
+            Name: "cs:Icon"
+            AssetReference {
+              Id: 1283463588493558965
+            }
+          }
+        }
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Script {
+          ScriptAsset {
+            Id: 8563684984866158969
           }
         }
       }
@@ -5251,12 +5308,12 @@ Assets {
           }
           Overrides {
             Name: "cs:Enabled"
-            Bool: false
+            Bool: true
           }
           Overrides {
             Name: "cs:Icon"
             AssetReference {
-              Id: 13665796067699909329
+              Id: 14506272788171059350
             }
           }
         }
@@ -5275,56 +5332,6 @@ Assets {
         Script {
           ScriptAsset {
             Id: 15928942484550257200
-          }
-        }
-      }
-      Objects {
-        Id: 7564148445022716673
-        Name: "Gold"
-        Transform {
-          Location {
-          }
-          Rotation {
-          }
-          Scale {
-            X: 1
-            Y: 1
-            Z: 1
-          }
-        }
-        ParentId: 16508995100831544250
-        UnregisteredParameters {
-          Overrides {
-            Name: "cs:Enabled"
-            Bool: true
-          }
-          Overrides {
-            Name: "cs:ResourceName"
-            String: "GOLD"
-          }
-          Overrides {
-            Name: "cs:Amount"
-            Int: 25
-          }
-          Overrides {
-            Name: "cs:Icon"
-            AssetReference {
-              Id: 1283463588493558965
-            }
-          }
-        }
-        Collidable_v2 {
-          Value: "mc:ecollisionsetting:inheritfromparent"
-        }
-        Visible_v2 {
-          Value: "mc:evisibilitysetting:inheritfromparent"
-        }
-        CameraCollidable {
-          Value: "mc:ecollisionsetting:inheritfromparent"
-        }
-        Script {
-          ScriptAsset {
-            Id: 8563684984866158969
           }
         }
       }
@@ -5375,9 +5382,9 @@ Assets {
           }
         }
         ParentId: 10463656850279217634
+        ChildIds: 17316062372962924604
         ChildIds: 6470737175680918865
         ChildIds: 8463350544697223110
-        ChildIds: 17316062372962924604
         UnregisteredParameters {
           Overrides {
             Name: "cs:Enabled"
@@ -5451,6 +5458,56 @@ Assets {
         Script {
           ScriptAsset {
             Id: 16794930379744816061
+          }
+        }
+      }
+      Objects {
+        Id: 17316062372962924604
+        Name: "Gold"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 9846033251687079980
+        UnregisteredParameters {
+          Overrides {
+            Name: "cs:Enabled"
+            Bool: true
+          }
+          Overrides {
+            Name: "cs:ResourceName"
+            String: "GOLD"
+          }
+          Overrides {
+            Name: "cs:Amount"
+            Int: 25
+          }
+          Overrides {
+            Name: "cs:Icon"
+            AssetReference {
+              Id: 1283463588493558965
+            }
+          }
+        }
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Script {
+          ScriptAsset {
+            Id: 8563684984866158969
           }
         }
       }
@@ -5530,12 +5587,12 @@ Assets {
           }
           Overrides {
             Name: "cs:Enabled"
-            Bool: false
+            Bool: true
           }
           Overrides {
             Name: "cs:Icon"
             AssetReference {
-              Id: 13665796067699909329
+              Id: 14506272788171059350
             }
           }
         }
@@ -5554,56 +5611,6 @@ Assets {
         Script {
           ScriptAsset {
             Id: 15928942484550257200
-          }
-        }
-      }
-      Objects {
-        Id: 17316062372962924604
-        Name: "Gold"
-        Transform {
-          Location {
-          }
-          Rotation {
-          }
-          Scale {
-            X: 1
-            Y: 1
-            Z: 1
-          }
-        }
-        ParentId: 9846033251687079980
-        UnregisteredParameters {
-          Overrides {
-            Name: "cs:Enabled"
-            Bool: true
-          }
-          Overrides {
-            Name: "cs:ResourceName"
-            String: "GOLD"
-          }
-          Overrides {
-            Name: "cs:Amount"
-            Int: 25
-          }
-          Overrides {
-            Name: "cs:Icon"
-            AssetReference {
-              Id: 1283463588493558965
-            }
-          }
-        }
-        Collidable_v2 {
-          Value: "mc:ecollisionsetting:inheritfromparent"
-        }
-        Visible_v2 {
-          Value: "mc:evisibilitysetting:inheritfromparent"
-        }
-        CameraCollidable {
-          Value: "mc:ecollisionsetting:inheritfromparent"
-        }
-        Script {
-          ScriptAsset {
-            Id: 8563684984866158969
           }
         }
       }
@@ -5654,9 +5661,9 @@ Assets {
           }
         }
         ParentId: 12220757580183123010
+        ChildIds: 12588916081467803159
         ChildIds: 13874417351007227423
         ChildIds: 9004817914887557397
-        ChildIds: 12588916081467803159
         UnregisteredParameters {
           Overrides {
             Name: "cs:GivesReward"
@@ -5694,6 +5701,56 @@ Assets {
         Script {
           ScriptAsset {
             Id: 9968610648830694869
+          }
+        }
+      }
+      Objects {
+        Id: 12588916081467803159
+        Name: "Gold"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 7836918885674789739
+        UnregisteredParameters {
+          Overrides {
+            Name: "cs:Enabled"
+            Bool: true
+          }
+          Overrides {
+            Name: "cs:ResourceName"
+            String: "GOLD"
+          }
+          Overrides {
+            Name: "cs:Amount"
+            Int: 25
+          }
+          Overrides {
+            Name: "cs:Icon"
+            AssetReference {
+              Id: 1283463588493558965
+            }
+          }
+        }
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Script {
+          ScriptAsset {
+            Id: 8563684984866158969
           }
         }
       }
@@ -5773,12 +5830,12 @@ Assets {
           }
           Overrides {
             Name: "cs:Enabled"
-            Bool: false
+            Bool: true
           }
           Overrides {
             Name: "cs:Icon"
             AssetReference {
-              Id: 13665796067699909329
+              Id: 14506272788171059350
             }
           }
         }
@@ -5797,56 +5854,6 @@ Assets {
         Script {
           ScriptAsset {
             Id: 15928942484550257200
-          }
-        }
-      }
-      Objects {
-        Id: 12588916081467803159
-        Name: "Gold"
-        Transform {
-          Location {
-          }
-          Rotation {
-          }
-          Scale {
-            X: 1
-            Y: 1
-            Z: 1
-          }
-        }
-        ParentId: 7836918885674789739
-        UnregisteredParameters {
-          Overrides {
-            Name: "cs:Enabled"
-            Bool: true
-          }
-          Overrides {
-            Name: "cs:ResourceName"
-            String: "GOLD"
-          }
-          Overrides {
-            Name: "cs:Amount"
-            Int: 25
-          }
-          Overrides {
-            Name: "cs:Icon"
-            AssetReference {
-              Id: 1283463588493558965
-            }
-          }
-        }
-        Collidable_v2 {
-          Value: "mc:ecollisionsetting:inheritfromparent"
-        }
-        Visible_v2 {
-          Value: "mc:evisibilitysetting:inheritfromparent"
-        }
-        CameraCollidable {
-          Value: "mc:ecollisionsetting:inheritfromparent"
-        }
-        Script {
-          ScriptAsset {
-            Id: 8563684984866158969
           }
         }
       }
@@ -5898,6 +5905,8 @@ Assets {
         }
         ParentId: 6243231484447908948
         ChildIds: 1028266137475602691
+        ChildIds: 6239769588068408301
+        ChildIds: 7492854872354249106
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
@@ -5963,6 +5972,109 @@ Assets {
         Script {
           ScriptAsset {
             Id: 8563684984866158969
+          }
+        }
+      }
+      Objects {
+        Id: 6239769588068408301
+        Name: "XP"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 4208940270706416940
+        UnregisteredParameters {
+          Overrides {
+            Name: "cs:Enabled"
+            Bool: true
+          }
+          Overrides {
+            Name: "cs:ResourceName"
+            String: "XP"
+          }
+          Overrides {
+            Name: "cs:Amount"
+            Int: 25
+          }
+          Overrides {
+            Name: "cs:Icon"
+            AssetReference {
+              Id: 2455975641699973488
+            }
+          }
+        }
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Script {
+          ScriptAsset {
+            Id: 8563684984866158969
+          }
+        }
+      }
+      Objects {
+        Id: 7492854872354249106
+        Name: "RP"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 4208940270706416940
+        UnregisteredParameters {
+          Overrides {
+            Name: "cs:ActivityName"
+            String: "Daily Login"
+          }
+          Overrides {
+            Name: "cs:Amount"
+            Int: 10
+          }
+          Overrides {
+            Name: "cs:Enabled"
+            Bool: true
+          }
+          Overrides {
+            Name: "cs:Icon"
+            AssetReference {
+              Id: 14506272788171059350
+            }
+          }
+        }
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        EditorIndicatorVisibility {
+          Value: "mc:eindicatorvisibility:visiblewhenselected"
+        }
+        Script {
+          ScriptAsset {
+            Id: 15928942484550257200
           }
         }
       }
@@ -6262,12 +6374,12 @@ Assets {
       }
     }
     Assets {
-      Id: 13665796067699909329
-      Name: "Sci-fi Ability Blue 034"
+      Id: 14506272788171059350
+      Name: "Reward Point Icon"
       PlatformAssetType: 9
       PrimaryAsset {
         AssetType: "PlatformBrushAssetRef"
-        AssetId: "UI_SciFi_Ability_Blue_034"
+        AssetId: "Icon_Reward_Point"
       }
     }
     Assets {
@@ -6329,6 +6441,6 @@ Assets {
       AssetId: "None"
     }
   }
-  SerializationVersion: 91
+  SerializationVersion: 92
   DirectlyPublished: true
 }

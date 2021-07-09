@@ -23,7 +23,7 @@ Assets {
       Overrides {
         Name: "cs:Icon"
         AssetReference {
-          Id: 1283463588493558965
+          Id: 14506272788171059350
         }
       }
       Overrides {
@@ -36,14 +36,14 @@ Assets {
       }
     }
     Assets {
-      Id: 1283463588493558965
-      Name: "Fantasy Gold 001"
+      Id: 14506272788171059350
+      Name: "Reward Point Icon"
       PlatformAssetType: 9
       PrimaryAsset {
         AssetType: "PlatformBrushAssetRef"
-        AssetId: "UI_Fantasy_Equip_Gold_002"
+        AssetId: "Icon_Reward_Point"
       }
     }
   }
-  SerializationVersion: 91
+  SerializationVersion: 92
 }

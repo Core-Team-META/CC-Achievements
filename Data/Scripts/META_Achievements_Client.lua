@@ -39,6 +39,7 @@ local ACHIEVEMENT_LIST = script:GetCustomProperty("Achievement_List"):WaitForObj
 local NOTIFICATION = script:GetCustomProperty("NOTIFICATION"):WaitForObject()
 local NOTIFICATION_ICON_BG = NOTIFICATION:GetCustomProperty("ICONBG"):WaitForObject()
 local NOTIFICATION_ICON = NOTIFICATION:GetCustomProperty("ICON"):WaitForObject()
+local NOTIFICATION_TITLE = NOTIFICATION:GetCustomProperty("TITLE_TEXT"):WaitForObject()
 local ACHIEVEMENT_NAME_TEXT = NOTIFICATION:GetCustomProperty("ACHIEVEMENT_NAME_TEXT"):WaitForObject()
 
 local LOCAL_PLAYER = Game.GetLocalPlayer()
@@ -52,6 +53,7 @@ local SFX = script:GetCustomProperty("SFX")
 ------------------------------------------------------------------------------------------------------------------------
 local shouldShow = false
 local achievementQueue = {}
+local rewardQueue = {}
 local achievementIds = {}
 local listeners = {}
 local scriptListeners = {}
@@ -92,6 +94,7 @@ end
 
 --@params String id
 local function AnimateNotification(id)
+    NOTIFICATION_TITLE.text = "Achievement Unlocked"
     NOTIFICATION_ICON:SetImage(API.GetAchievementIcon(id))
 
     local iconBackground = API.GetAchievementIconBG(id)
@@ -99,6 +102,22 @@ local function AnimateNotification(id)
         NOTIFICATION_ICON_BG:SetImage(iconBackground)
     end
     ACHIEVEMENT_NAME_TEXT.text = (API.GetAchievementName(id))
+    NOTIFICATION.visibility = Visibility.FORCE_ON
+    Task.Wait(3)
+    NOTIFICATION.visibility = Visibility.FORCE_OFF
+end
+
+--@params String id
+local function RewardNotification(id, reward)
+    local rewardActivityName = reward:GetCustomProperty("ActivityName")
+    local rewardAmount = reward:GetCustomProperty("Amount")
+    local rewardIcon = reward:GetCustomProperty("Icon")
+
+    NOTIFICATION_TITLE.text = rewardActivityName .. " Completed" 
+    
+    NOTIFICATION_ICON:SetImage(rewardIcon)
+    
+    ACHIEVEMENT_NAME_TEXT.text = "(" .. tostring(rewardAmount) .. ") " ..  "Reward Points Granted"
     NOTIFICATION.visibility = Visibility.FORCE_ON
     Task.Wait(3)
     NOTIFICATION.visibility = Visibility.FORCE_OFF
@@ -137,8 +156,7 @@ function OnResourceChanged(player, resName)
     if player == LOCAL_PLAYER and IsAchievement(resName) and resAmt == API.GetAchievementRequired(resName) then
         achievementQueue[#achievementQueue + 1] = resName
     elseif player == LOCAL_PLAYER and IsAchievement(resName) and resAmt == 1 then
-    --#TODO Achievement Claimed
-    --World.SpawnAsset(SFX_Achievement)
+        rewardQueue[#rewardQueue + 1] = resName
     end
 end
 
@@ -163,6 +181,15 @@ function Tick()
             AnimateNotification(id)
         end
         achievementQueue = {}
+    end
+    if shouldShow and #rewardQueue > 0 then
+        for _, id in ipairs(rewardQueue) do
+            local reward = API.HasRewardPoints(id)
+            if reward then
+                RewardNotification(id, reward)
+            end
+        end
+        rewardQueue = {}
     end
 end
 
