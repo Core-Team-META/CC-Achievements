@@ -51,6 +51,10 @@ Assets {
         Bool: false
       }
       Overrides {
+        Name: "cs:AutoClaimReward"
+        Bool: false
+      }
+      Overrides {
         Name: "cs:PreRequisite"
         String: ""
       }
@@ -125,6 +129,10 @@ Assets {
       Overrides {
         Name: "cs:CompleteInSeconds:tooltip"
         String: "Time a player has to complete this Achievement in seconds, if time based."
+      }
+      Overrides {
+        Name: "cs:AutoClaimReward:tooltip"
+        String: "Set to true if you want the player to be granted rewards automatically on completion"
       }
     }
   }

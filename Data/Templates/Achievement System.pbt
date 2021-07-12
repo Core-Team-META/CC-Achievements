@@ -5421,10 +5421,6 @@ Assets {
             Bool: false
           }
           Overrides {
-            Name: "cs:SaveCompletedCount"
-            Bool: false
-          }
-          Overrides {
             Name: "cs:GivesReward"
             Bool: true
           }
@@ -5441,6 +5437,14 @@ Assets {
           Overrides {
             Name: "cs:PreRequisite:tooltip"
             String: "Achievment needing to be completed before progress can begin"
+          }
+          Overrides {
+            Name: "cs:ResetDaily"
+            Bool: true
+          }
+          Overrides {
+            Name: "cs:AutoClaimReward"
+            Bool: true
           }
         }
         Collidable_v2 {
@@ -5678,11 +5682,11 @@ Assets {
             String: "RET1"
           }
           Overrides {
-            Name: "cs:SaveCompletedCount"
-            Bool: true
+            Name: "cs:IsRepeatable"
+            Bool: false
           }
           Overrides {
-            Name: "cs:IsRepeatable"
+            Name: "cs:AutoClaimReward"
             Bool: true
           }
         }

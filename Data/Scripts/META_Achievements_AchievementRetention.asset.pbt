@@ -35,11 +35,19 @@ Assets {
         Bool: false
       }
       Overrides {
+        Name: "cs:ResetDaily"
+        Bool: false
+      }
+      Overrides {
         Name: "cs:ResetOnRoundStart"
         Bool: false
       }
       Overrides {
         Name: "cs:GivesReward"
+        Bool: false
+      }
+      Overrides {
+        Name: "cs:AutoClaimReward"
         Bool: false
       }
       Overrides {
@@ -85,6 +93,10 @@ Assets {
       Overrides {
         Name: "cs:PreRequisite:tooltip"
         String: "Achievment needing to be completed before progress can begin"
+      }
+      Overrides {
+        Name: "cs:AutoClaimReward:tooltip"
+        String: "Set to true if you want the player to be granted rewards automatically on completion"
       }
     }
     Assets {

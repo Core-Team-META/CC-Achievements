@@ -39,7 +39,15 @@ Assets {
         Bool: false
       }
       Overrides {
+        Name: "cs:ResetDaily"
+        Bool: false
+      }
+      Overrides {
         Name: "cs:GivesReward"
+        Bool: false
+      }
+      Overrides {
+        Name: "cs:AutoClaimReward"
         Bool: false
       }
       Overrides {
@@ -109,6 +117,14 @@ Assets {
       Overrides {
         Name: "cs:FriendOnline:tooltip"
         String: "If set to true, the Achievement will be unlocked if a player has the Required amount of friends in the game with them."
+      }
+      Overrides {
+        Name: "cs:AutoClaimReward:tooltip"
+        String: "Set to true if you want the player to be granted rewards automatically on completion"
+      }
+      Overrides {
+        Name: "cs:ResetDaily:tooltip"
+        String: "Set this to true if the Achievement gives rewards upon completion of the Achievement."
       }
     }
     Assets {

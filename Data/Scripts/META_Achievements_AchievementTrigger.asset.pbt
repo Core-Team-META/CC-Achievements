@@ -39,7 +39,15 @@ Assets {
         Bool: false
       }
       Overrides {
+        Name: "cs:ResetDaily"
+        Bool: false
+      }
+      Overrides {
         Name: "cs:GivesReward"
+        Bool: false
+      }
+      Overrides {
+        Name: "cs:AutoClaimReward"
         Bool: false
       }
       Overrides {
@@ -95,6 +103,10 @@ Assets {
       Overrides {
         Name: "cs:Trigger:tooltip"
         String: "Object refrence to the trigger that will be us to unlock this achievement."
+      }
+      Overrides {
+        Name: "cs:AutoClaimReward:tooltip"
+        String: "Set to true if you want the player to be granted rewards automatically on completion"
       }
     }
     Assets {

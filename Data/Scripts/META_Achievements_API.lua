@@ -51,8 +51,6 @@ API.REWARD_TYPES = {
     REWARD_POINTS = 2
 }
 
-API.DAILY_RESET_TIME = (60 * 60 * 20) -- Daily achievements reset every 20 hours
-
 ------------------------------------------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 ------------------------------------------------------------------------------------------------------------------------
@@ -137,7 +135,8 @@ function API.RegisterAchievements(list)
                     shouldReset = child:GetCustomProperty("ResetOnRoundStart"),
                     isDaily = child:GetCustomProperty("ResetDaily"),
                     isOnComplete = child:GetCustomProperty("ResetOnlyOnComplete"),
-                    isTimeBased = child:GetCustomProperty("IsTimeBased")
+                    isTimeBased = child:GetCustomProperty("IsTimeBased"),
+                    autoClaim = child:GetCustomProperty("AutoClaimReward")
                 }
 
                 if givesReward then
@@ -247,6 +246,15 @@ function API.GetRewards(id)
         return {}
     end
     return achievements[id].rewards
+end
+
+--@params String id
+--@return String reward icon MUID
+function API.IsAutoClaim(id)
+    if WarnMissingAchievement(id) then
+        return nil
+    end
+    return achievements[id].autoClaim
 end
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -463,6 +471,16 @@ function API.SetProgress(player, key, value, forceSet)
         SetAchievementData(player, key, value)
     elseif value >= required then
         SetAchievementData(player, key, required)
+        if API.IsAutoClaim(key) then
+            Task.Spawn(
+                function()
+                    if Object.IsValid(player) then
+                        API.GiveRewards(player, key)
+                    end
+                end,
+                3
+            )
+        end
     end
 end
 
@@ -482,14 +500,24 @@ function API.AddProgress(player, id, value)
             return
         end
 
+        local achievement = API.GetAchievementInfo(id)
         local required = API.GetAchievementRequired(id)
-
         if currentProgress == 0 then
             SetAchievementData(player, id, value + 1)
         elseif currentProgress + value < required then
             SetAchievementData(player, id, currentProgress + value)
         elseif currentProgress + value >= required then
             SetAchievementData(player, id, required)
+            if API.IsAutoClaim(id) then
+                Task.Spawn(
+                    function()
+                        if Object.IsValid(player) then
+                            API.GiveRewards(player, id)
+                        end
+                    end,
+                    3
+                )
+            end
         end
     end
 end
@@ -540,13 +568,13 @@ function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
 
     --Daily Achievement Time Reset
     local shouldReset = false
-    local currentTime = os.time(os.date("!*t"))
+    local currentDate = os.date("!*t").yday
     if
         data.META_ACHIEVEMENTS and data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] and
-            data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] < currentTime or
+            data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] ~= currentDate or
             not data.META_ACHIEVEMENTS
      then
-        playerData[player.id].resetTime = currentTime + API.DAILY_RESET_TIME
+        playerData[player.id].resetTime = currentDate
         shouldReset = true
     elseif data.META_ACHIEVEMENTS and data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] then
         playerData[player.id].resetTime = data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY]
@@ -565,6 +593,8 @@ function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
                     API.IsCompleted(player, achievement.id)
              then
                 SetAchievementData(player, achievement.id, 0)
+            elseif achievement.id and shouldReset and achievement.isDaily and not achievement.isOnComplete then
+                SetAchievementData(player, achievement.id, 0)
             elseif
                 achievement.isRepeatable and achievement.saveCount and achievement.countId and
                     not API.GetCurrentProgress(player, achievement.id)
@@ -582,12 +612,8 @@ function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
         end
     end
 
-    local secondsLeftUntilReset = playerData[player.id].resetTime - currentTime
-    SetAchievementData(
-        player,
-        API.CONSTANT_KEYS.TIME_KEY,
-        {shouldReset = shouldReset, secondsLeft = secondsLeftUntilReset}
-    )
+    local resetDay = playerData[player.id].resetTime
+    SetAchievementData(player, API.CONSTANT_KEYS.TIME_KEY, {shouldReset = shouldReset, reset = resetDay})
 end
 
 --@params object player

@@ -51,6 +51,10 @@ Assets {
         Bool: true
       }
       Overrides {
+        Name: "cs:AutoClaimReward"
+        Bool: false
+      }
+      Overrides {
         Name: "cs:PreRequisite"
         String: ""
       }
@@ -101,6 +105,10 @@ Assets {
       Overrides {
         Name: "cs:PreRequisite:tooltip"
         String: "Achievment needing to be completed before progress can begin"
+      }
+      Overrides {
+        Name: "cs:AutoClaimReward:tooltip"
+        String: "Set to true if you want the player to be granted rewards automatically on completion"
       }
     }
     Assets {

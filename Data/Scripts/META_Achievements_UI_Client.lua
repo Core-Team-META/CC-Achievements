@@ -269,13 +269,10 @@ function Init()
     ACTIVE_BUTTON.clickedEvent:Connect(OnButtonPressed)
     COMPLETED_BUTTON.clickedEvent:Connect(OnButtonPressed)
     Task.Wait(1)
-    local timeTbl = LOCAL_PLAYER:GetPrivateNetworkedData(API.CONSTANT_KEYS.TIME_KEY)
-    if timeTbl.secondsLeft then
-        timeUntilReset = time() + timeTbl.secondsLeft
-    end
 end
 
 function BuildAchievmentPanels()
+    ClearAchievementPanels()
     local completedAchievements = {}
     local activeAchievements = {}
     for _, achievement in pairs(API.GetAchievements()) do
@@ -347,9 +344,6 @@ function Tick()
             UI.SetCursorLockedToViewport(false)
             PRIMARY_PANEL.visibility = Visibility.FORCE_OFF
         end
-    end
-    if timeUntilReset then
-
     end
 end
 
