@@ -142,10 +142,12 @@ function API.RegisterAchievements(list)
 
                 if givesReward then
                     local rewardsTbl = {}
+                    local rewardCount = 1
                     for i, reward in ipairs(child:GetChildren()) do
                         local rewardEnabled = reward:GetCustomProperty("Enabled")
                         if rewardEnabled then
-                            rewardsTbl[i] = reward
+                            rewardsTbl[rewardCount] = reward
+                            rewardCount = rewardCount + 1
                         end
                     end
                     achievement.rewards = rewardsTbl
@@ -541,10 +543,10 @@ function API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     local currentTime = os.time(os.date("!*t"))
     if
         data.META_ACHIEVEMENTS and data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] and
-            data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] < os.time(os.date("!*t")) or
+            data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] < currentTime or
             not data.META_ACHIEVEMENTS
      then
-        playerData[player.id].resetTime = os.time(os.date("!*t")) + API.DAILY_RESET_TIME
+        playerData[player.id].resetTime = currentTime + API.DAILY_RESET_TIME
         shouldReset = true
     elseif data.META_ACHIEVEMENTS and data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY] then
         playerData[player.id].resetTime = data.META_ACHIEVEMENTS[API.CONSTANT_KEYS.TIME_KEY]
