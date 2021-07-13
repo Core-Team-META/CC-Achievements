@@ -17,8 +17,8 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 ------------------------------------------------------------------------------------------------------------------------
 -- Meta Achievements API
 -- Author Morticai (META) - (https://www.coregames.com/user/d1073dbcc404405cbef8ce728e53d380)
--- Date: 2021/5/29
--- Version 0.1.0-CC
+-- Date: 2021/6/13
+-- Version 0.1.2-CC
 ------------------------------------------------------------------------------------------------------------------------
 local API = {}
 _G.META_ACHIEVEMENTS = API

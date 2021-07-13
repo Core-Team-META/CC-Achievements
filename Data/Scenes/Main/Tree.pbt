@@ -21,7 +21,7 @@ Objects {
   ChildIds: 15445705037976461651
   ChildIds: 13166939408216695751
   ChildIds: 15721658923682352833
-  ChildIds: 16885442820682625091
+  ChildIds: 9311344830817098493
   UnregisteredParameters {
   }
   Collidable_v2 {
@@ -37,13 +37,9 @@ Objects {
   }
 }
 Objects {
-  Id: 16885442820682625091
+  Id: 9311344830817098493
   Name: "Achievement System"
   Transform {
-    Location {
-    }
-    Rotation {
-    }
     Scale {
       X: 1
       Y: 1
@@ -51,87 +47,35 @@ Objects {
     }
   }
   ParentId: 4781671109827199097
-  UnregisteredParameters {
-    Overrides {
-      Name: "cs:Enabled"
-      Bool: true
-    }
-    Overrides {
-      Name: "cs:SaveProgress"
-      Bool: true
-    }
-    Overrides {
-      Name: "cs:UseSharedKey"
-      Bool: false
-    }
-    Overrides {
-      Name: "cs:SharedKey"
-      NetReference {
-        Type {
-          Value: "mc:enetreferencetype:unknown"
-        }
-      }
-    }
-    Overrides {
-      Name: "cs:GiveRewardsRoundEnd"
-      Bool: false
-    }
-    Overrides {
-      Name: "cs:OnRewardWinningTeam"
-      Bool: false
-    }
-    Overrides {
-      Name: "cs:Keybind"
-      String: "ability_extra_0"
-    }
-    Overrides {
-      Name: "cs:GiveRewardsRoundEnd:tooltip"
-      String: "Set to true to give rewards for repeatable achievements at the end of a round"
-    }
-    Overrides {
-      Name: "cs:OnRewardWinningTeam:tooltip"
-      String: "Set to true if only the winning team should get repetable achievement rewards at the end of a round."
-    }
-    Overrides {
-      Name: "cs:Enabled:tooltip"
-      String: "Enable / Disable the entire Achievement System easily"
-    }
-    Overrides {
-      Name: "cs:SaveProgress:tooltip"
-      String: "Set to true if the Achievement System should use player storage to track progress. (Make sure you have player storage enabled)"
-    }
-    Overrides {
-      Name: "cs:UseSharedKey:tooltip"
-      String: "Set this to true if you would like the Achievement System to be stored in a Shared Storage Key."
-    }
-    Overrides {
-      Name: "cs:SharedKey:tooltip"
-      String: "The Netrefrence of the Shared Key you wish to store achievement progress. (Make sure UseSharedKey is set to true)"
-    }
-    Overrides {
-      Name: "cs:Keybind:tooltip"
-      String: "The keybind players will use to toggle the Achievement panel on and off"
-    }
-  }
   Collidable_v2 {
     Value: "mc:ecollisionsetting:inheritfromparent"
   }
   Visible_v2 {
     Value: "mc:evisibilitysetting:inheritfromparent"
   }
-  CameraCollidable {
-    Value: "mc:ecollisionsetting:inheritfromparent"
-  }
-  Folder {
-    IsFilePartition: true
-    FilePartitionName: "Achivment System"
-  }
-  InstanceHistory {
-    SelfId: 16885442820682625091
-    SubobjectId: 15299007441267440265
-    InstanceId: 9311344830817098493
-    TemplateId: 11354483273860697248
-    WasRoot: true
+  TemplateInstance {
+    ParameterOverrideMap {
+      key: 15299007441267440265
+      value {
+        Overrides {
+          Name: "Name"
+          String: "Achievement System"
+        }
+        Overrides {
+          Name: "Position"
+          Vector {
+          }
+        }
+        Overrides {
+          Name: "Rotation"
+          Rotator {
+          }
+        }
+      }
+    }
+    TemplateAsset {
+      Id: 11354483273860697248
+    }
   }
 }
 Objects {

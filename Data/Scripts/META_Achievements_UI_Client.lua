@@ -17,8 +17,8 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 ------------------------------------------------------------------------------------------------------------------------
 -- Meta Achievements UI Client
 -- Author Morticai (META) - (https://www.coregames.com/user/d1073dbcc404405cbef8ce728e53d380)
--- Date: 2021/5/29
--- Version 0.1.0-CC
+-- Date: 2021/6/13
+-- Version 0.1.2-CC
 ------------------------------------------------------------------------------------------------------------------------
 local ROOT = script:GetCustomProperty("AchievementSystem"):WaitForObject()
 local isEnabled = ROOT:GetCustomProperty("Enabled")
@@ -45,6 +45,7 @@ local COMPLETED_BUTTON = script:GetCustomProperty("CompletedPanel"):WaitForObjec
 local TITLE = script:GetCustomProperty("TITLE"):WaitForObject()
 local CLIENT_SETTINGS = script:GetCustomProperty("ClientSettings"):WaitForObject()
 local END_ROUND_ACHIEVEMENTS_PANEL = script:GetCustomProperty("AchievementsPanel"):WaitForObject()
+local REWARD_DIALOG_PANEL = script:GetCustomProperty("REWARD_DIALOG"):WaitForObject()
 
 ------------------------------------------------------------------------------------------------------------------------
 -- CUSTOM PROPERTIES
@@ -67,6 +68,7 @@ local LOCAL_PLAYER = Game.GetLocalPlayer()
 local ACHIEVEMENT_PANEL_TEMPLATE = script:GetCustomProperty("ACHIEVEMENT_Panel_Template")
 
 local shouldHideRepeatable = ROOT:GetCustomProperty("HideRepeatable")
+local isRewardPointsDialogEnabled = ROOT:GetCustomProperty("RewardPointsDialog")
 
 local spamPrevent = time()
 local lastCamera = {}
@@ -268,6 +270,10 @@ function Init()
     LOCAL_PLAYER.bindingPressedEvent:Connect(OnBindingPressed)
     ACTIVE_BUTTON.clickedEvent:Connect(OnButtonPressed)
     COMPLETED_BUTTON.clickedEvent:Connect(OnButtonPressed)
+    if isRewardPointsDialogEnabled then
+        REWARD_DIALOG_PANEL.visibility = Visibility.FORCE_ON
+        REWARD_DIALOG_PANEL:GetCustomProperty("DIALOG_BUTTON"):WaitForObject().clickedEvent:Connect(OnDialogPressed)
+    end
     Task.Wait(1)
 end
 
@@ -308,6 +314,19 @@ function OnButtonPressed(button)
         TITLE.text = "Achievements (Completed)"
         button:SetButtonColor(ACTIVE_BUTTON_COLOR)
         ACTIVE_BUTTON:SetButtonColor(INACTIVE_BUTTON_COLOR)
+    end
+end
+
+
+-- Used to show built in Core Reward Point Dialog Box
+function OnDialogPressed()
+    if not UI.IsRewardsDialogVisible() then
+        ToggleUI(false)
+        ClearAchievementPanels()
+        lastCamera.object.isDistanceAdjustable = lastCamera.isAdjustable
+        UI.SetRewardsDialogVisible(true, RewardsDialogTab.GAMES)
+    elseif UI.IsRewardsDialogVisible() then
+        UI.SetRewardsDialogVisible(false, RewardsDialogTab.GAMES)
     end
 end
 

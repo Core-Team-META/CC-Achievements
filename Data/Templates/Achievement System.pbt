@@ -55,6 +55,10 @@ Assets {
             String: "ability_extra_0"
           }
           Overrides {
+            Name: "cs:RewardPointsDialog"
+            Bool: true
+          }
+          Overrides {
             Name: "cs:GiveRewardsRoundEnd:tooltip"
             String: "Set to true to give rewards for repeatable achievements at the end of a round"
           }
@@ -484,6 +488,12 @@ Assets {
             Name: "cs:TITLE"
             ObjectReference {
               SubObjectId: 9388973315905612785
+            }
+          }
+          Overrides {
+            Name: "cs:REWARD_DIALOG"
+            ObjectReference {
+              SubObjectId: 12446380281379338733
             }
           }
         }
@@ -984,7 +994,7 @@ Assets {
       }
       Objects {
         Id: 12446380281379338733
-        Name: "TIME_LEFT_PANEL"
+        Name: "REWARD_DIALOG"
         Transform {
           Location {
           }
@@ -997,8 +1007,22 @@ Assets {
           }
         }
         ParentId: 18382603052351025456
-        ChildIds: 6616628240962375300
-        ChildIds: 8786130084819475901
+        ChildIds: 14642991613396700055
+        ChildIds: 10518709414202784695
+        UnregisteredParameters {
+          Overrides {
+            Name: "cs:REWARD_POINT_TEXT"
+            ObjectReference {
+              SubObjectId: 11509921321337798558
+            }
+          }
+          Overrides {
+            Name: "cs:DIALOG_BUTTON"
+            ObjectReference {
+              SubObjectId: 10518709414202784695
+            }
+          }
+        }
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
@@ -1012,10 +1036,9 @@ Assets {
           Value: "mc:eindicatorvisibility:visiblewhenselected"
         }
         Control {
-          Width: 528
-          Height: 125
-          UIX: 4
-          UIY: -42
+          Width: 239
+          Height: 44
+          UIY: -39
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -1039,8 +1062,8 @@ Assets {
         }
       }
       Objects {
-        Id: 6616628240962375300
-        Name: "TOP_BG_2"
+        Id: 14642991613396700055
+        Name: "Background"
         Transform {
           Location {
           }
@@ -1053,18 +1076,24 @@ Assets {
           }
         }
         ParentId: 12446380281379338733
+        ChildIds: 11509921321337798558
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Visible_v2 {
-          Value: "mc:evisibilitysetting:forceon"
+          Value: "mc:evisibilitysetting:inheritfromparent"
         }
         CameraCollidable {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
+        EditorIndicatorVisibility {
+          Value: "mc:eindicatorvisibility:visiblewhenselected"
+        }
         Control {
           Width: 200
           Height: 200
+          UIX: 3
+          UIY: 2
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
@@ -1074,9 +1103,12 @@ Assets {
           UseParentHeight: true
           Image {
             Brush {
-              Id: 6283594837647343101
+              Id: 4504686085818425438
             }
             Color {
+              R: 0.02
+              G: 0.013744452
+              B: 0.0181579236
               A: 1
             }
             TeamSettings {
@@ -1086,7 +1118,7 @@ Assets {
             }
             ShadowOffset {
             }
-            FlipHorizontal: true
+            ScreenshotIndex: 1
           }
           AnchorLayout {
             SelfAnchor {
@@ -1103,8 +1135,89 @@ Assets {
         }
       }
       Objects {
-        Id: 8786130084819475901
-        Name: "ResetTime"
+        Id: 11509921321337798558
+        Name: "REWARD_POINT_TEXT"
+        Transform {
+          Location {
+          }
+          Rotation {
+          }
+          Scale {
+            X: 1
+            Y: 1
+            Z: 1
+          }
+        }
+        ParentId: 14642991613396700055
+        Collidable_v2 {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        Visible_v2 {
+          Value: "mc:evisibilitysetting:inheritfromparent"
+        }
+        CameraCollidable {
+          Value: "mc:ecollisionsetting:inheritfromparent"
+        }
+        EditorIndicatorVisibility {
+          Value: "mc:eindicatorvisibility:visiblewhenselected"
+        }
+        Control {
+          Width: 200
+          Height: 60
+          UIX: -10
+          UIY: 5
+          RenderTransformPivot {
+            Anchor {
+              Value: "mc:euianchor:middlecenter"
+            }
+          }
+          UseParentWidth: true
+          UseParentHeight: true
+          Text {
+            Label: "View Reward Points"
+            Color {
+              R: 1
+              G: 1
+              B: 1
+              A: 1
+            }
+            Size: 17
+            Justification {
+              Value: "mc:etextjustify:right"
+            }
+            AutoWrapText: true
+            Font {
+              Id: 4187099593478357732
+            }
+            VerticalJustification {
+              Value: "mc:everticaljustification:top"
+            }
+            ShadowColor {
+              A: 1
+            }
+            ShadowOffset {
+            }
+            OutlineColor {
+              A: 1
+            }
+          }
+          AnchorLayout {
+            SelfAnchor {
+              Anchor {
+                Value: "mc:euianchor:topleft"
+              }
+            }
+            TargetAnchor {
+              Anchor {
+                Value: "mc:euianchor:topleft"
+              }
+            }
+          }
+        }
+      }
+      Objects {
+        Id: 10518709414202784695
+        Name: "DIALOG_BUTTON"
         Transform {
           Location {
           }
@@ -1130,51 +1243,75 @@ Assets {
           Value: "mc:eindicatorvisibility:visiblewhenselected"
         }
         Control {
-          Width: 167
-          Height: 60
-          UIX: -10
+          Width: 100
+          Height: 30
           RenderTransformPivot {
             Anchor {
               Value: "mc:euianchor:middlecenter"
             }
           }
-          Text {
-            Label: "Resets In 00:00"
-            Color {
+          UseParentWidth: true
+          UseParentHeight: true
+          Button {
+            FontColor {
+              A: 1
+            }
+            FontSize: 17
+            ButtonColor {
+              R: 0.0331047773
+              G: 0.603827536
+              B: 0.16627343
+            }
+            HoveredColor {
               R: 1
               G: 1
               B: 1
               A: 1
             }
-            Size: 20
+            PressedColor {
+              R: 1
+              G: 1
+              B: 1
+              A: 1
+            }
+            DisabledColor {
+              R: 1
+              G: 1
+              B: 1
+              A: 1
+            }
+            Brush {
+              Id: 841534158063459245
+            }
+            IsButtonEnabled: true
+            OnlyUseMainColor: true
+            ClickMode {
+              Value: "mc:ebuttonclickmode:default"
+            }
+            Font {
+              Id: 4187099593478357732
+            }
             Justification {
               Value: "mc:etextjustify:right"
             }
-            AutoWrapText: true
-            Font {
-              Id: 841534158063459245
-            }
             VerticalJustification {
-              Value: "mc:everticaljustification:top"
+              Value: "mc:everticaljustification:center"
             }
             ShadowColor {
               A: 1
             }
             ShadowOffset {
             }
-            OutlineColor {
-              A: 1
-            }
           }
           AnchorLayout {
             SelfAnchor {
               Anchor {
-                Value: "mc:euianchor:topright"
+                Value: "mc:euianchor:topleft"
               }
             }
             TargetAnchor {
               Anchor {
-                Value: "mc:euianchor:topright"
+                Value: "mc:euianchor:topleft"
               }
             }
           }
@@ -1205,7 +1342,7 @@ Assets {
           Value: "mc:ecollisionsetting:inheritfromparent"
         }
         Control {
-          Width: 528
+          Width: 490
           Height: 125
           UIX: -4
           UIY: -42
@@ -1485,7 +1622,7 @@ Assets {
               B: 1
               A: 1
             }
-            Size: 30
+            Size: 28
             Justification {
               Value: "mc:etextjustify:left"
             }
@@ -6285,15 +6422,6 @@ Assets {
       PrimaryAsset {
         AssetType: "FontAssetRef"
         AssetId: "CabinCondensed_ref"
-      }
-    }
-    Assets {
-      Id: 6283594837647343101
-      Name: "BG Flat 002"
-      PlatformAssetType: 9
-      PrimaryAsset {
-        AssetType: "PlatformBrushAssetRef"
-        AssetId: "BackgroundNoOutline_019"
       }
     }
     Assets {
