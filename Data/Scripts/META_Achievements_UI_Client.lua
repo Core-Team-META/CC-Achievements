@@ -60,6 +60,7 @@ local ACTIVE_BUTTON_COLOR = CLIENT_SETTINGS:GetCustomProperty("ActiveButton")
 local INACTIVE_BUTTON_COLOR = CLIENT_SETTINGS:GetCustomProperty("InactiveButton")
 local SHOULD_SHOW_REPEATABLE = CLIENT_SETTINGS:GetCustomProperty("ShowRepeatable")
 local SHOULD_CLOSE_ON_DEATH = CLIENT_SETTINGS:GetCustomProperty("CloseUIOnDeath")
+local SHOW_PRE_REQ_ACTIVE = CLIENT_SETTINGS:GetCustomProperty("ShowWithPreReq")
 
 local KEYPRESS = ROOT:GetCustomProperty("Keybind")
 
@@ -285,8 +286,14 @@ function BuildAchievmentPanels()
         if API.IsCompleted(LOCAL_PLAYER, achievement.id) then
             table.insert(completedAchievements, achievement)
         else
-            if not shouldHideRepeatable or shouldHideRepeatable and not achievement.isRepeatable then
-                table.insert(activeAchievements, achievement)
+            if not shouldHideRepeatable or (shouldHideRepeatable and not achievement.isRepeatable) then
+                if
+                    (not SHOW_PRE_REQ_ACTIVE and API.HasPreRequsistCompleted(LOCAL_PLAYER, achievement.id) or
+                        API.IsUnlocked(LOCAL_PLAYER, achievement.id)) or
+                        SHOW_PRE_REQ_ACTIVE
+                 then
+                    table.insert(activeAchievements, achievement)
+                end
             end
         end
     end
@@ -316,7 +323,6 @@ function OnButtonPressed(button)
         ACTIVE_BUTTON:SetButtonColor(INACTIVE_BUTTON_COLOR)
     end
 end
-
 
 -- Used to show built in Core Reward Point Dialog Box
 function OnDialogPressed()

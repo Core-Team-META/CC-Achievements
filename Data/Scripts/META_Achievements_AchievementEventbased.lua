@@ -86,7 +86,6 @@ end
 -- GLOBAL FUNCTIONS
 ------------------------------------------------------------------------------------------------------------------------
 
-
 --@params Object player
 --@params String resName
 --@params Int resAmt
@@ -95,12 +94,9 @@ function OnResourceChanged(player, resName, resAmt)
         return
     end
     if string.lower(resName) == string.lower(RESOURCE_NAME) then
-        if API.IsUnlocked(player, ACHIEVEMENT_ID, resAmt + 1) then
-            API.UnlockAchievement(player, ACHIEVEMENT_ID)
-        end
+        API.SetProgress(player, ACHIEVEMENT_ID, resAmt)
     end
 end
-
 
 --@params Object player
 --@params Object damage
@@ -113,7 +109,6 @@ function OnPlayerDied(player, damage)
     API.AddProgress(source, ACHIEVEMENT_ID, 1)
 end
 
-
 --@params Object player
 --@params Object damage
 function OnPlayerDamaged(player, damage)
@@ -124,7 +119,6 @@ function OnPlayerDamaged(player, damage)
     local source = damage.sourcePlayer
     API.AddProgress(source, ACHIEVEMENT_ID, CoreMath.Round(amount))
 end
-
 
 --@params Object player
 --@params Object damage
@@ -140,7 +134,6 @@ function OnPlayerHealed(player, damage)
     API.AddProgress(source, ACHIEVEMENT_ID, CoreMath.Round(amount * -1))
 end
 
-
 --@params Table playersWon | key Object player | value Bool true if won
 --@params Object damage
 function OnRoundEnd(playersWon)
@@ -155,7 +148,6 @@ function OnRoundEnd(playersWon)
         end
     end
 end
-
 
 --@params Int team
 function OnTeamScore(team)

@@ -58,7 +58,6 @@ local function IsValidPlayer(object)
     return Object.IsValid(object) and object:IsA("Player")
 end
 
-
 --@params Object player
 local function SetPlayerFlags(player)
     player.serverUserData.ACH_diedInRound = false
@@ -175,7 +174,7 @@ end
 function OnPlayerJoined(player)
     API.OnPlayerJoined(player)
     
-    if shouldSaveProgress then
+    if shouldSaveProgress or sharedKeyNetRef then
         API.LoadAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     end
 
@@ -193,7 +192,7 @@ end
 -- Save player achievement progression & disconnect listeners
 --@params Object player
 function OnPlayerLeft(player)
-    if shouldSaveProgress then
+    if shouldSaveProgress or sharedKeyNetRef then
         API.SaveAchievementStorage(player, useSharedKey, sharedKeyNetRef)
     end
     if listeners[player.id] then

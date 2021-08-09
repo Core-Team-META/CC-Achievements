@@ -271,6 +271,10 @@ Assets {
             Bool: true
           }
           Overrides {
+            Name: "cs:ShowWithPreReq"
+            Bool: true
+          }
+          Overrides {
             Name: "cs:ActiveButton"
             Color {
               R: 0.0331047736
@@ -290,6 +294,10 @@ Assets {
           Overrides {
             Name: "cs:ShowRepeatable:tooltip"
             String: "Should repeatable Achievements be included in the Active & Completed Achievement List"
+          }
+          Overrides {
+            Name: "cs:ShowWithPreReq:tooltip"
+            String: "Show Achievements with incomplete pre-reqs in active achievements list."
           }
         }
         Collidable_v2 {
@@ -5075,6 +5083,10 @@ Assets {
             Name: "cs:ID"
             String: "SO1"
           }
+          Overrides {
+            Name: "cs:PreRequisite"
+            String: "EX1"
+          }
         }
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
@@ -5826,6 +5838,10 @@ Assets {
             Name: "cs:AutoClaimReward"
             Bool: true
           }
+          Overrides {
+            Name: "cs:ResetDaily"
+            Bool: true
+          }
         }
         Collidable_v2 {
           Value: "mc:ecollisionsetting:inheritfromparent"
@@ -6573,6 +6589,6 @@ Assets {
       AssetId: "None"
     }
   }
-  SerializationVersion: 92
+  SerializationVersion: 94
   DirectlyPublished: true
 }

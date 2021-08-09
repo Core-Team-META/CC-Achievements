@@ -695,5 +695,5 @@ Assets {
       AssetId: "Main_Street_Exterior_Stairs_-_Side_Template"
     }
   }
-  SerializationVersion: 92
+  SerializationVersion: 94
 }
